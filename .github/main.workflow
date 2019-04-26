@@ -1,24 +1,28 @@
+workflow "main" {
+  on = "push"
+  resolves = ["Deploy to Master"]
+}
+
 action "Pushed to master" {
-  uses = "actions/bin/filter@95c1a3b"
+  uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
   args = "branch master"
 }
+
 action "Install Dependencies" {
-  uses = "actions/npm@6309cd9"
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["Pushed to master"]
   args = "install"
 }
-action "Build Development" {
-  uses = "actions/npm@6309cd9"
+
+action "Build Master" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["Install Dependencies"]
-  secrets = ["FIREBASE_API_KEY"]
   args = "run build"
 }
-action "Deploy to Development" {
-  uses = "w9jds/firebase-action@master"
-  needs = ["Build Development"]
+
+action "Deploy to Master" {
+  uses = "w9jds/firebase-action@7d6b2b058813e1224cdd4db255b2f163ae4084d3"
+  needs = ["Build Master"]
   args = "deploy --only hosting"
-  env = {
-    PROJECT_ID = "grady-43e4a"
-  }
   secrets = ["FIREBASE_TOKEN"]
 }
