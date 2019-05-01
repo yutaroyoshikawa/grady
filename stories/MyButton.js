@@ -16,7 +16,7 @@ export default {
   },
 
   template: `
-    <button :style="buttonStyles" @click="onClick">
+    <button :style="buttonStyles" @click="onClick" :disabled="isDisabled">
       <slot></slot>
     </button>
   `,
@@ -26,4 +26,11 @@ export default {
       this.$emit('click');
     },
   },
+
+  props: {
+    isDisabled: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
