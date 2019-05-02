@@ -10,7 +10,9 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@nuxt/typescript": "^2.6.1",
@@ -22,10 +24,21 @@
     "vue-property-decorator": "^8.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
     "@nuxtjs/eslint-config": "^0.0.1",
+    "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-knobs": "^5.0.11",
+    "@storybook/addon-links": "^5.0.11",
+    "@storybook/addon-notes": "^5.0.11",
+    "@storybook/addon-viewport": "^5.0.11",
+    "@storybook/addons": "^5.0.11",
+    "@storybook/cli": "^5.0.11",
+    "@storybook/vue": "^5.0.11",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "babel-preset-vue": "^2.0.2",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": ">=12.0.0",
@@ -40,6 +53,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "nodemon": "^1.18.10",
     "prettier": "1.16.4",
+    "storybook-addon-vue-info": "^1.1.1",
     "typesync": "^0.5.1"
   }
 }
