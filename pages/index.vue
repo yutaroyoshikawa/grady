@@ -1,7 +1,10 @@
 <template>
   <section class="container">
     <div>
-      <logo />
+      <drawer />
+      <div @click="open()" style="cursor: pointer">
+        <logo />
+      </div>
       <h1 class="title">
         Grady
       </h1>
@@ -27,13 +30,22 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Logo from '~/components/Logo.vue'
+import drawer from '~/layouts/drawer.vue'
+import { namespace } from 'vuex-class'
+import * as drawerStore from '~/store/drawer'
+
+const Drawer = namespace(drawerStore.name)
 
 @Component({
   components: {
-    Logo
+    Logo,
+    drawer
   }
 })
-export default class Index extends Vue {}
+export default class extends Vue {
+  @Drawer.Action('open')
+  private open: any
+}
 </script>
 
 <style>
