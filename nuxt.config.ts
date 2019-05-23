@@ -48,7 +48,7 @@ const nuxtConfig: NuxtConfiguration = {
   },
 
   env: {
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY ? process.env.FIREBASE_API_KEY : '',
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY as string,
     FIREBASE_AUTH_DOMAIN: 'grady-43e4a.firebaseapp.com',
     FIREBASE_DATABASE_URL: 'https://grady-43e4a.firebaseio.com',
     FIREBASE_PROJECT_ID: 'grady-43e4a',
