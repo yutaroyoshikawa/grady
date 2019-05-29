@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <drawer />
-      <div @click="open()" style="cursor: pointer">
+      <div style="cursor: pointer" @click="open">
         <logo />
       </div>
       <h1 class="title">
@@ -22,6 +22,7 @@
         >
           GitHub
         </a>
+        <mailInput />
       </div>
     </div>
   </section>
@@ -31,6 +32,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Logo from '~/components/Logo.vue'
 import drawer from '~/layouts/drawer.vue'
+import mailInput from '~/components/inputs/mailInput.vue'
 import { namespace } from 'vuex-class'
 import * as drawerStore from '~/store/drawer'
 
@@ -39,7 +41,8 @@ const Drawer = namespace(drawerStore.name)
 @Component({
   components: {
     Logo,
-    drawer
+    drawer,
+    mailInput
   }
 })
 export default class extends Vue {
