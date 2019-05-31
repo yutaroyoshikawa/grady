@@ -2,24 +2,34 @@
   <body>
     <div class="input_wrapper">
       <input type="email" class="mail" placeholder="メールアドレス" />
-      <button class="btn"><i class="fas fa-paper-plane fa-3x"></i></button>
+      <button class="btn">
+        <font-awesome-icon icon="paper-plane" size="3x" />
+        <!--        <font-awesome-icon icon="fas fa-paper-plane fa-3x" />-->
+      </button>
     </div>
   </body>
 </template>
 
-<script lang="scss">
-export default {
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faPaperPlane)
+
+@Component({
+  components: {
+    'font-awesome-icon': FontAwesomeIcon
+  },
   name: 'MailInput'
-}
+})
+export default class extends Vue {}
 </script>
 
 <style lang="scss">
 /*1/2まだしてない*/
 
-* {
-  margin: 0;
-  padding: 0;
-}
 body {
   background-color: #0d0d36;
 }
@@ -46,6 +56,7 @@ body {
   font-size: 36px;
   line-height: 60px;
   color: #ffffff;
+  outline: 0;
 }
 
 ::placeholder {
@@ -62,6 +73,7 @@ body {
   border-bottom-right-radius: 72px;
   border-top-right-radius: 72px;
   margin-top: 2px;
+  outline: 0;
 }
 i {
   margin-right: 5px;

@@ -1,7 +1,7 @@
 <template>
   <div
     class="wrapper"
-    v-bind:class="{
+    :class="{
       'wrapper-active': isOpen
     }"
   >
