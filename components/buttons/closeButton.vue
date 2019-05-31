@@ -14,7 +14,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 export default Vue.extend({})
 </script>
 
-<style>
+<style lang="scss">
 .closeButton {
   font-size: 62px;
   height: 62px;
