@@ -1,5 +1,6 @@
 {
   "projects": {
-    "prod": "grady-43e4a"
+    "prod": "grady-43e4a",
+    "default": "grady-43e4a"
   }
 }
