@@ -55,7 +55,7 @@ const nuxtConfig: NuxtConfiguration = {
      */
     extend(config, ctx) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (ctx.isDev && process.client) {
         if (!config.module) return
         config.module.rules.push({
           enforce: 'pre',
