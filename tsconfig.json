@@ -13,4 +13,8 @@
     "moduleResolution": "node",
     "resolveJsonModule":true,
   },
+  "exclude": [
+    "functions",
+    "node_modules"
+  ]
 }
