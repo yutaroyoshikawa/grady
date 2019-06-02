@@ -13,7 +13,7 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   methods: { action: linkTo('Button') },
 }));
 
-storiesOf('Button', module)
+storiesOf('Sample', module)
   .addDecorator(withKnobs)
   .add('with text', () => ({
     components: { MyButton },
