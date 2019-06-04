@@ -1,5 +1,5 @@
 <template>
-  <button class="tagButton">サスペンス</button>
+    <button class="tagButton">サスペンス</button>
 </template>
 
 <script lang="ts">
@@ -17,13 +17,15 @@ button {
   appearance: none;
 }
 .tagButton {
-  font-size: 10px;
-  height: 17px;
-  width: 82px;
-  border-radius: 82px;
-  border: 1px solid;
+  font-size: 17px;
+  height: 29px;
+  width: 114px;
+  border-radius: 29px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
   &:active {
     background: #ffffff;
+    color: #000000;
   }
 }
 </style>
