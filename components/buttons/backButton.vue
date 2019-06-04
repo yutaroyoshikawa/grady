@@ -24,7 +24,7 @@ button {
   appearance: none;
 }
 .nextButton {
-  font-size: 40px;
+  font-size: 96px;
   color: #0d0d36;
 }
 </style>
