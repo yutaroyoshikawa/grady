@@ -22,9 +22,7 @@ export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
   },
-  props: [
-    'onchange'
-  ]
+  props: ['onchange']
 })
 </script>
 
