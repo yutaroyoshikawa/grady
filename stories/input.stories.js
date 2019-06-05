@@ -1,6 +1,7 @@
+import { storiesOf } from '@storybook/vue'
+import { withKnobs, select } from '@storybook/addon-knobs'
 import PeopleInput from '../components/inputs/peopleInput.vue'
-import { storiesOf } from '@storybook/vue';
-import { withKnobs, select } from '@storybook/addon-knobs';
+import EmailInput from '../components/inputs/mailInput.vue'
 
 storiesOf('Input', module)
   .addDecorator(withKnobs)
@@ -8,13 +9,24 @@ storiesOf('Input', module)
     components: { PeopleInput },
     props: {
       type: {
-        default: select('Type', {
-          Adult: 'adult',
-          Kids: 'kids'
-        }, 'adult')
+        default: select(
+          'Type',
+          {
+            Adult: 'adult',
+            Kids: 'kids'
+          },
+          'adult'
+        )
       }
     },
     render(h) {
       return <PeopleInput type={this.type} />
     }
   }))
+
+storiesOf('Input', module).add('emailInput', () => ({
+  components: { EmailInput },
+  render(h) {
+    return <EmailInput />
+  }
+}))

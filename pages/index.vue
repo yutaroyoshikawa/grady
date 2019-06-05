@@ -1,7 +1,10 @@
 <template>
   <section class="container">
     <div>
-      <logo />
+      <drawer />
+      <div style="cursor: pointer" @click="open">
+        <logo />
+      </div>
       <h1 class="title">
         Grady
       </h1>
@@ -19,6 +22,7 @@
         >
           GitHub
         </a>
+        <mailInput />
       </div>
     </div>
   </section>
@@ -27,13 +31,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Logo from '~/components/Logo.vue'
+import mailInput from '~/components/inputs/mailInput.vue'
 
 @Component({
   components: {
-    Logo
+    Logo,
+    mailInput
   }
 })
-export default class Index extends Vue {}
+export default class extends Vue {}
 </script>
 
 <style>
