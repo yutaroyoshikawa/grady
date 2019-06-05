@@ -37,8 +37,6 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   border-bottom: solid 2px #000;
-  width: 622px;
-  height: 41px;
   transition: all 200ms ease;
   position: relative;
 
@@ -48,8 +46,6 @@ export default Vue.extend({
 
   &::after {
     content: '';
-    width: 10px;
-    height: 10px;
     border: 0px;
     border-bottom: solid 2px #000;
     border-right: solid 2px #000;
@@ -63,18 +59,85 @@ export default Vue.extend({
   }
 
   .icon {
-    font-size: 34px;
     margin: 0 10px;
   }
   select {
     outline: rgba(0, 0, 0, 0);
     border: none;
     width: 100%;
-    font-size: 25px;
     background: rgba(0, 0, 0, 0);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 622px;
+    height: 41px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    &::after {
+      width: 10px;
+      height: 10px;
+    }
+
+    .icon {
+      font-size: 34px;
+    }
+    select {
+      font-size: 25px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 401px;
+    height: 41px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    &::after {
+      width: 10px;
+      height: 10px;
+    }
+
+    .icon {
+      font-size: 34px;
+    }
+    select {
+      font-size: 25px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    width: 225px;
+    height: 23px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    &::after {
+      width: 10px;
+      height: 10px;
+    }
+
+    .icon {
+      font-size: 19px;
+    }
+    select {
+      font-size: 13px;
+    }
   }
 }
 </style>
