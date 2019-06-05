@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 storiesOf('Selector', module)
   .addDecorator(withKnobs)
-  .add('peopleInput', () => ({
+  .add('movieTheaterSelector', () => ({
     components: { MovieTheaterSelector },
     render(h) {
       return <MovieTheaterSelector theaters={
