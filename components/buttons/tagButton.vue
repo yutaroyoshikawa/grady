@@ -1,10 +1,32 @@
 <template>
-    <button class="tagButton">サスペンス</button>
+    <button
+      class="tagButton"
+      @click="onClick"
+      v-bind:class="{
+        active: isActive
+      }"
+    >
+      {{ name }}
+    </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    name: String,
+  },
+  data: function() {
+    return {
+      isActive: false
+    }
+  },
+  methods: {
+    onClick: function() {
+      this.isActive = !this.isActive
+    }
+  }
+})
 </script>
 
 <style lang="scss">
@@ -27,5 +49,10 @@ button {
     background: #ffffff;
     color: #000000;
   }
+}
+.active {
+  color: #000;
+  background: #fff;
+  border-color: #000;
 }
 </style>
