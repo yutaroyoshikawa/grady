@@ -11,20 +11,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faPaperPlane)
 
-@Component({
+export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
-  },
-  name: 'MailInput'
+  }
 })
-export default class extends Vue {}
 </script>
 
 <style lang="scss">
@@ -41,17 +39,25 @@ body {
   height: 77px;
   width: 573px;
   border-radius: 77px;
+  align-items: center;
 }
 
 /*input mail*/
+input {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: none;
+}
 .mail {
   width: 495px;
   height: 72px;
   border-top-left-radius: 72px;
   border-bottom-left-radius: 72px;
   background-color: #0d0d36;
-  margin-top: 3px;
-  margin-left: 1px;
+  /*margin-top: 3px;*/
+  margin-left: 2px;
   padding-left: 26px;
   font-size: 36px;
   line-height: 60px;
@@ -64,6 +70,14 @@ body {
   font-family: 'TsukuBRdGothic-Regular', sans-serif;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
 /*submit*/
 .btn {
   display: flex;
