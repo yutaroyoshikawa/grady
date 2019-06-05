@@ -1,11 +1,15 @@
 <template>
   <div class="entire">
-    <div class="mark">
+    <div v-if="type === 'adult'" class="mark">
       <span class="icon-name">Adult</span>
-      <font-awesome-icon icon="male" class="icon"/>
+      <font-awesome-icon icon="male" class="icon" />
+    </div>
+    <div v-if="type === 'kids'" class="mark">
+      <span class="icon-name">Kids</span>
+      <font-awesome-icon icon="baby" class="icon" />
     </div>
     <div class="input-box">
-      <input type="number" value="0"/>
+      <input type="number" value="0" />
     </div>
   </div>
 </template>
@@ -13,18 +17,19 @@
 <script lang="ts">
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faMale } from '@fortawesome/free-solid-svg-icons'
+import { faBaby, faMale } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faMale)
+library.add(faBaby)
 
 export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
   },
-  props: [
-    'onchange'
-  ]
+  props: {
+    type: String
+  }
 })
 </script>
 

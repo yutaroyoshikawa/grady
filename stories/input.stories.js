@@ -1,10 +1,20 @@
-import AdultInput from '../components/inputs/adultInput.vue'
+import PeopleInput from '../components/inputs/peopleInput.vue'
 import { storiesOf } from '@storybook/vue';
+import { withKnobs, select } from '@storybook/addon-knobs';
 
 storiesOf('Input', module)
-  .add('adultInput', () => ({
-    components: { AdultInput },
+  .addDecorator(withKnobs)
+  .add('peopleInput', () => ({
+    components: { PeopleInput },
+    props: {
+      type: {
+        default: select('Type', {
+          Adult: 'adult',
+          Kids: 'kids'
+        }, 'adult')
+      }
+    },
     render(h) {
-      return <AdultInput onchange={this.action} />
+      return <PeopleInput type={this.type} />
     }
   }))
