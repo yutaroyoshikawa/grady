@@ -25,12 +25,8 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /*1/2まだしてない*/
-
-body {
-  background-color: #0d0d36;
-}
 
 /*wrapper*/
 .input_wrapper {
@@ -56,7 +52,6 @@ input {
   border-top-left-radius: 72px;
   border-bottom-left-radius: 72px;
   background-color: #0d0d36;
-  /*margin-top: 3px;*/
   margin-left: 2px;
   padding-left: 26px;
   font-size: 36px;
