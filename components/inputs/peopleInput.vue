@@ -1,15 +1,17 @@
 <template>
-  <div class="entire">
-    <div v-if="type === 'adult'" class="mark">
-      <span class="icon-name">Adult</span>
-      <font-awesome-icon icon="male" class="icon" />
-    </div>
-    <div v-if="type === 'kids'" class="mark">
-      <span class="icon-name">Kids</span>
-      <font-awesome-icon icon="baby" class="icon" />
-    </div>
-    <div class="input-box">
-      <input type="number" value="0" />
+  <div>
+    <div class="entire">
+      <div v-if="type === 'adult'" class="mark">
+        <span class="icon-name">Adult</span>
+        <font-awesome-icon icon="male" class="icon" />
+      </div>
+      <div v-if="type === 'kids'" class="mark">
+        <span class="icon-name">Kids</span>
+        <font-awesome-icon icon="baby" class="icon" />
+      </div>
+      <div class="input-box">
+        <input type="number" value="0" />
+      </div>
     </div>
   </div>
 </template>
