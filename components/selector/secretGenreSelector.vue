@@ -135,7 +135,7 @@ export default Vue.extend({
 
 @media screen and (max-width: 767px) {
   .wrap {
-    width: 195px;
+    width: 249px;
     height: 24px;
 
     &::after {
