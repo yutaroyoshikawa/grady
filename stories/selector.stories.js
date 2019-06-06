@@ -1,6 +1,7 @@
 import MovieTheaterSelector from '../components/selector/movieTheaterSelector.vue'
+import SecretGenreSelector from '../components/selector/secretGenreSelector.vue'
 import { storiesOf } from '@storybook/vue';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, select } from '@storybook/addon-knobs';
 
 storiesOf('Selector', module)
   .addDecorator(withKnobs)
@@ -19,5 +20,27 @@ storiesOf('Selector', module)
           }
         ]
       } />
+    }
+  }))
+  .add('secretGenreSelector', () => ({
+    components: { SecretGenreSelector },
+    props: {
+      Genre: {
+        default: select(
+          'DefaultGenre',
+          {
+            アクション: 'action',
+            サスペンス: 'suspense',
+            SF: 'sf',
+            ホラー: 'horror',
+            コメディ: 'comedy',
+            ロマンス: 'romance'
+          },
+          'action'
+        )
+      }
+    },
+    render(h) {
+      return <SecretGenreSelector defaultGenre={this.Genre} />
     }
   }))
