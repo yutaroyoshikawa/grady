@@ -22,8 +22,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBaby, faMale } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faMale)
-library.add(faBaby)
+library.add({
+  faMale,
+  faBaby
+})
 
 export default Vue.extend({
   components: {
@@ -71,6 +73,7 @@ export default Vue.extend({
     border-bottom: solid 1px rgba(0, 0, 0, 0.3);
     padding: 0 10px;
     transition: all 300ms ease;
+    background: transparent;
   }
 
   input:focus {
