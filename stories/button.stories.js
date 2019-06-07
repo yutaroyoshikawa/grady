@@ -7,6 +7,7 @@ import PaymentButton from '../components/buttons/paymentButton.vue'
 import GotoWathcButton from '../components/buttons/goToWatchButton.vue'
 import BackButton from '../components/buttons/backButton.vue'
 import TagButton from '../components/buttons/tagButton.vue'
+import SeatButton from '../components/buttons/seatButton.vue'
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
@@ -59,5 +60,11 @@ storiesOf('Button', module)
     },
     render(h) {
       return <TagButton name={this.name} />
+    }
+  }))
+  .add('seatButton', () => ({
+    components: { SeatButton },
+    render(h) {
+      return <SeatButton />
     }
   }))
