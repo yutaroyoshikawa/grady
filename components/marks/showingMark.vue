@@ -15,14 +15,43 @@ export default Vue.extend({})
 .wrap {
   span {
     display: flex;
-    width: 132px;
-    height: 49px;
     background-color: #860B52;
     color: #FFF;
-    font-size: 22px;
     justify-content: center;
     align-items: center;
-    border-radius: 19px 5px 5px 5px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    span {
+      width: 132px;
+      height: 49px;
+      font-size: 22px;
+      border-radius: 19px 5px 5px 5px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    span {
+      width: 97px;
+      height: 36px;
+      font-size: 17px;
+      border-radius: 19px 3px 3px 3px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wrap {
+    span {
+      width: 57px;
+      height: 21px;
+      font-size: 10px;
+      border-radius: 10px 2px 2px 2px;
+    }
   }
 }
 </style>
