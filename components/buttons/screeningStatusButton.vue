@@ -6,6 +6,7 @@
         active: isActive,
         inactive: !isActive
       }"
+      @click="onClick"
     >
       {{ name }}
     </button>
@@ -17,7 +18,8 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     isActive: Boolean,
-    name: String
+    name: String,
+    onClick: Function
   }
 })
 </script>
