@@ -4,8 +4,9 @@ import GotoWathcButton from '../components/buttons/goToWatchButton.vue'
 import BackButton from '../components/buttons/backButton.vue'
 import TagButton from '../components/buttons/tagButton.vue'
 import SeatButton from '../components/buttons/seatButton.vue'
+import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, select, boolean } from '@storybook/addon-knobs';
 
 storiesOf('Button',module)
   .addDecorator(withKnobs)
@@ -48,5 +49,28 @@ storiesOf('Button',module)
     components: { SeatButton },
     render(h) {
       return <SeatButton />
+    }
+  }))
+  .add('screeningStatusButton', () => ({
+    components: { ScreeningStatusButton },
+    props: {
+      name: {
+        default: select(
+          'name',
+          {
+            全て: '全て',
+            上映中: '上映中',
+            上映済み: '上映済み',
+            シークレット: 'シークレット',
+          },
+          '全て'
+        )
+      },
+      isActive: {
+        default: boolean('isActive', true)
+      }
+    },
+    render(h) {
+      return <ScreeningStatusButton name={this.name} isActive={this.isActive} />
     }
   }))
