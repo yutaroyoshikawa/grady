@@ -5,8 +5,9 @@ import BackButton from '../components/buttons/backButton.vue'
 import TagButton from '../components/buttons/tagButton.vue'
 import SeatButton from '../components/buttons/seatButton.vue'
 import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
+import StepButton from '../components/buttons/stepButton.vue'
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, text, select, boolean } from '@storybook/addon-knobs';
+import { withKnobs, number, select, boolean } from '@storybook/addon-knobs';
 
 storiesOf('Button',module)
   .addDecorator(withKnobs)
@@ -72,5 +73,22 @@ storiesOf('Button',module)
     },
     render(h) {
       return <ScreeningStatusButton name={this.name} isActive={this.isActive} />
+    }
+  }))
+  .add('stepButton', () => ({
+    components: { StepButton },
+    props: {
+      isActive: {
+        default: boolean('isActive', true)
+      },
+      stepNumber: {
+        default: number('stepNumber', 1, {
+          min: 1,
+          max: 3
+        })
+      }
+    },
+    render(h) {
+      return <StepButton isActive={this.isActive} stepNumber={this.stepNumber} />
     }
   }))
