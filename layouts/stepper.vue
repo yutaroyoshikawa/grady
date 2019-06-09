@@ -53,7 +53,6 @@ export default Vue.extend({
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 722px;
 
   .seat-button {
     display: flex;
@@ -62,21 +61,71 @@ export default Vue.extend({
     &::before {
       content: '';
       display: block;
-      width: 162px;
       height: 2px;
       border-radius: 2px;
       background: #000;
-      margin-right: 40px;
     }
 
     &::after {
       content: '';
       display: block;
-      width: 162px;
       height: 2px;
       border-radius: 2px;
       background: #000;
-      margin-left: 40px;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 722px;
+
+    .seat-button {
+      &::before {
+        width: 162px;
+        margin-right: 40px;
+      }
+
+      &::after {
+        width: 162px;
+        margin-left: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 469px;
+
+    .seat-button {
+      &::before {
+        width: 103px;
+        margin-right: 32px;
+      }
+
+      &::after {
+        width: 103px;
+        margin-left: 32px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wrap {
+    width: 277px;
+
+    .seat-button {
+      &::before {
+        width: 51px;
+        margin-right: 15px;
+      }
+
+      &::after {
+        width: 51px;
+        margin-left: 15px;
+      }
     }
   }
 }
