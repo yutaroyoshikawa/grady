@@ -4188,8 +4188,8 @@ ejs@^2.6.1:
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
 
 electron-to-chromium@^1.3.122, electron-to-chromium@^1.3.150:
-  version "1.3.152"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.152.tgz#8f1c08e101d58fe2ef72655481bbf8c83f9450fa"
+  version "1.3.153"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.153.tgz#9b7b21566bbbe542213286eefb05e51ecc023b26"
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -10184,8 +10184,8 @@ typesync@^0.5.1:
     semver "^5.6.0"
 
 ua-parser-js@^0.7.18, ua-parser-js@^0.7.19:
-  version "0.7.19"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.19.tgz#94151be4c0a7fb1d001af7022fdaca4642659e4b"
+  version "0.7.20"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.20.tgz#7527178b82f6a62a0f243d1f94fd30e3e3c21098"
 
 uglify-js@3.4.x:
   version "3.4.10"
