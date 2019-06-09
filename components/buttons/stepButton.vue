@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div class="wrap">
+    <div
+      class="wrap"
+      @click="hundleClick"
+    >
       <button
-        v-bind:class="{
+        :class="{
           active: isActive,
           inactive: !isActive
         }"
@@ -17,7 +20,8 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     isActive: Boolean,
-    stepNumber: Number
+    stepNumber: Number,
+    hundleClick: Function
   },
   data: function() {
     return {
