@@ -6,6 +6,7 @@ import TagButton from '../components/buttons/tagButton.vue'
 import SeatButton from '../components/buttons/seatButton.vue'
 import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
 import StepButton from '../components/buttons/stepButton.vue'
+import TabButton from '../components/buttons/tabButton.vue'
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, number, select, boolean, text } from '@storybook/addon-knobs';
 
@@ -98,5 +99,11 @@ storiesOf('Button',module)
     },
     render(h) {
       return <StepButton isActive={this.isActive} stepNumber={this.stepNumber} />
+    }
+  }))
+  .add('tabButton', () => ({
+    components: { TabButton },
+    render(h) {
+      return <TabButton />
     }
   }))
