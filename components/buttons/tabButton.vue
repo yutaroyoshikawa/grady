@@ -1,16 +1,28 @@
 <template>
   <body>
-    <button class="tab">アクション</button>
+    <button
+      class="tab"
+      :class="{
+        active: isActive,
+        inactive: !isActive
+      }"
+    >
+      {{ text }}
+    </button>
   </body>
 </template>
 
-<script>
-export default {
-  name: 'TabButton'
-}
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  props: {
+    isActive: Boolean,
+    text: String
+  }
+})
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 body {
   background-color: #0d0d36;
 }
@@ -23,10 +35,14 @@ button {
   appearance: none;
 }
 .tab {
-  width: 114px;
-  height: 29px;
-  border: solid #ffffff 1px;
-  color: #ffffff;
-  border-radius: 29px;
+  border: none;
+}
+.active {
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: #ffffff;
+  border: solid 1px #707070;
+  color: #585858;
 }
 </style>
