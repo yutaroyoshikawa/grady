@@ -8,8 +8,10 @@ storiesOf('Text', module)
   )
   .addParameters({
     backgrounds: [
-      { name: 'default', value: '#0D0D36', default: true },
-      { name: 'facebook', value: '#3b5998' },
+      { name: '1', value: '#0D0D36', default: true },
+      { name: '2', value: '#377793' },
+      { name: '3', value: '#3F6060' },
+      { name: '4', value: '#0A2E41' },
     ],
   })
   .add('hint', () => ({
