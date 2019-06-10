@@ -112,7 +112,7 @@ storiesOf('Button', module)
   .add('tabButton', () => ({
     components: { TabButton },
     props: {
-      name: {
+      text: {
         default: select(
           'text',
           {
@@ -128,6 +128,6 @@ storiesOf('Button', module)
       }
     },
     render(h) {
-      return <TabButton name={this.text} isActive={this.isActive} />
+      return <TabButton text={this.text} isActive={this.isActive} />
     }
   }))
