@@ -1,15 +1,13 @@
 <template>
-  <body>
-    <button
-      class="tab"
-      :class="{
-        active: isActive,
-        inactive: !isActive
-      }"
-    >
-      {{ text }}
-    </button>
-  </body>
+  <button
+    class="tab"
+    :class="{
+      active: isActive,
+      inactive: !isActive
+    }"
+  >
+    {{ text }}
+  </button>
 </template>
 
 <script lang="ts">
@@ -23,9 +21,6 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-body {
-  background-color: #0d0d36;
-}
 button {
   background-color: transparent;
   border: none;
@@ -35,7 +30,14 @@ button {
   appearance: none;
 }
 .tab {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
   border: none;
+  font-size: 25px;
+  font-family: 'TsukuBRdGothic-Regular', sans-serif;
+  color: #ffffff;
 }
 .active {
   width: 100px;
