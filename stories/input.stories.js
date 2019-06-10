@@ -31,10 +31,9 @@ storiesOf('Input', module)
       return <PeopleInput type={this.type} />
     }
   }))
-
-storiesOf('Input', module).add('emailInput', () => ({
-  components: { EmailInput },
-  render(h) {
-    return <EmailInput />
-  }
-}))
+  .add('emailInput', () => ({
+    components: { EmailInput },
+    render(h) {
+      return <EmailInput />
+    }
+  }))

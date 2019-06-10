@@ -25,6 +25,6 @@ button {
 }
 .nextButton {
   font-size: 96px;
-  color: #0d0d36;
+  color: #fff;
 }
 </style>

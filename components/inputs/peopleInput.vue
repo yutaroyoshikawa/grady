@@ -47,6 +47,7 @@ export default Vue.extend({
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    color: #fff;
   }
 
   .icon-name {
@@ -70,15 +71,16 @@ export default Vue.extend({
     width: 100%;
     font-size: 30px;
     border: none;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.3);
+    border-bottom: solid 1px rgba(255, 255, 255, 0.4);
     padding: 0 10px;
     transition: all 300ms ease;
     background: transparent;
+    color: #fff;
   }
 
   input:focus {
     outline: rgba(0, 0, 0, 0);
-    border-bottom: solid 1px rgba(0, 0, 0, 1);
+    border-bottom: solid 1px rgba(255, 255, 255, 1);
   }
 }
 </style>

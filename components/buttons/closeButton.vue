@@ -19,5 +19,6 @@ export default Vue.extend({})
   font-size: 62px;
   height: 62px;
   width: 62px;
+  color: #fff;
 }
 </style>

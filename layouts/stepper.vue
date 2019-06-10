@@ -63,7 +63,7 @@ export default Vue.extend({
       display: block;
       height: 2px;
       border-radius: 2px;
-      background: #000;
+      background: #fff;
     }
 
     &::after {
@@ -71,7 +71,7 @@ export default Vue.extend({
       display: block;
       height: 2px;
       border-radius: 2px;
-      background: #000;
+      background: #fff;
     }
   }
 }

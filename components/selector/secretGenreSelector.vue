@@ -61,8 +61,8 @@ export default Vue.extend({
   &::after {
     content: '';
     border: 0px;
-    border-bottom: solid 2px #000;
-    border-right: solid 2px #000;
+    border-bottom: solid 2px #fff;
+    border-right: solid 2px #fff;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -75,13 +75,10 @@ export default Vue.extend({
     content: '';
     width: 76px;
     height: 3px;
-    background: #000;
+    background: #fff;
     border-radius: 3px;
   }
 
-  .icon {
-    margin: 0 10px;
-  }
   select {
     padding-right: 70px;
     margin-left: 10px;
@@ -94,9 +91,10 @@ export default Vue.extend({
     appearance: none;
     cursor: pointer;
     transition: all 200ms ease;
+    color: #fff;
 
     &:hover {
-      background: #aaa;
+      background: rgba(255, 255, 255, 0.2);
     }
   }
 }

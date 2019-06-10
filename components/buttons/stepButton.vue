@@ -42,6 +42,7 @@ export default Vue.extend({
   align-items: center;
   flex-wrap: center;
   flex-direction: column;
+  color: #fff;
 
   button {
     border-radius: 50%;

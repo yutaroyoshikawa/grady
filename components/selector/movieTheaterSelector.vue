@@ -36,19 +36,19 @@ export default Vue.extend({
 .wrap {
   display: flex;
   align-items: center;
-  border-bottom: solid 2px #000;
+  border-bottom: solid 2px #fff;
   transition: all 200ms ease;
   position: relative;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.2);
   }
 
   &::after {
     content: '';
     border: 0px;
-    border-bottom: solid 2px #000;
-    border-right: solid 2px #000;
+    border-bottom: solid 2px #fff;
+    border-right: solid 2px #fff;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -60,6 +60,7 @@ export default Vue.extend({
 
   .icon {
     margin: 0 10px;
+    color: #fff;
   }
   select {
     outline: rgba(0, 0, 0, 0);
@@ -69,6 +70,8 @@ export default Vue.extend({
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    color: #fff;
+    cursor: pointer;
   }
 }
 
@@ -76,10 +79,6 @@ export default Vue.extend({
   .wrap {
     width: 622px;
     height: 41px;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
 
     &::after {
       width: 10px;
@@ -100,10 +99,6 @@ export default Vue.extend({
     width: 401px;
     height: 41px;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
     &::after {
       width: 10px;
       height: 10px;
@@ -122,10 +117,6 @@ export default Vue.extend({
   .wrap {
     width: 225px;
     height: 23px;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
 
     &::after {
       width: 10px;

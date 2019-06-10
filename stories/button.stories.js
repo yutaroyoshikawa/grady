@@ -7,7 +7,7 @@ import SeatButton from '../components/buttons/seatButton.vue'
 import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
 import StepButton from '../components/buttons/stepButton.vue'
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, number, select, boolean } from '@storybook/addon-knobs';
+import { withKnobs, number, select, boolean, text } from '@storybook/addon-knobs';
 
 storiesOf('Button',module)
   .addDecorator(withKnobs)
