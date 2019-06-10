@@ -34,6 +34,7 @@ button {
   justify-content: center;
   width: 100px;
   height: 40px;
+  border-radius: 40px;
   border: none;
   font-size: 25px;
   font-family: 'TsukuBRdGothic-Regular', sans-serif;
@@ -46,5 +47,6 @@ button {
   background-color: #ffffff;
   border: solid 1px #707070;
   color: #585858;
+  transition: background-color 3s;
 }
 </style>
