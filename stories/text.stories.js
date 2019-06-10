@@ -1,3 +1,33 @@
+import Hint from '../components/texts/hint.vue';
+import { withKnobs, number, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/vue';
 
 storiesOf('Text', module)
+  .addDecorator(
+    withKnobs
+  )
+  .addParameters({
+    backgrounds: [
+      { name: '1', value: '#0D0D36', default: true },
+      { name: '2', value: '#377793' },
+      { name: '3', value: '#3F6060' },
+      { name: '4', value: '#0A2E41' },
+    ],
+  })
+  .add('hint', () => ({
+    components: { Hint },
+    props: {
+      number: {
+        default: number('number', 1, {
+          min: 1,
+          max: 3
+        })
+      },
+      content: {
+        default: text('content', 'hogehoge')
+      }
+    },
+    render(h) {
+      return <Hint number={this.number} content={this.content} />
+    }
+  }))
