@@ -1,12 +1,6 @@
 <template>
   <div class="chat_box">
-    <div class="contents">hoeuheouhoueheouaheafafafaf</div>
-    <div class="contents">hoeuheouhoueheoua</div>
-    <div class="contents">hoeuheouhoueheouah</div>
-    <div class="contents">hoeuheouhoueheouah</div>
-    <div class="contents">hoeuheouhoueheouah</div>
-
-    <div class="contents">hoeuheouhoueheouah</div>
+    <p class="contents">hogehogehogehogehogehoge</p>
   </div>
 </template>
 
@@ -22,15 +16,18 @@ export default {
   align-items: center;
   width: 291px;
   min-height: 61px;
+  height: auto !important;
   border: solid #000000 1px;
   background-color: #ffffff;
   border-radius: 111px;
   flex-wrap: wrap;
-}
-.contents {
   text-align: center;
+  word-wrap: break-word;
+}
+p.contents {
   padding: 10px;
   width: 291px;
-  margin: 10px;
+  margin: 30px;
+  word-break: break-all;
 }
 </style>
