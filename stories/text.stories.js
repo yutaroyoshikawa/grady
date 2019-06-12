@@ -1,4 +1,5 @@
 import Hint from '../components/texts/hint.vue';
+import TicketPrice from '../components/texts/ticketPrice.vue'
 import { withKnobs, number, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/vue';
 
@@ -29,5 +30,16 @@ storiesOf('Text', module)
     },
     render(h) {
       return <Hint number={this.number} content={this.content} />
+    }
+  }))
+  .add('ticketPrice', () => ({
+    components: { TicketPrice },
+    props: {
+      price: {
+        default: number('price', 1000, {min: 1})
+      },
+    },
+    render(h) {
+      return <TicketPrice price={this.price} />
     }
   }))
