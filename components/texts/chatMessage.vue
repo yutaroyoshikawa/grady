@@ -1,6 +1,6 @@
 <template>
   <div class="chat_box">
-    <p class="contents">hogehogehogehogehogehoge</p>
+    <p class="contents"></p>
   </div>
 </template>
 
