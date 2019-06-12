@@ -1,5 +1,6 @@
 import MovieTheaterSelector from '../components/selector/movieTheaterSelector.vue'
 import SecretGenreSelector from '../components/selector/secretGenreSelector.vue'
+import ScreeningTimeSelector from '../components/selector/screeningTimeSelector.vue'
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, select } from '@storybook/addon-knobs';
 
@@ -50,5 +51,19 @@ storiesOf('Selector', module)
     },
     render(h) {
       return <SecretGenreSelector defaultGenre={this.Genre} />
+    }
+  }))
+  .add('screeningTimeSelector', () => ({
+    components: { ScreeningTimeSelector },
+    props: {
+      times: {default: [
+        {
+          start: new Date(),
+          finish: new Date()
+        }
+      ]
+    }},
+    render(h) {
+      return <ScreeningTimeSelector times={this.times} />
     }
   }))
