@@ -46,7 +46,15 @@ storiesOf('Layout', module)
   }))
   .add('secretCard', () => ({
     components: { SecretCard },
+    props: {
+      text: {
+        default: 'サスペンス'
+      },
+      value: {
+        default: 'aaa'
+      },
+    },
     render(h) {
-      return <SecretCard />
+      return <SecretCard text={this.text}/>
     }
   }))
