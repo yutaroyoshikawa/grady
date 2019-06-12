@@ -22,7 +22,7 @@ button {
   height: 69px;
   width: 69px;
   font-size: 31px;
-  color: #444444;
+  color: #ffffff;
   border: 3px solid #ffffff;
   border-radius: 20px;
 }
