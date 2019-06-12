@@ -47,6 +47,6 @@ button {
   background-color: #ffffff;
   border: solid 1px #707070;
   color: #585858;
-  transition: background-color 0.1ms;
+  transition: background-color 0.1s;
 }
 </style>
