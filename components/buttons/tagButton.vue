@@ -1,20 +1,20 @@
 <template>
-    <button
-      class="tagButton"
-      @click="onClick"
-      v-bind:class="{
-        active: isActive
-      }"
-    >
-      {{ name }}
-    </button>
+  <button
+    class="tagButton"
+    :class="{
+      active: isActive
+    }"
+    @click="onClick"
+  >
+    {{ name }}
+  </button>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
   props: {
-    name: String,
+    name: String
   },
   data: function() {
     return {
