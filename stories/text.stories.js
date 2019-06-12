@@ -2,6 +2,7 @@ import { withKnobs, number, text } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/vue'
 import Hint from '../components/texts/hint.vue'
 import TicketPrice from '../components/texts/ticketPrice.vue'
+import ChatMessage from '../components/texts/chatMessage'
 
 storiesOf('Text', module)
   .addDecorator(withKnobs)
@@ -39,5 +40,11 @@ storiesOf('Text', module)
     },
     render(h) {
       return <TicketPrice price={this.price} />
+    }
+  }))
+  .add('chatMessage', () => ({
+    components: { ChatMessage },
+    render(h) {
+      return <ChatMessage />
     }
   }))
