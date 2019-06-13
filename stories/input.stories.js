@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/vue'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import PeopleInput from '../components/inputs/peopleInput.vue'
 import EmailInput from '../components/inputs/mailInput.vue'
+import CreditCardNumber from '../components/inputs/creditCardNumber.vue'
 
 storiesOf('Input', module)
   .addDecorator(withKnobs)
@@ -35,5 +36,11 @@ storiesOf('Input', module)
     components: { EmailInput },
     render(h) {
       return <EmailInput />
+    }
+  }))
+  .add('creditCardNumber', () => ({
+    components: { CreditCardNumber },
+    render(h) {
+      return <CreditCardNumber />
     }
   }))
