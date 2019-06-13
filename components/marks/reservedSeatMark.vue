@@ -1,8 +1,14 @@
 <template>
   <div class="wrap">
-    <div class="reservedSeatMark">
-    </div>
-    <p class="reservedText">予約済み</p>
+    <div 
+      class="reservedSeatMark"
+      :class="{
+        active: isReserve,
+        inactive: !isReserve
+      }"
+    />
+    <p class="reservedText" v-if="isReserve">予約済み</p>
+    <p class="reservedText" v-else-if="!isReserve">予約可能</p>
   </div>
 </template>
 
@@ -19,7 +25,7 @@ export default Vue.extend({
 <style lang="scss">
 .wrap {
   display: flex;
-  color: #FFF;
+  color: #ffffff;
   justify-content: flex-start;
   align-items: center;
   .reservedSeatMark {
@@ -27,9 +33,14 @@ export default Vue.extend({
     width: 69px;
     font-size: 31px;
     color: #ffffff;
-    background: #ffffff;
     border-radius: 20px;
     border: 3px solid #ffffff;
+  }
+  .active {
+    background: #ffffff;
+  }
+  .inactive {
+    background: unset;
   }
   .reservedText {
       font-size: 31px;
