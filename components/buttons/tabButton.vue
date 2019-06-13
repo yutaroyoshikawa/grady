@@ -5,6 +5,7 @@
       active: isActive,
       inactive: !isActive
     }"
+    @click="onClick"
   >
     {{ text }}
   </button>
