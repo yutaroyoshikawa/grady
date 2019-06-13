@@ -19,7 +19,12 @@ storiesOf('Mark', module)
   }))
   .add('reservedSeatMark', () => ({
     components: { ReservedSeatMark },
+    props: {
+      isReserve: {
+        default: Boolean('isReserve', false)
+      }
+    },
     render(h) {
-      return <ReservedSeatMark />
+      return <ReservedSeatMark isReserve={this.isReserve}/>
     }
   }))
