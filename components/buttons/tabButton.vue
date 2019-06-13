@@ -15,7 +15,8 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     isActive: Boolean,
-    text: String
+    text: String,
+    onClick: Function
   }
 })
 </script>
