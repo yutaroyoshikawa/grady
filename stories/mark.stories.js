@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import ShowingMark from '../components/marks/showingMark.vue'
+import ReservedSeatMark from '../components/marks/reservedSeatMark.vue'
 
 storiesOf('Mark', module)
   .addParameters({
@@ -14,5 +15,11 @@ storiesOf('Mark', module)
     components: { ShowingMark },
     render(h) {
       return <ShowingMark />
+    }
+  }))
+  .add('reservedSeatMark', () => ({
+    components: { ReservedSeatMark },
+    render(h) {
+      return <ReservedSeatMark />
     }
   }))
