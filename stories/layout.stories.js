@@ -1,6 +1,7 @@
 import ScreeningStatusBar from '../layouts/screeningStatusBar.vue'
 import MovieThumbnail from '../layouts/movieThumbnail.vue'
 import Stepper from '../layouts/stepper.vue'
+import SecretCard from '../layouts/secretCard.vue'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/vue';
 
@@ -41,5 +42,19 @@ storiesOf('Layout', module)
     components: { Stepper },
     render(h) {
       return <Stepper />
+    }
+  }))
+  .add('secretCard', () => ({
+    components: { SecretCard },
+    props: {
+      text: {
+        default: 'サスペンス'
+      },
+      value: {
+        default: 'aaa'
+      },
+    },
+    render(h) {
+      return <SecretCard text={this.text}/>
     }
   }))
