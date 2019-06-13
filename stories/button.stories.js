@@ -7,18 +7,19 @@ import SeatButton from '../components/buttons/seatButton.vue'
 import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
 import StepButton from '../components/buttons/stepButton.vue'
 import PaymentButton from '../components/buttons/paymentButton.vue'
+import TabButton from '../components/buttons/tabButton.vue'
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, number, select, boolean, text } from '@storybook/addon-knobs';
 
-storiesOf('Button',module)
+storiesOf('Button', module)
   .addDecorator(withKnobs)
   .addParameters({
     backgrounds: [
       { name: '1', value: '#0D0D36', default: true },
       { name: '2', value: '#377793' },
       { name: '3', value: '#3F6060' },
-      { name: '4', value: '#0A2E41' },
-    ],
+      { name: '4', value: '#0A2E41' }
+    ]
   })
   .add('closeButton', () => ({
     components: { CloseButton },
@@ -71,7 +72,7 @@ storiesOf('Button',module)
             全て: '全て',
             上映中: '上映中',
             上映済み: '上映済み',
-            シークレット: 'シークレット',
+            シークレット: 'シークレット'
           },
           '全て'
         )
@@ -98,7 +99,31 @@ storiesOf('Button',module)
       }
     },
     render(h) {
-      return <StepButton isActive={this.isActive} stepNumber={this.stepNumber} />
+      return (
+        <StepButton isActive={this.isActive} stepNumber={this.stepNumber} />
+      )
+    }
+  }))
+  .add('tabButton', () => ({
+    components: { TabButton },
+    props: {
+      text: {
+        default: select(
+          'text',
+          {
+            概要: '概要',
+            出演者: '出演者',
+            スタッフ: 'スタッフ'
+          },
+          '概要'
+        )
+      },
+      isActive: {
+        default: boolean('isActive', true)
+      }
+    },
+    render(h) {
+      return <TabButton text={this.text} isActive={this.isActive} />
     }
   }))
   .add('paymentButton', () => ({
