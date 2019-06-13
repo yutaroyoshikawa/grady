@@ -1,5 +1,6 @@
 import MovieTheaterSelector from '../components/selector/movieTheaterSelector.vue'
 import SecretGenreSelector from '../components/selector/secretGenreSelector.vue'
+import CreditCardYear from '../components/selector/creditCardYear.vue'
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, select } from '@storybook/addon-knobs';
 
@@ -50,5 +51,11 @@ storiesOf('Selector', module)
     },
     render(h) {
       return <SecretGenreSelector defaultGenre={this.Genre} />
+    }
+  }))
+  .add('creditCardYear', () => ({
+    components: { CreditCardYear },
+    render(h) {
+      return <CreditCardYear />
     }
   }))

@@ -51,4 +51,3 @@ storiesOf('Input', module)
       return <CreditCardName />
     }
   }))
-
