@@ -1,9 +1,12 @@
 <template>
-  <router-link to="{ 'value' }">
+  <router-link :to=value>
     <div class="secretGanreButton">
       <showing-mark class="mark" />
       <div class="tagText">
         {{ text }}
+      </div>
+      <div class="secretText">
+        シークレット
       </div>
     </div>
   </router-link>
@@ -37,6 +40,14 @@ export default Vue.extend({
   }
   .tagText {
     display: flex;
+    position: absolute;
+    font-size: 41px;
+    color: #ffffff;
+    top: 120px;
+    justify-content: flex-start;
+  }
+  .secretText {
+    display: flex;
     color: #000000;
     font-size: 32px;
     justify-content: center;
@@ -45,7 +56,7 @@ export default Vue.extend({
     width: 242px;
     background: #ffffff;
     position: absolute;
-	  bottom: 50px;
+	  bottom: 30px;
   }
 }
 </style>
