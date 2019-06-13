@@ -4,7 +4,7 @@
       <span>
         <font-awesome-icon icon="user"/>
       </span>
-      <input type="text" name="cardNumber" placeholder="クレジットカード名義">
+      <input type="text" placeholder="クレジットカード名義">
     </div>
   </div>
 </template>
