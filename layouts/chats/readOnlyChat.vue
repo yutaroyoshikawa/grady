@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .chat_box {
   display: flex;
   align-items: center;
