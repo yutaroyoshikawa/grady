@@ -1,13 +1,16 @@
 <template>
   <div class="chat_box">
-    <p class="contents"></p>
+    <p class="contents">{{ content }}</p>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'ChatMessage'
-}
+import Vue from 'vue'
+export default Vue.extend({
+  props: {
+    content: String
+  }
+})
 </script>
 
 <style scoped>

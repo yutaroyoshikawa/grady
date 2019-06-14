@@ -44,7 +44,12 @@ storiesOf('Text', module)
   }))
   .add('chatMessage', () => ({
     components: { ChatMessage },
+    props: {
+      content: {
+        default: text('content', 'hogehoge')
+      }
+    },
     render(h) {
-      return <ChatMessage />
+      return <ChatMessage content={this.content} />
     }
   }))
