@@ -24,16 +24,19 @@ export default Vue.extend({
 
 <style lang="scss">
 .wrap {
+  width: 209px;
+  height: 68px;
   display: flex;
   color: #ffffff;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+
   .reservedSeatMark {
     height: 69px;
     width: 69px;
     font-size: 31px;
     color: #ffffff;
-    border-radius: 20px;
+    border-radius: 22px;
     border: 3px solid #ffffff;
   }
   .active {
