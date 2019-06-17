@@ -21,6 +21,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "@nuxt/typescript": "^2.6.1",
     "@nuxtjs/axios": "^5.4.1",
+    "core-js": "2.6.2",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "node-sass": "^4.12.0",

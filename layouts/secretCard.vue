@@ -1,5 +1,5 @@
 <template>
-  <router-link :to=value>
+  <nuxt-link :to="value">
     <div class="secretGanreButton">
       <showing-mark class="mark" />
       <div class="tagText">
@@ -9,12 +9,11 @@
         シークレット
       </div>
     </div>
-  </router-link>
+  </nuxt-link>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import ShowingMark from '../components/marks/showingMark.vue'
 
 export default Vue.extend({
@@ -23,7 +22,7 @@ export default Vue.extend({
     value: String
   },
   components: {
-    'showing-mark': ShowingMark,
+    'showing-mark': ShowingMark
   }
 })
 </script>
@@ -56,8 +55,7 @@ export default Vue.extend({
     width: 242px;
     background: #ffffff;
     position: absolute;
-	  bottom: 30px;
+    bottom: 30px;
   }
 }
 </style>
-

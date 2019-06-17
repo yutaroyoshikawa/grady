@@ -15,8 +15,8 @@ export default Vue.extend({})
 .wrap {
   span {
     display: flex;
-    background-color: #860B52;
-    color: #FFF;
+    background-color: #860b52;
+    color: #fff;
     justify-content: center;
     align-items: center;
   }
