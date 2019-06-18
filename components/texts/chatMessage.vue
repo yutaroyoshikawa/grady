@@ -1,33 +1,35 @@
 <template>
-  <div class="chat_box">
-    <p class="contents"></p>
+  <div class="chat-box">
+    <p class="contents">{{ content }}</p>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'ChatMessage'
-}
+import Vue from 'vue'
+export default Vue.extend({
+  props: {
+    content: String
+  }
+})
 </script>
 
-<style scoped>
-.chat_box {
+<style lang="scss" scoped>
+.chat-box {
   display: flex;
   align-items: center;
   width: 291px;
   min-height: 61px;
-  height: auto !important;
   border: solid #000000 1px;
   background-color: #ffffff;
-  border-radius: 111px;
+  border-radius: 56px;
   flex-wrap: wrap;
-  text-align: center;
   word-wrap: break-word;
-}
-p.contents {
-  padding: 10px;
-  width: 291px;
-  margin: 30px;
-  word-break: break-all;
+
+  .contents {
+    padding: 10px;
+    width: 291px;
+    margin: 30px;
+    word-break: break-all;
+  }
 }
 </style>
