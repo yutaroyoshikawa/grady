@@ -2,7 +2,7 @@
   <div>
     <div class="entire">
       <div class="input-box">
-        <input type="text" value="" />
+        <input type="number" min="1" max="31" placeholder="日" />
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@ export default Vue.extend({})
 <style lang="scss" scoped>
 .entire {
   display: flex;
-  width: 56px;
+  width: 60px;
 
   .input-box {
     width: 100%;
