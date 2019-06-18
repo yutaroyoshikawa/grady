@@ -1,13 +1,56 @@
 <template>
   <div class="chat_box">
-    <p class="contents"></p>
+    <p v-model="chat"  class="contents"
+    >
+      <p
+        v-for="chat in chats"
+        :key="chat.value"
+        :value="chat.value"
+      >
+        {{ chat.text }}
+      </p>
+    </p>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'readOnlyChat'
-}
+import Vue from 'vue'
+export default Vue.extend({
+  props: {
+    content: String,
+    postedAt: Date
+  },
+  data: function() {
+    return {
+      chats: [
+        {
+          text: 'hoge1',
+          value: 'action'
+        },
+        {
+          text: 'サスペンス',
+          value: 'suspense'
+        },
+        {
+          text: 'SF',
+          value: 'sf'
+        },
+        {
+          text: 'ホラー',
+          value: 'horror'
+        },
+        {
+          text: 'コメディ',
+          value: 'comedy'
+        },
+        {
+          text: 'ロマンス',
+          value: 'romance'
+        }
+      ]
+    }
+  }
+})
 </script>
 
 <style scoped lang="scss">
