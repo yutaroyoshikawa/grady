@@ -1,4 +1,4 @@
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/vue'
 import ScreeningStatusBar from '../layouts/screeningStatusBar.vue'
 import MovieThumbnail from '../layouts/movieThumbnail.vue'
@@ -77,7 +77,21 @@ storiesOf('Layout', module)
   }))
   .add('readOnlyChat', () => ({
     components: { ReadOnlyChat },
+    props: {
+      chat: {
+        default: select(
+          'chat',
+          {
+            hoge1: 'hoge1',
+            hoge2: 'hoge2',
+            hoge3: 'hoge3',
+            hoge4: 'hoge4'
+          },
+          'hoge1'
+        )
+      }
+    },
     render(h) {
-      return <ReadOnlyChat />
+      return <ReadOnlyChat chat={this.chat} />
     }
   }))
