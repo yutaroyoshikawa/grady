@@ -15,10 +15,30 @@ export default Vue.extend({})
 </script>
 
 <style lang="scss">
-.closeButton {
-  font-size: 62px;
-  height: 62px;
-  width: 62px;
-  color: #fff;
+@media screen and (min-width: 1024px) {
+  .closeButton {
+    font-size: 62px;
+    height: 62px;
+    width: 62px;
+    color: #fff;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .closeButton {
+    font-size: 44px;
+    height: 44px;
+    width: 44px;
+    color: #fff;
+  }
+}
+
+@media screen and (min-width: 300px) {
+  .closeButton {
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+    color: #fff;
+  }
 }
 </style>
