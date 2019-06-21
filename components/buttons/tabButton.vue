@@ -32,29 +32,88 @@ button {
   appearance: none;
   transition: background-color 200ms ease;
 }
-.tab {
-  display: flex;
-  justify-content: center;
-  width: 125px;
-  height: 40px;
-  border-radius: 40px;
-  border: none;
-  font-size: 25px;
-  font-family: 'TsukuBRdGothic-Regular', sans-serif;
-  color: #ffffff;
+
+@media screen and (min-width: 1024px) {
+  .tab {
+    display: flex;
+    justify-content: center;
+    width: 125px;
+    height: 40px;
+    border-radius: 40px;
+    border: none;
+    font-size: 25px;
+    font-family: 'TsukuBRdGothic-Regular', sans-serif;
+    color: #ffffff;
+  }
+  .active {
+    width: 125px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #ffffff;
+    border: solid 1px #707070;
+    color: #585858;
+  }
+  .inactive {
+    &:hover {
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
 }
-.active {
-  width: 125px;
-  height: 40px;
-  border-radius: 40px;
-  background-color: #ffffff;
-  border: solid 1px #707070;
-  color: #585858;
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .tab {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 40px;
+    border: none;
+    font-size: 25px;
+    font-family: 'TsukuBRdGothic-Regular', sans-serif;
+    color: #ffffff;
+  }
+  .active {
+    width: 100px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #ffffff;
+    border: solid 1px #707070;
+    color: #585858;
+  }
+  .inactive {
+    &:hover {
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
 }
-.inactive {
-  &:hover {
-    border: solid 1px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.1);
+
+@media screen and (min-width: 300px) {
+  .tab {
+    display: flex;
+    justify-content: center;
+    width: 71.5px;
+    height: 29px;
+    border-radius: 40px;
+    border: none;
+    font-size: 18px;
+    font-family: 'TsukuBRdGothic-Regular', sans-serif;
+    color: #ffffff;
+  }
+  .active {
+    width: 71.5px;
+    height: 29px;
+    border-radius: 40px;
+    background-color: #ffffff;
+    border: solid 1px #707070;
+    color: #585858;
+  }
+  .inactive {
+    &:hover {
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   }
 }
 </style>
