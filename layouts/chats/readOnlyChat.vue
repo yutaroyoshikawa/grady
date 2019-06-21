@@ -1,54 +1,17 @@
 <template>
   <div class="chat_box">
-    <p v-model="chat"  class="contents"
-    >
-      <p
-        v-for="chat in chats"
-        :key="chat.value"
-        :value="chat.value"
-      >
-        {{ chat.text }}
-      </p>
+    <p class="contents">
+      {{ chat.content }}
     </p>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+
 export default Vue.extend({
   props: {
-    content: String,
-    postedAt: Date
-  },
-  data: function() {
-    return {
-      chats: [
-        {
-          text: 'hoge1',
-          value: 'action'
-        },
-        {
-          text: 'サスペンス',
-          value: 'suspense'
-        },
-        {
-          text: 'SF',
-          value: 'sf'
-        },
-        {
-          text: 'ホラー',
-          value: 'horror'
-        },
-        {
-          text: 'コメディ',
-          value: 'comedy'
-        },
-        {
-          text: 'ロマンス',
-          value: 'romance'
-        }
-      ]
-    }
+    chats: Array
   }
 })
 </script>

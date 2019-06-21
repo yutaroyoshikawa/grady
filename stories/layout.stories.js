@@ -78,17 +78,8 @@ storiesOf('Layout', module)
   .add('readOnlyChat', () => ({
     components: { ReadOnlyChat },
     props: {
-      chat: {
-        default: select(
-          'chat',
-          {
-            hoge1: 'hoge1',
-            hoge2: 'hoge2',
-            hoge3: 'hoge3',
-            hoge4: 'hoge4'
-          },
-          'hoge1'
-        )
+      content: {
+        default: text('hogehoge')
       }
     },
     render(h) {
