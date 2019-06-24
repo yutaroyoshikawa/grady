@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="wrap">
-      <font-awesome-icon icon="theater-masks" class="icon"/>
+      <font-awesome-icon icon="theater-masks" class="icon" />
       <select>
-        <option value="default">映画館を選択</option>
+        <option value="default" disabled selected>映画館を選択</option>
         <option
           v-for="(theater, index) in theaters"
-          v-bind:key="index"
+          :key="index"
           value="theater.value"
-        >{{ theater.name }}</option>
+        >
+          {{ theater.name }}
+        </option>
       </select>
     </div>
   </div>

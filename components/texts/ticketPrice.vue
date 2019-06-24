@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p class="wrap">
-      ¥{{ price ? price.toLocaleString() : 0 }}
-    </p>
+    <p class="wrap">¥{{ price ? Number(price).toLocaleString() : 0 }}</p>
   </div>
 </template>
 
