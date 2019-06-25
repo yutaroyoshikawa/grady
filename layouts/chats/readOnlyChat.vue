@@ -1,7 +1,12 @@
 <template>
   <div class="chat_box">
-    <p class="contents">
-      {{ chats }}
+    <p
+      v-for="(chat, index) in chats"
+      :key="index"
+      class="contents"
+      content="chat.contents"
+    >
+      {{ chat.contents }}
     </p>
   </div>
 </template>
