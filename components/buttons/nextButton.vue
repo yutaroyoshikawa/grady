@@ -1,6 +1,6 @@
 <template>
   <button class="nextButton">
-    <font-awesome-icon class="nextButton" icon="chevron-circle-right" />
+    <font-awesome-icon icon="chevron-circle-right" />
   </button>
 </template>
 
@@ -23,9 +23,27 @@ button {
   padding: 0;
   appearance: none;
 }
+
 .nextButton {
-  font-size: 96px;
   color: #444444;
+}
+
+@media screen and (min-width: 1024px) {
+  .nextButton {
+    font-size: 96px;
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .nextButton {
+    font-size: 80px;
+  }
+}
+
+@media screen and (min-width: 300px) {
+  .nextButton {
+    font-size: 45px;
+  }
 }
 
 </style>
