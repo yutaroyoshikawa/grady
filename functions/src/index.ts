@@ -1,10 +1,8 @@
 import * as functions from 'firebase-functions';
 
-import {app} from "./flamelinkConfig";
+import {app, firebaseApp} from "./flamelinkConfig";
 import axios from 'axios';
 
-import * as admin from 'firebase-admin';
-admin.initializeApp();
 
 import {addMovies} from './algolia'
 // // Start writing Firebase Functions
@@ -161,6 +159,51 @@ export const popularMovieInfoData = functions.region('asia-northeast1').https.on
   addFlamelinkData(movieDatas, 'popularMovieInfo')
 });
 
-export const updateIsScreening = functions.region('asia-northeast1').firestore.document('user/{}').onCreate((snap, context) => {
-    console.log('aaaaaaaaaaaaaaa')
+// export const test2 = functions.region('asia-northeast1').firestore.document('user').onCreate(() => {
+//     console.log('aaaaaaaaaaaaaaa')
+//   });
+//
+
+
+// export const test = functions.region('asia-northeast1').https.onRequest(() => {
+//   firebaseApp.firestore().collection('user').get()
+//     .then((snapshot) => {
+//       snapshot.forEach((doc) => {
+//         console.log(doc.id, '=>', doc.data());
+//       });
+//     })
+//     .catch((err) => {
+//       console.log('Error getting documents', err);
+//     });
+// });
+//
+//
+// export const dbWrite = functions.firestore.document('/doc/path').onWrite((change, context) => {
+//
+//   console.log('aaaaaaaaaaaaa')
+// });
+
+
+export const test3 = functions.firestore.document('/user/{hgoe}').onCreate((change, context) => {
+  console.log('111111111111111111111')
+});
+
+export const test4 = functions.firestore.document('/fl_content/{hgoe}').onUpdate((change, context) => {
+  console.log(change)
+  console.log(change)
+  console.log(context)
+  console.log('222222222222222222222')
+});
+
+
+
+export const observer = firebaseApp
+  .firestore()
+  .collection('fl_content')
+  .where('isScreening', '==', true)
+  .onSnapshot(querySnapshot => {
+    console.log(querySnapshot);
+    // ...
+  }, err => {
+    console.log(`Encountered error: ${err}`);
   });
