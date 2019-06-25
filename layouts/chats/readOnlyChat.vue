@@ -1,7 +1,7 @@
 <template>
   <div class="chat_box">
     <p class="contents">
-      {{ chat.content }}
+      {{ chats }}
     </p>
   </div>
 </template>
@@ -12,6 +12,7 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     chats: Array
+    // content: String
   }
 })
 </script>
