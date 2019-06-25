@@ -23,7 +23,6 @@ const algolia = algoliasearch(
 // }
 
 export const addMovies = (movies: any) => {
-  console.log(`algoliahogehoge${movies}`)
   algolia
     .addObjects(movies)
     .then(() => 'ok')
@@ -33,6 +32,13 @@ export const addMovies = (movies: any) => {
 export const changeInfo = (movieInfo: any) => {
   algolia
     .saveObject(movieInfo)
+    .then(() => 'ok')
+    .catch(e => e)
+}
+
+export const updateMovies = (movieInfo: any) => {
+  algolia
+    .partialUpdateObject(movieInfo)
     .then(() => 'ok')
     .catch(e => e)
 }
