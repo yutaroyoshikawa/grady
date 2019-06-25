@@ -31,19 +31,24 @@ button {
   padding: 0;
   appearance: none;
   transition: background-color 200ms ease;
+  font-family: 'TsukuBRdGothic-Regular', sans-serif;
+  color: #ffffff;
+}
+
+.tab {
+  font-family: 'TsukuBRdGothic-Regular', sans-serif;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  border: none;
 }
 
 @media screen and (min-width: 1024px) {
   .tab {
-    display: flex;
-    justify-content: center;
     width: 125px;
     height: 40px;
     border-radius: 40px;
-    border: none;
     font-size: 25px;
-    font-family: 'TsukuBRdGothic-Regular', sans-serif;
-    color: #ffffff;
   }
   .active {
     width: 125px;
@@ -61,17 +66,12 @@ button {
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 767px) and (max-width: 1024px) {
   .tab {
-    display: flex;
-    justify-content: center;
     width: 100px;
     height: 40px;
     border-radius: 40px;
-    border: none;
     font-size: 25px;
-    font-family: 'TsukuBRdGothic-Regular', sans-serif;
-    color: #ffffff;
   }
   .active {
     width: 100px;
@@ -91,15 +91,10 @@ button {
 
 @media screen and (min-width: 300px) {
   .tab {
-    display: flex;
-    justify-content: center;
     width: 71.5px;
     height: 29px;
     border-radius: 40px;
-    border: none;
     font-size: 18px;
-    font-family: 'TsukuBRdGothic-Regular', sans-serif;
-    color: #ffffff;
   }
   .active {
     width: 71.5px;
