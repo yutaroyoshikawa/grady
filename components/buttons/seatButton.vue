@@ -19,11 +19,32 @@ button {
   appearance: none;
 }
 .seatButton {
-  height: 69px;
-  width: 69px;
-  font-size: 31px;
   color: #ffffff;
   border: 3px solid #ffffff;
   border-radius: 20px;
+}
+
+@media screen and (min-width: 1024px) {
+  .seatButton {
+    height: 69px;
+    width: 69px;
+    font-size: 31px;
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .seatButton {
+    height: 58px;
+    width: 58px;
+    font-size: 25px
+  }
+}
+
+@media screen and (min-width: 300px) {
+  .seatButton {
+    height: 35px;
+    width: 35px;
+    font-size: 13px;
+  }
 }
 </style>
