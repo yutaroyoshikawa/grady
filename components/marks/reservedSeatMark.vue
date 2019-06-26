@@ -32,13 +32,33 @@ export default Vue.extend({
   align-items: center;
 
   .reservedSeatMark {
-    height: 69px;
-    width: 69px;
-    font-size: 31px;
     color: #ffffff;
     border-radius: 22px;
     border: 3px solid #ffffff;
   }
+
+  @media screen and (min-width: 1024px) {
+   .reservedSeatMark {
+      height: 69px;
+      width: 69px;
+      font-size: 31px;
+    }
+  }
+  @media screen and (min-width: 767px) and (max-width: 1024px) {
+    .reservedSeatMark {
+      height: 58.81px;
+      width: 58.81px;
+      font-size: 26px;
+    }
+  }
+
+@media screen and (min-width: 300px) {
+   .reservedSeatMark {
+      height: 35.08px;
+      width: 35.08px;
+      font-size: 15px;
+  }
+}
   .active {
     background: #ffffff;
   }
