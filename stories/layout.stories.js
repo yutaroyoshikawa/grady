@@ -78,16 +78,18 @@ storiesOf('Layout', module)
   .add('readOnlyChat', () => ({
     components: { ReadOnlyChat },
     props: {
-      content: [
-        {
-          contents: 'hoge',
-          postedAt: new Date()
-        },
-        {
-          contents: 'hogehoge',
-          postedAt: new Date()
-        }
-      ]
+      content: {
+        default: [
+          {
+            contents: 'hoge',
+            postedAt: new Date()
+          },
+          {
+            contents: 'hogehoge',
+            postedAt: new Date()
+          }
+        ]
+      }
     },
     render(h) {
       return <ReadOnlyChat chats={this.content} />

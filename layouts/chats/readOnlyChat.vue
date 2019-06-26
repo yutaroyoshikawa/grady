@@ -1,13 +1,14 @@
 <template>
-  <div class="chat_box">
-    <p
-      v-for="(chat, index) in chats"
-      :key="index"
-      class="contents"
-      content="chat.contents"
-    >
-      {{ chat.contents }}
-    </p>
+  <div>
+    <div class="wrapper">
+      <div v-for="(chat, index) in chats" :key="index" class="chat_box">
+        <p class="contents">
+          {{ chat.contents }}
+        </p>
+      </div>
+      <div class="chat_box2"><p class="contents">foofooo</p></div>
+      <div class="chat_box"><p class="contents">foofooo</p></div>
+    </div>
   </div>
 </template>
 
@@ -24,15 +25,29 @@ export default Vue.extend({
 <style scoped lang="scss">
 .chat_box {
   display: flex;
-  align-items: center;
+  /*align-items: center;*/
   width: 291px;
   min-height: 61px;
   height: auto !important;
   border: solid #000000 1px;
   background-color: #ffffff;
-  border-radius: 111px;
+  border-radius: 56px;
   flex-wrap: wrap;
-  text-align: center;
+  /*text-align: center;*/
+  word-wrap: break-word;
+}
+.chat_box2 {
+  display: flex;
+  margin: 0 0 0 auto;
+  /*align-items: center;*/
+  width: 291px;
+  min-height: 61px;
+  height: auto !important;
+  border: solid #000000 1px;
+  background-color: #ffffff;
+  border-radius: 56px;
+  flex-wrap: wrap;
+  /*text-align: center;*/
   word-wrap: break-word;
 }
 p.contents {
@@ -40,5 +55,8 @@ p.contents {
   width: 291px;
   margin: 30px;
   word-break: break-all;
+}
+.wrapper {
+  width: 750px;
 }
 </style>
