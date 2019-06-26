@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="wrapper">
-      <div v-for="(chat, index) in chats" :key="index" class="chat_box">
-        <p class="contents">
-          {{ chat.contents }}
-        </p>
+      <div v-for="(chat, index) in chats" :key="index">
+        <div v-if="index % 2 === 0" class="chat_box">
+          <p class="contents">
+            {{ chat.contents }}
+          </p>
+        </div>
+        <div v-else class="chat_box2">
+          <p class="contents">
+            {{ chat.contents }}
+          </p>
+        </div>
       </div>
-      <div class="chat_box2"><p class="contents">foofooo</p></div>
-      <div class="chat_box"><p class="contents">foofooo</p></div>
     </div>
   </div>
 </template>
@@ -18,6 +23,11 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     chats: Array
+  },
+  data() {
+    return {
+      count: 0
+    }
   }
 })
 </script>
