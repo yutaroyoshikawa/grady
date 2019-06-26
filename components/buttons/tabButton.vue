@@ -42,6 +42,11 @@ button {
   justify-content: center;
   border: none;
 }
+.active {
+  background-color: #ffffff;
+  border: solid 1px #707070;
+  color: #585858;
+}
 
 @media screen and (min-width: 1024px) {
   .tab {
@@ -49,20 +54,6 @@ button {
     height: 40px;
     border-radius: 40px;
     font-size: 25px;
-  }
-  .active {
-    width: 125px;
-    height: 40px;
-    border-radius: 40px;
-    background-color: #ffffff;
-    border: solid 1px #707070;
-    color: #585858;
-  }
-  .inactive {
-    &:hover {
-      border: solid 1px rgba(0, 0, 0, 0.1);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
   }
 }
 
@@ -73,42 +64,20 @@ button {
     border-radius: 40px;
     font-size: 25px;
   }
-  .active {
-    width: 100px;
-    height: 40px;
-    border-radius: 40px;
-    background-color: #ffffff;
-    border: solid 1px #707070;
-    color: #585858;
-  }
-  .inactive {
-    &:hover {
-      border: solid 1px rgba(0, 0, 0, 0.1);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
 }
 
-@media screen and (min-width: 300px) {
+@media screen and (max-width: 300px) {
   .tab {
     width: 71.5px;
     height: 29px;
     border-radius: 40px;
     font-size: 18px;
   }
-  .active {
-    width: 71.5px;
-    height: 29px;
-    border-radius: 40px;
-    background-color: #ffffff;
-    border: solid 1px #707070;
-    color: #585858;
-  }
+}
   .inactive {
     &:hover {
       border: solid 1px rgba(0, 0, 0, 0.1);
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
-}
 </style>
