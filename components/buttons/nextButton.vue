@@ -1,6 +1,6 @@
 <template>
   <button class="nextButton">
-    <font-awesome-icon icon="chevron-circle-right" />
+    <font-awesome-icon class="nextButton" icon="chevron-circle-right" />
   </button>
 </template>
 
