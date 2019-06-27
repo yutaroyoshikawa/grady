@@ -39,6 +39,11 @@ button {
   appearance: none;
 }
 
+.tagButton {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
 .tagButton:active {
   background: #ffffff;
   color: #000000;
@@ -56,8 +61,6 @@ button {
     height: 29px;
     width: 114px;
     border-radius: 29px;
-    border: 1px solid #ffffff;
-    color: #ffffff;
   }
 }
 
@@ -67,12 +70,10 @@ button {
     height: 29px;
     width: 114px;
     border-radius: 29px;
-    border: 1px solid #ffffff;
-    color: #ffffff;
   }
 }
 
-@media screen and (min-width: 300px) {
+@media screen and (max-width: 767px) {
   .tagButton {
     width: 84.83px;
     height: 21.58px;
