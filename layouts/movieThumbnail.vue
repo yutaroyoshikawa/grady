@@ -3,7 +3,7 @@
     <div class="wrap">
       <showing-mark v-if="isScreening" class="mark" />
       <vue-load-image>
-        <img slot="image" v-bind:src="thumbUrl" v-bind:alt="thumbName" />
+        <img slot="image" :src="thumbUrl" :alt="thumbName" />
         <div slot="preloader" class="loading">loading...</div>
         <div slot="error" class="error">
           <font-awesome-icon icon="film" class="icon" />
@@ -19,8 +19,8 @@ import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFilm } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import ShowingMark from '../components/marks/showingMark.vue'
 import VueLoadImage from 'vue-load-image'
+import ShowingMark from '../components/marks/showingMark.vue'
 
 library.add({ faFilm })
 
@@ -84,7 +84,7 @@ export default Vue.extend({
   .wrap {
     width: 242px;
     height: 363px;
-    
+
     img {
       border-radius: 20px;
     }
@@ -117,7 +117,7 @@ export default Vue.extend({
   .wrap {
     width: 157px;
     height: 235px;
-    
+
     img {
       border-radius: 20px;
     }
@@ -150,7 +150,7 @@ export default Vue.extend({
   .wrap {
     width: 111px;
     height: 167px;
-    
+
     img {
       border-radius: 14px;
     }
@@ -179,4 +179,3 @@ export default Vue.extend({
   }
 }
 </style>
-

@@ -1,15 +1,11 @@
 <template>
   <div>
     <div class="wrap">
-      <font-awesome-icon icon="theater-masks" class="icon" />
+      <font-awesome-icon icon="clock" class="icon" />
       <select @change="handleChange" :value="value ? value : 'default'">
-        <option value="default" disabled selected>映画館を選択</option>
-        <option
-          v-for="(theater, index) in theaters"
-          :key="index"
-          :value="theater.value"
-        >
-          {{ theater.name }}
+        <option value="default" disabled selected>時間を選択</option>
+        <option v-for="(time, index) in times" :key="index" :value="index + 1">
+          {{ time.start | filterTime }} - {{ time.finish | filterTime }}
         </option>
       </select>
     </div>
@@ -19,19 +15,25 @@
 <script lang="ts">
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons'
+import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import moment from 'moment'
 
-library.add({ faTheaterMasks })
+library.add({ faClock })
 
 export default Vue.extend({
   props: {
-    theaters: Array,
+    times: Array,
     handleChange: Function,
-    value: String
+    value: Number
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
+  },
+  filters: {
+    filterTime: function(time: Date) {
+      return moment(time).format('HH:mm')
+    }
   }
 })
 </script>

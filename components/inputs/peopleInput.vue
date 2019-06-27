@@ -5,12 +5,12 @@
         <span class="icon-name">Adult</span>
         <font-awesome-icon icon="male" class="icon" />
       </div>
-      <div v-if="type === 'kids'" class="mark">
+      <div v-if="type === 'kids'" class="mark kids">
         <span class="icon-name">Kids</span>
         <font-awesome-icon icon="baby" class="icon" />
       </div>
       <div class="input-box">
-        <input type="number" value="0" />
+        <input type="number" v-model="hoge" min="0" max="9" maxlength="1" />
       </div>
     </div>
   </div>
@@ -32,7 +32,24 @@ export default Vue.extend({
     'font-awesome-icon': FontAwesomeIcon
   },
   props: {
-    type: String
+    type: String,
+    handleChange: Function,
+    value: Number
+  },
+  data: function() {
+    return {
+      hoge: this.value
+    }
+  },
+  watch: {
+    hoge: function(value: string) {
+      if (Number(value) < 0 || Number(value) > 9 || !Number(value)) {
+        this.hoge = 0
+      } else {
+        this.hoge = Math.floor(Number(value))
+        this.handleChange(Math.floor(Number(value)))
+      }
+    }
   }
 })
 </script>
@@ -58,6 +75,10 @@ export default Vue.extend({
     font-size: 52px;
   }
 
+  .kids {
+    margin-right: 10px;
+  }
+
   .input-box {
     width: 100%;
     display: flex;
@@ -68,7 +89,7 @@ export default Vue.extend({
   }
 
   input {
-    width: 100%;
+    width: 75px;
     font-size: 30px;
     border: none;
     border-bottom: solid 1px rgba(255, 255, 255, 0.4);

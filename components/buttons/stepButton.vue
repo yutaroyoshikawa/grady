@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div
-      class="wrap"
-      @click="hundleClick"
-    >
+    <div class="wrap" @click="hundleClick">
       <button
         :class="{
           active: isActive,
           inactive: !isActive
         }"
-      >{{ stepNumber }}</button>
+      >
+        {{ stepNumber }}
+      </button>
       <label>{{ names[stepNumber - 1] }}</label>
     </div>
   </div>
@@ -25,11 +24,7 @@ export default Vue.extend({
   },
   data: function() {
     return {
-      names: [
-        '情報',
-        '座席',
-        '決済',
-      ]
+      names: ['情報', '座席', '決済']
     }
   }
 })
@@ -125,4 +120,3 @@ export default Vue.extend({
   }
 }
 </style>
-

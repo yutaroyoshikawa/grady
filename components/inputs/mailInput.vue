@@ -1,10 +1,14 @@
 <template>
   <body>
     <div class="input_wrapper">
-      <input type="email" class="mail" placeholder="メールアドレス" />
-      <button class="btn">
+      <input
+        type="email"
+        class="mail"
+        placeholder="メールアドレス"
+        v-model="hoge"
+      />
+      <button class="btn" :disabled="isDisable">
         <font-awesome-icon icon="paper-plane" size="3x" />
-        <!--        <font-awesome-icon icon="fas fa-paper-plane fa-3x" />-->
       </button>
     </div>
   </body>
@@ -18,9 +22,38 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faPaperPlane)
 
+const regexp = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+
 export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
+  },
+  props: {
+    handleChange: Function,
+    value: String
+  },
+  data: function() {
+    return {
+      isDisable: true,
+      hoge: this.value
+    }
+  },
+  watch: {
+    hoge: function(val: string) {
+      if (regexp.test(val)) {
+        this.isDisable = false
+      } else {
+        this.isDisable = true
+      }
+      this.handleChange(val)
+    }
+  },
+  mounted: function() {
+    if (regexp.test(this.hoge)) {
+      this.isDisable = false
+    } else {
+      this.isDisable = true
+    }
   }
 })
 </script>

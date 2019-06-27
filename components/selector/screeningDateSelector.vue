@@ -1,15 +1,11 @@
 <template>
   <div>
     <div class="wrap">
-      <font-awesome-icon icon="theater-masks" class="icon" />
+      <font-awesome-icon icon="calendar-alt" class="icon" />
       <select @change="handleChange" :value="value ? value : 'default'">
-        <option value="default" disabled selected>映画館を選択</option>
-        <option
-          v-for="(theater, index) in theaters"
-          :key="index"
-          :value="theater.value"
-        >
-          {{ theater.name }}
+        <option value="default" disabled selected>日付を選択</option>
+        <option v-for="(date, index) in dates" :key="index" :value="index + 1">
+          {{ date | filterDate }}
         </option>
       </select>
     </div>
@@ -19,19 +15,25 @@
 <script lang="ts">
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import moment from 'moment'
 
-library.add({ faTheaterMasks })
+library.add({ faCalendarAlt })
 
 export default Vue.extend({
   props: {
-    theaters: Array,
+    dates: Array,
     handleChange: Function,
-    value: String
+    value: Number
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
+  },
+  filters: {
+    filterDate: function(date: Date) {
+      return moment(date).format('YYYY/MM/DD')
+    }
   }
 })
 </script>

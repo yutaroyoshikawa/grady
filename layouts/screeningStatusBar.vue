@@ -4,26 +4,26 @@
       <div class="inner">
         <screening-status-button
           name="全て"
-          v-bind:is-active="activeButton === '全て'"
-          v-bind:on-click="clickAll"
+          :is-active="activeButton === '全て'"
+          :on-click="clickAll"
           class="button"
         />
         <screening-status-button
           name="上映中"
-          v-bind:is-active="activeButton === '上映中'"
-          v-bind:on-click="clickScreening"
+          :is-active="activeButton === '上映中'"
+          :on-click="clickScreening"
           class="button"
         />
         <screening-status-button
           name="上映済み"
-          v-bind:is-active="activeButton === '上映済み'"
-          v-bind:on-click="clickScreened"
+          :is-active="activeButton === '上映済み'"
+          :on-click="clickScreened"
           class="button"
         />
         <screening-status-button
           name="シークレット"
-          v-bind:is-active="activeButton === 'シークレット'"
-          v-bind:on-click="clickSecret"
+          :is-active="activeButton === 'シークレット'"
+          :on-click="clickSecret"
           class="button"
         />
       </div>
@@ -110,4 +110,3 @@ export default Vue.extend({
   }
 }
 </style>
-
