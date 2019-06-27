@@ -1,7 +1,9 @@
 <template>
-  <button class="seatButton">
-    A1
-  </button>
+  <div>
+    <button class="seat-button">
+      A1
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -18,30 +20,30 @@ button {
   padding: 0;
   appearance: none;
 }
-.seatButton {
-  color: #ffffff;
-  border: 3px solid #ffffff;
+.seat-button {
+  color: #fff;
+  border: 3px solid #fff;
   border-radius: 20px;
 }
 
 @media screen and (min-width: 1024px) {
-  .seatButton {
+  .seat-button {
     height: 69px;
     width: 69px;
     font-size: 31px;
   }
 }
 
-@media screen and (min-width: 767px) and (max-width: 1024px) {
-  .seatButton {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .seat-button {
     height: 58px;
     width: 58px;
     font-size: 25px
   }
 }
 
-@media screen and (min-width: 300px) {
-  .seatButton {
+@media screen and (max-width: 767px) {
+  .seat-button {
     height: 35px;
     width: 35px;
     font-size: 13px;
