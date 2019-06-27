@@ -4,7 +4,6 @@ import PeopleInput from '../components/inputs/peopleInput.vue'
 import EmailInput from '../components/inputs/mailInput.vue'
 import CreditCardNumber from '../components/inputs/creditCardNumber.vue'
 import CreditCardName from '../components/inputs/creditCardName.vue'
-import CreditCardMonth from '../components/inputs/creditCardMonth.vue'
 
 storiesOf('Input', module)
   .addDecorator(withKnobs)
@@ -50,11 +49,5 @@ storiesOf('Input', module)
     components: { CreditCardName },
     render(h) {
       return <CreditCardName />
-    }
-  }))
-  .add('creditCardMonth', () => ({
-    components: { CreditCardMonth },
-    render(h) {
-      return <CreditCardMonth />
     }
   }))
