@@ -1,0 +1,17 @@
+.ais-Hits-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.ais-Hits-item {
+  margin: 0 50px 100px 50px;
+  list-style: none;
+}
+
+.ais-SearchBox {
+  position: absolute;
+  opacity: 0;
+}
