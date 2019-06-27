@@ -36,6 +36,9 @@ import Vue from 'vue'
 import ScreeningStatusButton from '../components/buttons/screeningStatusButton.vue'
 
 export default Vue.extend({
+  props: {
+    handleChange: Function
+  },
   data: function() {
     return {
       activeButton: '全て'
@@ -47,15 +50,19 @@ export default Vue.extend({
   methods: {
     clickAll: function() {
       this.activeButton = '全て'
+      this.handleChange('all')
     },
     clickScreening: function() {
       this.activeButton = '上映中'
+      this.handleChange('screening')
     },
     clickScreened: function() {
       this.activeButton = '上映済み'
+      this.handleChange('screened')
     },
     clickSecret: function() {
       this.activeButton = 'シークレット'
+      this.handleChange('secret')
     }
   }
 })
