@@ -2,9 +2,9 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="calendar-alt" class="icon" />
-      <select>
+      <select @change="handleChange" :value="value ? value : 'default'">
         <option value="default" disabled selected>日付を選択</option>
-        <option v-for="(date, index) in dates" :key="index" value="date">
+        <option v-for="(date, index) in dates" :key="index" :value="index + 1">
           {{ date | filterDate }}
         </option>
       </select>
@@ -23,7 +23,9 @@ library.add({ faCalendarAlt })
 
 export default Vue.extend({
   props: {
-    dates: Array
+    dates: Array,
+    handleChange: Function,
+    value: Number
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon

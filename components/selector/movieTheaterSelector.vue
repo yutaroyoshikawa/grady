@@ -2,12 +2,12 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="theater-masks" class="icon" />
-      <select>
+      <select @change="handleChange" :value="value ? value : 'default'">
         <option value="default" disabled selected>映画館を選択</option>
         <option
           v-for="(theater, index) in theaters"
           :key="index"
-          value="theater.value"
+          :value="theater.value"
         >
           {{ theater.name }}
         </option>
@@ -26,7 +26,9 @@ library.add({ faTheaterMasks })
 
 export default Vue.extend({
   props: {
-    theaters: Array
+    theaters: Array,
+    handleChange: Function,
+    value: String
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon

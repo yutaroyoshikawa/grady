@@ -2,9 +2,9 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="clock" class="icon" />
-      <select>
+      <select @change="handleChange" :value="value ? value : 'default'">
         <option value="default" disabled selected>時間を選択</option>
-        <option v-for="(time, index) in times" :key="index" :value="index">
+        <option v-for="(time, index) in times" :key="index" :value="index + 1">
           {{ time.start | filterTime }} - {{ time.finish | filterTime }}
         </option>
       </select>
@@ -23,7 +23,9 @@ library.add({ faClock })
 
 export default Vue.extend({
   props: {
-    times: Array
+    times: Array,
+    handleChange: Function,
+    value: Number
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
