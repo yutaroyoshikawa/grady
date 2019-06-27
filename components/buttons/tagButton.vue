@@ -1,13 +1,16 @@
 <template>
-  <button
-    class="tagButton"
-    :class="{
-      active: isActive
-    }"
-    @click="onClick"
-  >
-    {{ name }}
-  </button>
+  <div>
+    <button
+      class="wrap"
+      :class="{
+        active: isActive,
+        inactive: !isActive
+      }"
+      @click="onClick"
+    >
+      {{ name }}
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -29,56 +32,60 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss">
-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  appearance: none;
-}
-
-.tagButton {
-  border: 1px solid #ffffff;
-  color: #ffffff;
-}
-
-.tagButton:active {
-  background: #ffffff;
-  color: #000000;
+<style lang="scss" scoped>
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 200ms ease;
+  font-size: 20px;
+  color: #7b7a7a;
 }
 
 .active {
-  color: #000;
-  background: #fff;
-  border-color: #000;
+  background-color: #fff;
+  color: #555;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: #eee;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.inactive {
+  color: #fff;
+  border: solid #fff 1px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 @media screen and (min-width: 1024px) {
-  .tagButton {
-    font-size: 17px;
-    height: 29px;
-    width: 114px;
-    border-radius: 29px;
+  .wrap {
+    width: 173px;
+    height: 35px;
+    border-radius: 35px;
+    font-size: 20px;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .tagButton {
-    font-size: 17px;
-    height: 29px;
-    width: 114px;
-    border-radius: 29px;
+  .wrap {
+    width: 173px;
+    height: 35px;
+    border-radius: 35px;
+    font-size: 20px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .tagButton {
-    width: 84.83px;
-    height: 21.58px;
-    font-size: 12px;
-    border-radius: 61px; 
+  .wrap {
+    width: 91px;
+    height: 24px;
+    border-radius: 24px;
+    font-size: 15px;
   }
 }
 </style>

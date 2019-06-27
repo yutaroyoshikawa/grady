@@ -42,10 +42,18 @@ button {
   justify-content: center;
   border: none;
 }
+
 .active {
   background-color: #ffffff;
   border: solid 1px #707070;
   color: #585858;
+}
+
+.inactive {
+  &:hover {
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -74,10 +82,4 @@ button {
     font-size: 18px;
   }
 }
-  .inactive {
-    &:hover {
-      border: solid 1px rgba(0, 0, 0, 0.1);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
 </style>
