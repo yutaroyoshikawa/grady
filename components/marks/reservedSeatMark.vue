@@ -1,14 +1,14 @@
 <template>
   <div class="wrap">
     <div 
-      class="reservedSeatMark"
+      class="reserved-seat-mark"
       :class="{
         active: isReserve,
         inactive: !isReserve
       }"
     />
-    <p class="reservedText" v-if="isReserve">予約済み</p>
-    <p class="reservedText" v-else-if="!isReserve">予約可能</p>
+    <p class="reserved-text" v-if="isReserve">予約済み</p>
+    <p class="reserved-text" v-else-if="!isReserve">予約可能</p>
   </div>
 </template>
 
@@ -31,29 +31,29 @@ export default Vue.extend({
   justify-content: space-between;
   align-items: center;
 
-  .reservedSeatMark {
+  .reserved-seat-mark {
     color: #ffffff;
     border-radius: 22px;
     border: 3px solid #ffffff;
   }
 
   @media screen and (min-width: 1024px) {
-   .reservedSeatMark {
+   .reserved-seat-mark {
       height: 69px;
       width: 69px;
       font-size: 31px;
     }
   }
-  @media screen and (min-width: 767px) and (max-width: 1024px) {
-    .reservedSeatMark {
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    .reserved-seat-mark {
       height: 58.81px;
       width: 58.81px;
       font-size: 26px;
     }
   }
 
-@media screen and (min-width: 300px) {
-   .reservedSeatMark {
+@media screen and (max-width: 767px) {
+   .reserved-seat-mark {
       height: 35.08px;
       width: 35.08px;
       font-size: 15px;
@@ -65,7 +65,7 @@ export default Vue.extend({
   .inactive {
     background: unset;
   }
-  .reservedText {
+  .reserved-text {
       font-size: 31px;
   }
 }
