@@ -113,8 +113,8 @@ export default Vue.extend({
         }
       ],
       searchClient: algoliasearch(
-        '6G1MOFQ20A',
-        '555194602b24eb54c4925b869dd2340e'
+        process.env.ALGOLIA_APP_ID as string,
+        process.env.ALGOLIA_API_KEY as string
       ),
       inputValue: '',
       selectedStatus: 'all'
