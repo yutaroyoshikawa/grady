@@ -57,7 +57,7 @@ button {
   }
 }
 
-@media screen and (min-width: 767px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .tab {
     width: 100px;
     height: 40px;
@@ -66,7 +66,7 @@ button {
   }
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 767px) {
   .tab {
     width: 71.5px;
     height: 29px;
