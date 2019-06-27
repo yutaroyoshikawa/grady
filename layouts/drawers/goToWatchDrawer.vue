@@ -1,47 +1,77 @@
 <template>
   <div>
-    <div class="wrap">
-      <div class="closer">
-        <close-button />
-      </div>
-
-      <form>
-        <div v-if="nowPage === 0" class="input-wrap">
-          <movie-theater-selector :theaters="theaters" />
-          <screening-date-selector :dates="dates" />
-          <screening-time-selector :times="times" />
+    <div class="entire">
+      <div class="wrap">
+        <div class="closer">
+          <close-button />
         </div>
 
-        <div v-if="nowPage === 1" class="input-wrap">
-          <div class="input-content">
-            <div class="price-wrap">
-              <people-input type="adult" />
-              <div class="price-content">
-                <span>×</span>
-                <ticket-price :price="1300" />
+        <form @submit="handleSend">
+          <div v-if="nowPage === 0" class="input-wrap">
+            <movie-theater-selector
+              :theaters="theaters"
+              :handleChange="handleChangeTheater"
+              :value="formDatas.theater"
+            />
+            <screening-date-selector
+              :dates="dates"
+              :handleChange="handleChangeDate"
+              :value="formDatas.date"
+            />
+            <screening-time-selector
+              :times="times"
+              :handleChange="handleChangeTime"
+              :value="formDatas.time"
+            />
+          </div>
+
+          <div v-if="nowPage === 1" class="input-wrap">
+            <div class="input-content">
+              <div class="price-wrap">
+                <people-input
+                  type="adult"
+                  :handleChange="handleChangeAdult"
+                  :value="formDatas.adult"
+                />
+                <div class="price-content">
+                  <span>×</span>
+                  <ticket-price :price="1300" />
+                </div>
+              </div>
+              <div class="price-wrap">
+                <people-input
+                  type="kids"
+                  :handleChange="handleChangeKids"
+                  :value="formDatas.kids"
+                />
+                <div class="price-content">
+                  <span>×</span>
+                  <ticket-price :price="900" />
+                </div>
+              </div>
+              <hr />
+              <div class="sum">
+                <ticket-price
+                  :price="formDatas.adult * 1300 + formDatas.kids * 900"
+                />
               </div>
             </div>
-            <div class="price-wrap">
-              <people-input type="kids" />
-              <div class="price-content">
-                <span>×</span>
-                <ticket-price :price="900" />
-              </div>
+            <div class="email">
+              <email-input
+                :handleChange="handleChangeEmail"
+                :value="formDatas.email"
+              />
             </div>
           </div>
-          <hr />
-          <div class="email">
-            <email-input />
-          </div>
-        </div>
-      </form>
+        </form>
 
-      <div class="next-button-wrap">
-        <div @click="hundleBack">
-          <back-button v-if="nowPage === 1" />
-        </div>
-        <div @click="hundleNext">
-          <next-button v-if="nowPage === 0" />
+        <div class="paging-button-wrap">
+          <div @click="handleBack">
+            <back-button v-if="nowPage === 1" />
+          </div>
+          <div @click="handleNext">
+            <next-button v-if="nowPage === 0" />
+          </div>
         </div>
       </div>
     </div>
@@ -87,23 +117,59 @@ export default Vue.extend({
         }
       ],
       dates: [new Date(), new Date()],
-      nowPage: 1
+      nowPage: 1,
+      formDatas: {
+        theater: '',
+        date: 0,
+        time: 0,
+        adult: 0,
+        kids: 0,
+        email: ''
+      }
     }
   },
   methods: {
-    hundleNext: function() {
+    handleNext: function() {
       this.nowPage++
     },
-    hundleBack: function() {
+    handleBack: function() {
       this.nowPage--
+    },
+    handleChangeTheater: function(e: Event) {
+      if (e.target instanceof HTMLSelectElement) {
+        this.formDatas.theater = e.target.value
+      }
+    },
+    handleChangeDate: function(e: Event) {
+      if (e.target instanceof HTMLSelectElement) {
+        this.formDatas.date = Number(e.target.value)
+      }
+    },
+    handleChangeTime: function(e: Event) {
+      if (e.target instanceof HTMLSelectElement) {
+        this.formDatas.time = Number(e.target.value)
+      }
+    },
+    handleChangeAdult: function(num: string) {
+      this.$set(this.formDatas, 'adult', Number(num))
+    },
+    handleChangeKids: function(num: string) {
+      this.$set(this.formDatas, 'kids', Number(num))
+    },
+    handleChangeEmail: function(value: string) {
+      this.formDatas.email = value
+    },
+    handleSend: function(e: Event) {
+      if (e.target instanceof HTMLFormElement) {
+        e.preventDefault()
+      }
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  width: 768px;
+.entire {
   height: 100vh;
   background: #0d0d36;
   position: fixed;
@@ -115,52 +181,171 @@ export default Vue.extend({
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
+  padding: 0;
+  margin: 0;
 
-  .closer {
+  .wrap {
     width: 100%;
-    margin: 60px 0 0 60px;
-  }
-
-  .email {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .next-button-wrap {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 50px;
-  }
-
-  .input-wrap {
+    height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-    height: 500px;
-  }
 
-  .input-content {
-    width: 100%;
-  }
-
-  .price-wrap {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    span {
-      color: #fff;
-      font-size: 50px;
+    .closer {
+      width: 100%;
     }
 
-    .price-content {
+    .input-wrap {
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      .input-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: column;
+
+        .price-wrap {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          span {
+            color: #fff;
+          }
+
+          .price-content {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        .sum {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    .email {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .paging-button-wrap {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .entire {
+    width: 768px;
+    min-height: 1000px;
+
+    .wrap {
+      min-height: 1000px;
+
+      .closer {
+        margin: 60px 0 0 60px;
+      }
+
+      .input-wrap {
+        height: 500px;
+        margin: 100px 100px;
+
+        .input-content {
+          height: 300px;
+
+          .price-wrap {
+            span {
+              font-size: 50px;
+            }
+          }
+        }
+      }
+
+      .paging-button-wrap {
+        margin-bottom: 60px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .entire {
+    width: 80vw;
+    min-height: 1000px;
+
+    .wrap {
+      min-height: 1000px;
+
+      .closer {
+        margin: 30px 0 0 30px;
+      }
+
+      .input-wrap {
+        height: 500px;
+        margin: 10px 10px;
+
+        .input-content {
+          height: 300px;
+
+          .price-wrap {
+            span {
+              font-size: 50px;
+            }
+          }
+        }
+      }
+
+      .paging-button-wrap {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .entire {
+    width: 90vw;
+    min-height: 568px;
+
+    .wrap {
+      min-height: 568px;
+
+      .closer {
+        margin: 10px 0 0 10px;
+      }
+
+      .input-wrap {
+        height: 500px;
+        margin: 10px 10px;
+
+        .input-content {
+          height: 300px;
+
+          .price-wrap {
+            span {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      .paging-button-wrap {
+        margin-bottom: 10px;
+      }
     }
   }
 }
