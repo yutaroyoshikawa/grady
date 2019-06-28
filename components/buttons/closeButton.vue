@@ -25,7 +25,6 @@ export default Vue.extend({})
   }
 }
 
-
 @media screen and (min-width: 1024px) {
   .wrap {
     button {

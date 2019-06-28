@@ -29,7 +29,8 @@ const nuxtConfig: NuxtConfiguration = {
     '@fortawesome/fontawesome-free-webfonts',
     '@fortawesome/fontawesome-free-webfonts/css/fa-brands.css',
     '@fortawesome/fontawesome-free-webfonts/css/fa-regular.css',
-    '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css'
+    '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css',
+    'styles/algolia.css'
   ],
 
   /*
@@ -42,13 +43,19 @@ const nuxtConfig: NuxtConfiguration = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
   /*
    ** Axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  env: {
+    ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY as string,
+    ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID as string
   },
 
   /*
