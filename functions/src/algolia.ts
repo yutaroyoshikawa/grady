@@ -22,10 +22,10 @@ const algolia = algoliasearch(
 //   // isScreening: boolean
 // }
 
-export const addMovies = (movies: any) => {
-  algolia
+export const　addMovies = async (movies: any) => {
+  await algolia
     .addObjects(movies)
-    .then(() => 'ok')
+    .then(() => console.log('algolia追加完了'))
     .catch(e => e)
 }
 
@@ -37,6 +37,7 @@ export const changeInfo = (movieInfo: any) => {
 }
 
 export const updateMovies = (movieInfo: any) => {
+  console.log('algolia更新完了')
   algolia
     .partialUpdateObject(movieInfo)
     .then(() => 'ok')

@@ -3,7 +3,6 @@ import * as functions from 'firebase-functions';
 import {app} from "./flamelinkConfig";
 import axios from 'axios';
 
-
 import {addMovies, updateMovies} from './algolia'
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -83,6 +82,10 @@ const getMovieData = (movies: any) => {
     // キャストとスタッフ情報を取得
     const Credits: any = await getCredits(result.id)
 
+    // キャストとスタッフ情報の数制限
+    Credits.cast.length  = 10
+    Credits.crew.length = 10
+
     // 日本の映画でなければ字幕をtrue
     if (result.original_language !== 'ja') {
       result.original_language = true
@@ -94,13 +97,14 @@ const getMovieData = (movies: any) => {
       objectID: result.id,
       title: result.original_title,
       story: result.overview,
-      genre: result.genre_ids,
+      _tags: result.genre_ids.map(String),
       cover: result.poster_path,
       coverBack: result.backdrop_path,
       releaseDate: result.release_date,
       subtitle: result.original_language,
       castName: Credits.cast,
-      staff: Credits.crew
+      staff: Credits.crew,
+      isScreening: false
     }
   }))
 };
@@ -111,7 +115,7 @@ const addFlamelinkData = (datas: any, schemaKey: string) => {
   datas.forEach((data: any) => {
     app.content.get({
       schemaKey,
-      entryId: data.movieId
+      entryId: data.objectID
     })
       .then((response: any) => {
         // 無ければFlamelinkに追加する処理
@@ -120,7 +124,7 @@ const addFlamelinkData = (datas: any, schemaKey: string) => {
 
           app.content.add({
             schemaKey,
-            entryId: data.movieId,
+            entryId: data.objectID,
             data
           })
             .then(() => console.log('Flamelink追加成功'))
@@ -150,7 +154,9 @@ export const nowPlayingMovieData = functions.
     const movieDatas = await getMovieData(nowPlayingMovieInfo)
 
     addFlamelinkData(movieDatas, 'nowPlayingMovieInfo')
-    addMovies(movieDatas)
+    await addMovies(movieDatas)
+
+  return 0
 });
 
 
@@ -161,7 +167,9 @@ export const popularMovieData = functions.
     const movieDatas = await getMovieData(popularMovieInfo)
 
     addFlamelinkData(movieDatas, 'popularMovieInfo')
-    addMovies(movieDatas)
+    await addMovies(movieDatas)
+
+  return 0
 });
 
 
@@ -186,5 +194,4 @@ export const updateAlgoliaData = functions.
     }
 
     return 0
-
   });
