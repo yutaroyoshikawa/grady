@@ -34,7 +34,7 @@
             <div class="screening-status">
               <screening-status-bar :handleChange="handleChangeStatus" />
             </div>
-            <div>
+            <div v-if="selectedStatus !== 'secret'">
               <ais-hits>
                 <div slot="item" slot-scope="{ item }" class="movie-list">
                   <movie-thumbnail
@@ -44,6 +44,17 @@
                   />
                 </div>
               </ais-hits>
+            </div>
+            <div class="secret-list-wrap" v-if="selectedStatus === 'secret'">
+              <div class="ais-Hits-list">
+                <div
+                  v-for="genre in genres"
+                  :key="genre.value"
+                  class="ais-Hits-item"
+                >
+                  <secret-card :text="genre.text" :value="genre.value" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,6 +69,7 @@ import ScreeningStatusBar from '~/layouts/screeningStatusBar.vue'
 import CloseButton from '~/components/buttons/closeButton.vue'
 import TagButton from '~/components/buttons/tagButton.vue'
 import MovieThumbnail from '~/layouts/movieThumbnail.vue'
+import SecretCard from '~/layouts/secretCard.vue'
 import InstantSearch from 'vue-instantsearch'
 import algoliasearch from 'algoliasearch/lite'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -73,7 +85,8 @@ export default Vue.extend({
     'close-button': CloseButton,
     'tag-button': TagButton,
     'movie-thumbnail': MovieThumbnail,
-    'font-awesome-icon': FontAwesomeIcon
+    'font-awesome-icon': FontAwesomeIcon,
+    'secret-card': SecretCard
   },
   data: function() {
     return {
@@ -200,6 +213,10 @@ export default Vue.extend({
       display: flex;
       justify-content: center;
       margin: 30px 0;
+    }
+
+    .secret-list-wrap {
+      margin-left: 35px;
     }
   }
 }
