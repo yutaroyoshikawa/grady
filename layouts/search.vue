@@ -8,10 +8,7 @@
       }"
     >
       <ais-instant-search :search-client="searchClient" index-name="movies">
-        <ais-refinement-list
-          attribute="isScreening"
-          transformItems="items => items.filter(item => item.isScreening === true)"
-        />
+        <ais-configure :facetFilters="filters" />
         <ais-search-box :value="inputValue" />
         <div class="search-wrapper">
           <div v-if="isActive" @click="handleBlur" class="closer">
@@ -130,7 +127,8 @@ export default Vue.extend({
         process.env.ALGOLIA_API_KEY as string
       ),
       inputValue: '',
-      selectedStatus: 'all'
+      selectedStatus: 'all',
+      filters: [] as string[]
     }
   },
   methods: {
@@ -142,6 +140,20 @@ export default Vue.extend({
     },
     handleChangeStatus: function(status: string) {
       this.selectedStatus = status
+      switch (status) {
+        case 'all':
+          this.filters = []
+          break
+        case 'screening':
+          this.filters = ['isScreening: true']
+          break
+        case 'screened':
+          this.filters = ['isScreening: false']
+          break
+        case 'secret':
+          this.filters = []
+          break
+      }
     }
   }
 })
