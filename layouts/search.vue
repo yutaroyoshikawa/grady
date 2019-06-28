@@ -8,7 +8,7 @@
       }"
     >
       <ais-instant-search :search-client="searchClient" index-name="movies">
-        <ais-configure :facetFilters="filters" />
+        <ais-configure :facetFilters="filters" :tagFilters="selectedGenres" />
         <ais-search-box :value="inputValue" />
         <div class="search-wrapper">
           <div v-if="isActive" @click="handleBlur" class="closer">
@@ -25,7 +25,12 @@
           <div v-if="isActive">
             <div class="genre-wrapper">
               <div v-for="genre in genres" :key="genre.value" class="genre">
-                <tag-button :name="genre.text" />
+                <tag-button
+                  :name="genre.text"
+                  :value="genre.value"
+                  :handleActive="handleActiveGenre"
+                  :handleInactive="handleInactiveGenre"
+                />
               </div>
             </div>
             <div class="screening-status">
@@ -90,36 +95,80 @@ export default Vue.extend({
       isActive: false,
       genres: [
         {
-          value: 'action',
+          value: '28',
           text: 'アクション'
         },
         {
-          value: 'action',
-          text: 'ホラー'
+          value: '12',
+          text: 'アドベンチャー'
         },
         {
-          value: 'action',
-          text: 'サスペンス'
-        },
-        {
-          value: 'action',
-          text: 'コメディ'
-        },
-        {
-          value: 'action',
-          text: 'SF'
-        },
-        {
-          value: 'action',
+          value: '16',
           text: 'アニメ'
         },
         {
-          value: 'action',
+          value: '35',
+          text: 'コメディ'
+        },
+        {
+          value: '80',
+          text: '極道'
+        },
+        {
+          value: '99',
           text: 'ドキュメンタリー'
         },
         {
-          value: 'action',
-          text: 'ラブロマンス'
+          value: '18',
+          text: 'ドラマ'
+        },
+        {
+          value: '10751',
+          text: 'ファミリー'
+        },
+        {
+          value: '14',
+          text: 'ファンタジー'
+        },
+        {
+          value: '36',
+          text: 'ヒストリー'
+        },
+        {
+          value: '27',
+          text: 'ホラー'
+        },
+        {
+          value: '10402',
+          text: 'ミュージック'
+        },
+        {
+          value: '9648',
+          text: 'ミステリー'
+        },
+        {
+          value: '10749',
+          text: 'ロマンス'
+        },
+        {
+          value: '878',
+          text: 'SF'
+        },
+        {
+          value: '10770',
+          text: 'バラエティ'
+        },
+        {
+          value: '53',
+          text: 'スリラー'
+        },
+        {
+          value: '10752',
+          text: '戦争'
+        },
+        {
+          value: '37',
+          text: 'ウェスタン'
         }
       ],
       searchClient: algoliasearch(
@@ -128,6 +177,7 @@ export default Vue.extend({
       ),
       inputValue: '',
       selectedStatus: 'all',
+      selectedGenres: [] as string[],
       filters: [] as string[]
     }
   },
@@ -137,6 +187,13 @@ export default Vue.extend({
     },
     handleBlur: function() {
       this.isActive = false
+    },
+    handleActiveGenre: function(genre: string) {
+      this.selectedGenres.push(genre)
+    },
+    handleInactiveGenre: function(genre: string) {
+      const index = this.selectedGenres.findIndex(item => item === genre)
+      this.selectedGenres.splice(index, 1)
     },
     handleChangeStatus: function(status: string) {
       this.selectedStatus = status

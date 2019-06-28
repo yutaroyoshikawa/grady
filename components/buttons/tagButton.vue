@@ -17,7 +17,10 @@
 import Vue from 'vue'
 export default Vue.extend({
   props: {
-    name: String
+    name: String,
+    value: String,
+    handleActive: Function,
+    handleInactive: Function
   },
   data: function() {
     return {
@@ -27,6 +30,9 @@ export default Vue.extend({
   methods: {
     onClick: function() {
       this.isActive = !this.isActive
+      this.isActive
+        ? this.handleActive(this.value)
+        : this.handleInactive(this.value)
     }
   }
 })
