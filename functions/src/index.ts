@@ -3,6 +3,8 @@ import * as functions from 'firebase-functions';
 import {app} from "./flamelinkConfig";
 import axios from 'axios';
 
+import * as  nanoid from 'nanoid'
+
 import {addMovies, updateMovies} from './algolia'
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -195,3 +197,13 @@ export const updateAlgoliaData = functions.
 
     return 0
   });
+
+
+export const randomString = functions.
+  region('asia-northeast1').
+  https.onRequest(async () => {
+    const data = nanoid(128)
+    console.log(data)
+
+    return data
+});
