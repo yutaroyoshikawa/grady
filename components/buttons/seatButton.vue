@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="wrap">
-      <button>
-        A1
+      <button
+        :class="{
+          active: isReserved,
+          inactice: !isReserved
+        }"
+        :disabled="isReserved"
+      >
+        {{ value }}
       </button>
     </div>
   </div>
@@ -10,13 +16,17 @@
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    value: String,
+    isReserved: Boolean
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 .wrap {
   button {
-    color: #fff;
     border: none;
     cursor: pointer;
     outline: none;
@@ -25,7 +35,21 @@ export default Vue.extend({})
     display: block;
     border: 3px solid #fff;
     border-radius: 20px;
+  }
+
+  .active {
+    color: #000;
+    background-color: #fff;
+  }
+
+  .inactice {
+    color: #fff;
     background-color: transparent;
+    transition: all 300ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
   }
 }
 
