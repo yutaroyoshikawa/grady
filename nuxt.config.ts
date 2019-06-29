@@ -30,7 +30,7 @@ const nuxtConfig: NuxtConfiguration = {
     '@fortawesome/fontawesome-free-webfonts/css/fa-brands.css',
     '@fortawesome/fontawesome-free-webfonts/css/fa-regular.css',
     '@fortawesome/fontawesome-free-webfonts/css/fa-solid.css',
-    'styles/algolia.css'
+    'styles/algolia.scss'
   ],
 
   /*

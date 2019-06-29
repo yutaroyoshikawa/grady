@@ -132,7 +132,7 @@ export default Vue.extend({
         },
         {
           value: '36',
-          text: 'ヒストリー'
+          text: '時代劇'
         },
         {
           value: '27',
@@ -218,26 +218,18 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .wrap {
-  transition: all 800ms ease;
-
   .search-wrapper {
     transition: all 800ms ease;
 
     .closer {
       position: absolute;
-      transform: translate(80px, 30px);
     }
 
     .genre-wrapper {
       display: flex;
-      margin: 25px 0;
       overflow-x: scroll;
       &::-webkit-scrollbar {
         display: none;
-      }
-
-      .genre {
-        margin: 0 15px;
       }
     }
 
@@ -247,31 +239,24 @@ export default Vue.extend({
       justify-content: center;
 
       .search-box {
-        width: 722px;
-        height: 66px;
         border: solid 2px #fff;
-        border-radius: 38px;
-        margin-top: 30px;
         display: flex;
         align-items: center;
 
         input {
-          font-size: 30px;
-          padding: 20px;
           width: 100%;
           height: 100%;
-          border-radius: 38px;
           background: transparent;
           color: #fff;
           border: none;
+
+          &:focus {
+            outline: rgba(0, 0, 0, 0);
+          }
         }
 
         .search-mark {
-          width: 38px;
-          height: 38px;
-          font-size: 38px;
           color: #fff;
-          margin: 20px;
           transform: translateY(-5px);
         }
       }
@@ -281,35 +266,259 @@ export default Vue.extend({
       width: 100%;
       display: flex;
       justify-content: center;
-      margin: 30px 0;
     }
 
     .secret-list-wrap {
-      margin-left: 35px;
+      &::before {
+        content: '';
+        background: linear-gradient(
+          rgba(58, 119, 146, 1),
+          rgba(58, 119, 146, 0)
+        );
+        position: absolute;
+        z-index: 10;
+      }
     }
   }
 }
 
 .active {
-  width: 1440px;
-  height: 762px;
-
   .search-wrapper {
-    width: 1440px;
-    height: 762px;
-    border-radius: 53px;
     background-color: #377793;
   }
 }
 
 .inactive {
-  width: 722px;
-  height: 66px;
-
   .search-wrapper {
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    .search-wrapper {
+      .closer {
+        transform: translate(80px, 30px);
+      }
+
+      .genre-wrapper {
+        margin: 25px 0;
+
+        .genre {
+          margin: 0 15px;
+        }
+      }
+
+      .search-box-wrapper {
+        .search-box {
+          width: 722px;
+          height: 66px;
+          border-radius: 38px;
+          margin-top: 30px;
+
+          input {
+            font-size: 30px;
+            padding: 20px;
+            border-radius: 38px;
+          }
+
+          .search-mark {
+            width: 38px;
+            height: 38px;
+            font-size: 38px;
+            margin: 20px;
+            transform: translateY(-5px);
+          }
+        }
+      }
+
+      .screening-status {
+        margin: 30px 0;
+      }
+
+      .secret-list-wrap {
+        margin-left: 35px;
+
+        &::before {
+          width: 1355px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .active {
+    width: 1440px;
+    height: 762px;
+
+    .search-wrapper {
+      width: 1440px;
+      height: 762px;
+      border-radius: 53px;
+    }
+  }
+
+  .inactive {
+    width: 722px;
     height: 66px;
-    border-radius: 53px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 53px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    .search-wrapper {
+      .closer {
+        transform: translate(30px, 20px);
+      }
+
+      .genre-wrapper {
+        margin: 25px 0;
+
+        .genre {
+          margin: 0 15px;
+        }
+      }
+
+      .search-box-wrapper {
+        .search-box {
+          width: 353px;
+          height: 47px;
+          border-radius: 47px;
+          margin-top: 30px;
+
+          input {
+            font-size: 30px;
+            padding-left: 15px;
+            border-radius: 38px;
+          }
+
+          .search-mark {
+            width: 28px;
+            height: 28px;
+            font-size: 28px;
+            margin: 15px;
+            transform: translateY(-3px);
+          }
+        }
+      }
+
+      .screening-status {
+        margin: 30px 0;
+      }
+
+      .secret-list-wrap {
+        margin-left: 35px;
+
+        &::before {
+          width: 542px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .active {
+    width: 588px;
+    height: 762px;
+
+    .search-wrapper {
+      width: 588px;
+      height: 762px;
+      border-radius: 53px;
+    }
+  }
+
+  .inactive {
+    width: 722px;
+    height: 66px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 53px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wrap {
+    .search-wrapper {
+      .closer {
+        transform: translate(10px, 10px);
+      }
+
+      .genre-wrapper {
+        margin: 15px 0;
+
+        .genre {
+          margin: 0 10px;
+        }
+      }
+
+      .search-box-wrapper {
+        .search-box {
+          width: 188px;
+          height: 36px;
+          border-radius: 36px;
+          margin-top: 30px;
+
+          input {
+            font-size: 30px;
+            padding: 20px;
+            border-radius: 38px;
+          }
+
+          .search-mark {
+            width: 22px;
+            height: 22px;
+            font-size: 22px;
+            margin: 10px;
+            transform: translateY(-3px);
+          }
+        }
+      }
+
+      .screening-status {
+        margin: 15px 0;
+      }
+
+      .secret-list-wrap {
+        margin-left: 35px;
+
+        &::before {
+          width: 252px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  .active {
+    width: 297px;
+    height: 457px;
+
+    .search-wrapper {
+      width: 297px;
+      height: 457px;
+      border-radius: 32px;
+    }
+  }
+
+  .inactive {
+    width: 188px;
+    height: 36px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 36px;
+    }
   }
 }
 </style>
