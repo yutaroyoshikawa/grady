@@ -111,9 +111,10 @@ const getMovieData = (movies: any) => {
   }))
 };
 
+type schemaKey = 'nowPlayingMovieInfo' | 'popularMovieInfo'
 
 // schemaKeyで検索してデータが無ければFlamelinkに追加する
-const addFlamelinkData = (datas: any, schemaKey: string) => {
+const addFlamelinkData = (datas: any, schemaKey: schemaKey) => {
   datas.forEach((data: any) => {
     app.content.get({
       schemaKey,
