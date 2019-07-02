@@ -17,19 +17,34 @@ export default Vue.extend({
 .chat-box {
   display: flex;
   align-items: center;
-  width: 291px;
-  min-height: 61px;
   border: solid #000000 1px;
   background-color: #ffffff;
-  border-radius: 56px;
   flex-wrap: wrap;
   word-wrap: break-word;
 
   .contents {
-    padding: 10px;
-    width: 291px;
-    margin: 30px;
     word-break: break-all;
   }
+}
+
+@media screen and (min-width: 1024px) {
+  .chat-box {
+    width: 291px;
+    min-height: 61px;
+    border: solid #000000 1px;
+    border-radius: 56px;
+
+    .contents {
+      padding: 10px;
+      width: 291px;
+      margin: 30px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 767px) {
 }
 </style>
