@@ -1,4 +1,5 @@
 import NuxtConfiguration from '@nuxt/config'
+import * as hardSource from 'hard-source-webpack-plugin'
 import * as pkg from './package.json'
 
 const nuxtConfig: NuxtConfiguration = {
@@ -75,6 +76,10 @@ const nuxtConfig: NuxtConfiguration = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+
+        if (config.plugins) {
+          config.plugins.push(new hardSource())
+        }
       }
     }
   }
