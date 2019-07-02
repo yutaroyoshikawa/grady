@@ -36,25 +36,29 @@
             <div class="screening-status">
               <screening-status-bar :handleChange="handleChangeStatus" />
             </div>
-            <div v-if="selectedStatus !== 'secret'">
-              <ais-hits>
-                <div slot="item" slot-scope="{ item }" class="movie-list">
-                  <movie-thumbnail
-                    :isScreening="item.isScreening"
-                    :thumbUrl="'https://image.tmdb.org/t/p/w500/' + item.cover"
-                    :thumbName="item.title"
-                  />
-                </div>
-              </ais-hits>
-            </div>
-            <div class="secret-list-wrap" v-if="selectedStatus === 'secret'">
-              <div class="ais-Hits-list">
-                <div
-                  v-for="genre in genres"
-                  :key="genre.value"
-                  class="ais-Hits-item"
-                >
-                  <secret-card :text="genre.text" :value="genre.value" />
+            <div class="hits-wrapper">
+              <div v-if="selectedStatus !== 'secret'">
+                <ais-hits>
+                  <div slot="item" slot-scope="{ item }" class="movie-list">
+                    <movie-thumbnail
+                      :isScreening="item.isScreening"
+                      :thumbUrl="
+                        'https://image.tmdb.org/t/p/w500/' + item.cover
+                      "
+                      :thumbName="item.title"
+                    />
+                  </div>
+                </ais-hits>
+              </div>
+              <div class="secret-list-wrap" v-if="selectedStatus === 'secret'">
+                <div class="ais-Hits-list">
+                  <div
+                    v-for="genre in genres"
+                    :key="genre.value"
+                    class="ais-Hits-item"
+                  >
+                    <secret-card :text="genre.text" :value="genre.value" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -268,15 +272,19 @@ export default Vue.extend({
       justify-content: center;
     }
 
-    .secret-list-wrap {
-      &::before {
-        content: '';
-        background: linear-gradient(
-          rgba(58, 119, 146, 1),
-          rgba(58, 119, 146, 0)
-        );
-        position: absolute;
-        z-index: 10;
+    .hits-wrapper {
+      overflow-y: scroll;
+
+      .secret-list-wrap {
+        &::before {
+          content: '';
+          background: linear-gradient(
+            rgba(58, 119, 146, 1),
+            rgba(58, 119, 146, 0)
+          );
+          position: absolute;
+          z-index: 10;
+        }
       }
     }
   }
@@ -336,12 +344,16 @@ export default Vue.extend({
         margin: 30px 0;
       }
 
-      .secret-list-wrap {
-        margin-left: 35px;
+      .hits-wrapper {
+        height: 500px;
 
-        &::before {
-          width: 1355px;
-          height: 50px;
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 1355px;
+            height: 50px;
+          }
         }
       }
     }
@@ -412,12 +424,16 @@ export default Vue.extend({
         margin: 30px 0;
       }
 
-      .secret-list-wrap {
-        margin-left: 35px;
+      .hits-wrapper {
+        height: 519px;
 
-        &::before {
-          width: 542px;
-          height: 50px;
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 542px;
+            height: 50px;
+          }
         }
       }
     }
@@ -488,12 +504,16 @@ export default Vue.extend({
         margin: 15px 0;
       }
 
-      .secret-list-wrap {
-        margin-left: 35px;
+      .hits-wrapper {
+        height: 280px;
 
-        &::before {
-          width: 252px;
-          height: 50px;
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 252px;
+            height: 50px;
+          }
         }
       }
     }
