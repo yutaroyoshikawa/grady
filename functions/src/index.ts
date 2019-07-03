@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import { sendMail } from './mail'
 
 import {app} from "./flamelinkConfig";
 import axios from 'axios';
@@ -208,3 +209,11 @@ export const randomString = functions.
 
     return data
 });
+
+
+export const mailTest = functions.region('asia-northeast1')
+  .https.onRequest(async (data) => {
+    const reservationId = nanoid(128)
+    const text = `http://localhost:3000/reservations/${reservationId}`
+    await sendMail('kurosawa.developer@gmail.com', 'hogehgoe', text)
+  })
