@@ -8,10 +8,12 @@
       <div class="main-wrapper">
         <main class="contents">
           <div class="contents-title">ヒント</div>
-          <div class="hints">
-            <hint class="hint_1" />
-            <hint class="hint_1" />
-            <hint />
+          <div class="hints" v-for="(count, index) in demo" :key="index">
+            <hint
+              class="hint_1"
+              :content="count.content"
+              :number="count.number"
+            />
           </div>
         </main>
       </div>
@@ -27,6 +29,15 @@ export default Vue.extend({
   components: { 'close-button': CloseButton, hint: Hint },
   props: {
     hints: Array
+  },
+  data() {
+    return {
+      demo: [
+        { content: 'hoge', number: 1 },
+        { content: '', number: 2 },
+        { content: '', number: 3 }
+      ]
+    }
   }
 })
 </script>
