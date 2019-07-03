@@ -1,8 +1,10 @@
 import * as functions from 'firebase-functions';
+import * as  nanoid from 'nanoid'
+import { sendMail } from './mail'
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+export const mailTest = functions.region('asia-northeast1')
+  .https.onRequest(async (data) => {
+    const reservationId = nanoid(128)
+    const text = `http://localhost:3000/reservations/${reservationId}`
+    await sendMail('kurosawa.developer@gmail.com', 'hogehgoe', text)
+})
