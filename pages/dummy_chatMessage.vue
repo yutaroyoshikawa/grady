@@ -1,13 +1,15 @@
 <template>
-    $END$
+  <chat-message />
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import ChatMessage from '../components/texts/chatMessage'
 
-<script>
-  export default {
-    name: 'dummy_chatMessage'
+export default Vue.extend({
+  components: {
+    'chat-message': ChatMessage
   }
+})
 </script>
 
-<style scoped>
-
-</style>
+<style lang="scss" scoped></style>
