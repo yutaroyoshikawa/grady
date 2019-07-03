@@ -4,10 +4,11 @@
       <div>
         <label
           :class="{
-          active: content,
-          inactive: !content
-        }"
-        >{{ number }}</label>
+            active: content,
+            inactive: !content
+          }"
+          >{{ number }}</label
+        >
       </div>
       <p v-if="content" class="active-content">{{ content }}</p>
       <p v-if="!content" class="inactive-content">Comming soon...</p>
