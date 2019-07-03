@@ -1,17 +1,17 @@
 <template>
-  <body>
+  <div class="aaaaa">
     <div class="input_wrapper">
       <input
         type="email"
-        class="mail"
+        class="email-input"
         placeholder="メールアドレス"
         v-model="hoge"
       />
-      <button class="btn" :disabled="isDisable">
-        <font-awesome-icon icon="paper-plane" size="3x" />
+      <button class="submit-button" :disabled="isDisable">
+        <font-awesome-icon icon="paper-plane" />
       </button>
     </div>
-  </body>
+  </div>
 </template>
 
 <script lang="ts">
@@ -59,19 +59,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-/*1/2まだしてない*/
-
-/*wrapper*/
-.input_wrapper {
-  display: flex;
-  background-color: #ffffff;
-  height: 77px;
-  width: 573px;
-  border-radius: 77px;
-  align-items: center;
+.aaaaa {
+  background-color: #000000;
+  width: 1000px;
+  height: 500px;
 }
-
-/*input mail*/
 input {
   padding: 0;
   border: none;
@@ -79,46 +71,84 @@ input {
   outline: none;
   background: none;
 }
-.mail {
-  width: 495px;
-  height: 72px;
-  border-top-left-radius: 72px;
-  border-bottom-left-radius: 72px;
-  background-color: #0d0d36;
-  margin-left: 2px;
-  padding-left: 26px;
-  font-size: 36px;
-  line-height: 60px;
-  color: #ffffff;
-  outline: 0;
-}
 
-::placeholder {
-  color: #ffffff;
-  font-family: 'TsukuBRdGothic-Regular', sans-serif;
-}
-
-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  appearance: none;
-}
-/*submit*/
-.btn {
+.input_wrapper {
+  background-color: #ffffff;
+  border: solid 3px #ffffff;
   display: flex;
-  justify-content: center;
-  width: 74px;
-  height: 72px;
-  border-bottom-right-radius: 72px;
-  border-top-right-radius: 72px;
-  margin-top: 2px;
-  outline: 0;
-  padding-right: 13px;
+  justify-content: space-between;
+  align-items: center;
 }
-i {
-  margin-right: 5px;
+.email-input {
+  background-color: #0d0d36;
+  color: #ffffff;
+}
+.isDisable {
+  color: #3cb371;
+}
+@media screen and (min-width: 1024px) {
+  .input_wrapper {
+    width: 573px;
+    height: 77px;
+    border-radius: 77px;
+  }
+  .email-input {
+    width: 499px;
+    height: 70px;
+    font-size: 36px;
+    border-bottom-left-radius: 74px;
+    border-top-left-radius: 74px;
+  }
+  .submit-button {
+    width: 74px;
+    height: 74px;
+    font-size: 37px;
+    border-bottom-right-radius: 74px;
+    border-top-right-radius: 74px;
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .input_wrapper {
+    width: 340px;
+    height: 45.69px;
+    border-radius: 77px;
+  }
+  .email-input {
+    width: 295px;
+    height: 42.69px;
+    font-size: 21px;
+    border-bottom-left-radius: 45.69px;
+    border-top-left-radius: 45.69px;
+  }
+  .submit-button {
+    width: 45.69px;
+    height: 42.69px;
+    font-size: 21.95px;
+    border-bottom-right-radius: 45.69px;
+    border-top-right-radius: 45.69px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .input_wrapper {
+    width: 249.29px;
+    height: 33.5px;
+    border-radius: 33.5px;
+  }
+  .email-input {
+    width: 217.29px;
+    height: 31.32px;
+    font-size: 21px;
+    border-bottom-left-radius: 31.32px;
+    border-top-left-radius: 31.32px;
+  }
+  .submit-button {
+    width: 32.32px;
+    height: 31.32px;
+    font-size: 16.1px;
+    border-bottom-right-radius: 31.32px;
+    border-top-right-radius: 31.32px;
+  }
 }
 </style>
