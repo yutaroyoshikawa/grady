@@ -10,7 +10,11 @@
         <font-awesome-icon icon="baby" class="icon" />
       </div>
       <div class="input-box">
-        <input type="number" v-model="hoge" min="0" max="9" maxlength="1" />
+        <select v-model="value" @change="handleChange">
+          <option v-for="loop in 11" :key="loop - 1" :value="loop - 1">{{
+            loop - 1
+          }}</option>
+        </select>
       </div>
     </div>
   </div>
@@ -35,21 +39,6 @@ export default Vue.extend({
     type: String,
     handleChange: Function,
     value: Number
-  },
-  data: function() {
-    return {
-      hoge: this.value
-    }
-  },
-  watch: {
-    hoge: function(value: string) {
-      if (Number(value) < 0 || Number(value) > 9 || !Number(value)) {
-        this.hoge = 0
-      } else {
-        this.hoge = Math.floor(Number(value))
-        this.handleChange(Math.floor(Number(value)))
-      }
-    }
   }
 })
 </script>
@@ -86,22 +75,26 @@ export default Vue.extend({
     flex-direction: column;
     justify-content: flex-end;
     padding-bottom: 10px;
+    transition: border-bottom 300ms ease;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.4);
+
+    &:hover {
+      border-bottom: solid 1px rgba(255, 255, 255, 1);
+    }
   }
 
-  input {
+  select {
     width: 75px;
     font-size: 30px;
     border: none;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.4);
     padding: 0 10px;
     transition: all 300ms ease;
     background: transparent;
     color: #fff;
   }
 
-  input:focus {
+  select:focus {
     outline: rgba(0, 0, 0, 0);
-    border-bottom: solid 1px rgba(255, 255, 255, 1);
   }
 }
 </style>

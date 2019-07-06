@@ -1,8 +1,52 @@
 <template>
   <div>
+    <header>
+      <nuxt-link to="/">
+        <div class="logo-wrap">
+          <logo />
+        </div>
+      </nuxt-link>
+      <div class="search-wrap">
+        <search />
+      </div>
+    </header>
     <nuxt />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+import Logo from '~/components/marks/logo.vue'
+import Search from '~/layouts/search.vue'
+
+export default Vue.extend({
+  components: {
+    logo: Logo,
+    search: Search
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+header {
+  .logo-wrap {
+    width: 76px;
+    height: 76px;
+    position: fixed;
+    top: 33px;
+    left: 154px;
+    z-index: 11;
+  }
+
+  .search-wrap {
+    position: fixed;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    z-index: 11;
+  }
+}
+</style>
 
 <style>
 html {

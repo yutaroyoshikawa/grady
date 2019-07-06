@@ -30,6 +30,9 @@ export default Vue.extend({
   components: {
     'tab-button': TabButton
   },
+  props: {
+    handleChangeSelected: Function
+  },
   data: function() {
     return {
       active: '概要'
@@ -38,12 +41,15 @@ export default Vue.extend({
   methods: {
     clickOverview: function() {
       this.active = '概要'
+      this.handleChangeSelected('概要')
     },
     clickPerformer: function() {
       this.active = '出演者'
+      this.handleChangeSelected('出演者')
     },
     clickStaff: function() {
       this.active = 'スタッフ'
+      this.handleChangeSelected('スタッフ')
     }
   }
 })
