@@ -87,7 +87,7 @@ import ScreeningDateSelector from '~/components/selector/screeningDateSelector.v
 import ScreeningTimeSelector from '~/components/selector/screeningTimeSelector.vue'
 import EmailInput from '~/components/inputs/mailInput.vue'
 import MovieTheaterSelector from '~/components/selector/movieTheaterSelector.vue'
-import PeopleInput from '~/components/inputs/peopleInput.vue'
+import PeopleInput from '~/components/selector/peopleInput.vue'
 import TicketPrice from '~/components/texts/ticketPrice.vue'
 import moment from 'moment'
 
