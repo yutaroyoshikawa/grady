@@ -2,7 +2,7 @@
   <div>
     <div class="entire">
       <div class="wrap">
-        <div class="closer">
+        <div class="closer" @click="handleClose">
           <close-button />
         </div>
 
@@ -89,6 +89,7 @@ import EmailInput from '~/components/inputs/mailInput.vue'
 import MovieTheaterSelector from '~/components/selector/movieTheaterSelector.vue'
 import PeopleInput from '~/components/inputs/peopleInput.vue'
 import TicketPrice from '~/components/texts/ticketPrice.vue'
+import moment from 'moment'
 
 export default Vue.extend({
   components: {
@@ -102,22 +103,94 @@ export default Vue.extend({
     'people-input': PeopleInput,
     'ticket-price': TicketPrice
   },
+  props: {
+    handleClose: Function,
+    handleSubmit: Function,
+    movieId: String
+  },
   data: function() {
     return {
       theaters: [
         {
-          name: 'hoge',
-          value: 'hoge'
+          name: 'ぴよぴよ映画館',
+          value: 'ぴよぴよ映画館'
+        },
+        {
+          name: 'ふがふが映画館',
+          value: 'ふがふが映画館'
+        },
+        {
+          name: 'ほげほげ映画館',
+          value: 'ほげほげ映画館'
         }
       ],
       times: [
         {
-          finish: new Date(),
-          start: new Date()
+          finish: moment()
+            .hour(14)
+            .minute(0)
+            .toDate(),
+          start: moment()
+            .hour(12)
+            .minute(0)
+            .toDate()
+        },
+        {
+          finish: moment()
+            .hour(17)
+            .minute(0)
+            .toDate(),
+          start: moment()
+            .hour(15)
+            .minute(0)
+            .toDate()
         }
       ],
-      dates: [new Date(), new Date()],
-      nowPage: 1,
+      dates: [
+        moment()
+          .add(1, 'day')
+          .toDate(),
+        moment()
+          .add(2, 'day')
+          .toDate(),
+        moment()
+          .add(3, 'day')
+          .toDate(),
+        moment()
+          .add(4, 'day')
+          .toDate(),
+        moment()
+          .add(5, 'day')
+          .toDate(),
+        moment()
+          .add(6, 'day')
+          .toDate(),
+        moment()
+          .add(7, 'day')
+          .toDate(),
+        moment()
+          .add(8, 'day')
+          .toDate(),
+        moment()
+          .add(9, 'day')
+          .toDate(),
+        moment()
+          .add(10, 'day')
+          .toDate(),
+        moment()
+          .add(11, 'day')
+          .toDate(),
+        moment()
+          .add(12, 'day')
+          .toDate(),
+        moment()
+          .add(13, 'day')
+          .toDate(),
+        moment()
+          .add(14, 'day')
+          .toDate()
+      ],
+      nowPage: 0,
       formDatas: {
         theater: '',
         date: 0,
@@ -150,11 +223,15 @@ export default Vue.extend({
         this.formDatas.time = Number(e.target.value)
       }
     },
-    handleChangeAdult: function(num: string) {
-      this.$set(this.formDatas, 'adult', Number(num))
+    handleChangeAdult: function(e: Event) {
+      if (e.target instanceof HTMLSelectElement) {
+        this.$set(this.formDatas, 'adult', Number(e.target.value))
+      }
     },
-    handleChangeKids: function(num: string) {
-      this.$set(this.formDatas, 'kids', Number(num))
+    handleChangeKids: function(e: Event) {
+      if (e.target instanceof HTMLSelectElement) {
+        this.$set(this.formDatas, 'kids', Number(e.target.value))
+      }
     },
     handleChangeEmail: function(value: string) {
       this.formDatas.email = value
@@ -162,6 +239,21 @@ export default Vue.extend({
     handleSend: function(e: Event) {
       if (e.target instanceof HTMLFormElement) {
         e.preventDefault()
+        this.handleSubmit({
+          movieId: this.movieId,
+          theater: this.formDatas.theater,
+          date: moment(this.dates[this.formDatas.date - 1]).format(
+            'YYYY-MM-DD'
+          ),
+          time: `${moment(this.times[this.formDatas.time - 1].start).format(
+            'HH:mm'
+          )}-${moment(this.times[this.formDatas.time - 1].finish).format(
+            'HH:mm'
+          )}`,
+          adult: this.formDatas.adult,
+          kids: this.formDatas.kids,
+          email: this.formDatas.email
+        })
       }
     }
   }
@@ -172,9 +264,6 @@ export default Vue.extend({
 .entire {
   height: 100vh;
   background: #0d0d36;
-  position: fixed;
-  top: 0;
-  right: 0;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
