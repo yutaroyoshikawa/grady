@@ -67,6 +67,6 @@ p.contents {
   word-break: break-all;
 }
 .wrapper {
-  width: 750px;
+  width: 532px;
 }
 </style>
