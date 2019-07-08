@@ -43,6 +43,18 @@ export default Vue.extend({
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .chat-box {
+    width: 153px;
+    min-height: 54px;
+    border: solid #000000 1px;
+    border-radius: 56px;
+
+    .contents {
+      padding: 1px;
+      width: 153px;
+      margin: 18px;
+    }
+  }
 }
 
 @media screen and (max-width: 767px) {
