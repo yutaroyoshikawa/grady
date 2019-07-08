@@ -1,4 +1,5 @@
 import NuxtConfiguration from '@nuxt/config'
+import * as hardSource from 'hard-source-webpack-plugin'
 import * as pkg from './package.json'
 
 const nuxtConfig: NuxtConfiguration = {
@@ -55,7 +56,13 @@ const nuxtConfig: NuxtConfiguration = {
 
   env: {
     ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY as string,
-    ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID as string
+    ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID as string,
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY as string,
+    FIREBASE_AUTH_DOMAIN: 'grady-43e4a.firebaseapp.com',
+    FIREBASE_DATABASE_URL: 'https://grady-43e4a.firebaseio.com',
+    FIREBASE_PROJECT_ID: 'grady-43e4a',
+    FIREBASE_STORAGE_BUCKET: 'grady-43e4a.appspot.com',
+    FIREBASE_MESSAGING_SENDER_ID: '850547752139',
   },
 
   /*
@@ -75,6 +82,10 @@ const nuxtConfig: NuxtConfiguration = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+
+        if (config.plugins) {
+          config.plugins.push(new hardSource())
+        }
       }
     }
   }
