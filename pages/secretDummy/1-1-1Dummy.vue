@@ -13,7 +13,8 @@
             <p class="chats-massage">
               チケットを購入するとチャットに参加いただけます。
             </p>
-            <read-only-chat :chats="chats" />
+
+            <read-only-chat class="hoge" :chats="chats" />
           </div>
         </div>
       </div>
@@ -94,11 +95,19 @@ export default Vue.extend({
 .right {
   display: flex;
   align-items: center;
+  background-color: lightseagreen;
 
   .chats-description {
     width: 638px;
     height: 100%;
     color: #ffffff;
+    background-color: lightcoral;
+
+    .hoge {
+      background-color: lightblue;
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 .chats-title {
