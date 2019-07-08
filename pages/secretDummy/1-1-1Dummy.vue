@@ -1,33 +1,37 @@
 <template>
-  <div>
-    <div class="wrap">
-      <div class="box">
-        <div class="left">
-          <p class="secret-text">シークレット映画</p>
-          <secret-ganru-selecter />
-          <go-to-watch-button :handleClick="requestOpenDrawer" />
-        </div>
-        <div class="right">
-          <div class="chats-description">
-            <p class="chats-title">チャットで映画を推理</p>
-            <p class="chats-massage">
-              チケットを購入するとチャットに参加いただけます。
-            </p>
+  <div class="wrapper">
+    <div class="top">1</div>
+    <div>2</div>
+    <main class="main">
+      <p class="secret-text">シークレット映画</p>
+      <secret-ganru-selecter />
+      <go-to-watch-button
+        class="drawer-btn"
+        :handle-click="requestOpenDrawer"
+      />
+    </main>
+    <div>4</div>
+    <div class="main">
+      <div class="chats-description">
+        <p class="chats-title">チャットで映画を推理</p>
+        <p class="chats-massage">
+          チケットを購入するとチャットに参加いただけます。
+        </p>
 
-            <read-only-chat class="hoge" :chats="chats" />
-          </div>
-        </div>
+        <read-only-chat class="hoge" :chats="chats" />
       </div>
     </div>
+    <div>6</div>
     <transition name="drawer">
       <div v-if="isOpenDrawer" class="drawer">
         <go-to-watch-drawer
-          :handleClose="requestCloseDrawer"
-          :handleSubmit="requestTemporaryReservation"
-          :movieId="movieId"
+          :handle-close="requestCloseDrawer"
+          :handle-submit="requestTemporaryReservation"
+          :movie-id="movieId"
         />
       </div>
     </transition>
+    <div class="footer">7</div>
   </div>
 </template>
 
@@ -74,71 +78,81 @@ export default Vue.extend({
   }
 })
 </script>
-<style lang="scss" scoped>
-.wrap {
+
+<style scoped lang="scss">
+.wrapper {
+  display: grid;
+  grid-template-columns: 181px 640px 263px 638px 199px;
+  grid-template-rows: 237px 737px 106px;
   background-color: #0a2e41;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.box {
-  display: flex;
-  justify-content: space-between;
-}
-.secret-text {
-  color: #ffffff;
-  font-size: 80px;
-}
+  justify-content: center;
 
-.right {
-  display: flex;
-  align-items: center;
-  background-color: lightseagreen;
+  .top {
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
 
-  .chats-description {
-    width: 638px;
-    height: 100%;
-    color: #ffffff;
-    background-color: lightcoral;
+  .main {
+    .drawer-btn {
+      margin-top: 370px;
+    }
 
-    .hoge {
-      background-color: lightblue;
-      display: flex;
-      justify-content: center;
+    .secret-text {
+      color: #ffffff;
+      font-size: 80px;
+    }
+
+    .chats-description {
+      /*width: 638px;*/
+      width: 100%;
+      height: 100%;
+      color: #ffffff;
+      /*background-color: lightcyan;*/
+
+      .chats-title {
+        font-size: 38px;
+      }
+      .chats-massage {
+        font-size: 21px;
+        border-bottom: solid 3px #ffffff;
+      }
+
+      .hoge {
+        /*background-color: lightblue;*/
+        display: flex;
+        justify-content: center;
+        height: 100%;
+      }
     }
   }
-}
-.chats-title {
-  font-size: 38px;
-}
-.chats-massage {
-  font-size: 21px;
-  border-bottom: solid 3px #ffffff;
-}
 
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: transform 400ms ease;
-}
+  .drawer-enter-active,
+  .drawer-leave-active {
+    transition: transform 400ms ease;
+  }
 
-.drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 20;
-}
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 20;
+  }
 
-.drawer-enter {
-  transform: translateX(100%);
-}
+  .drawer-enter {
+    transform: translateX(100%);
+  }
 
-.drawer-enter-to {
-  transform: translateX(0);
-}
+  .drawer-enter-to {
+    transform: translateX(0);
+  }
 
-.drawer-leave-to {
-  transform: translateX(100%);
+  .drawer-leave-to {
+    transform: translateX(100%);
+  }
+
+  .footer {
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
 }
 </style>
