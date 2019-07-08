@@ -2,19 +2,23 @@
   <div>
     <div class="wrap">
       <div class="box">
-        <div class="left">
+        <div class="box-left">
           <p class="secret-text">シークレット映画</p>
           <secret-ganru-selecter />
-          <go-to-watch-button :handleClick="requestOpenDrawer" />
+          <go-to-watch-button
+            class="go-to-watch"
+            :handleClick="requestOpenDrawer"
+          />
         </div>
-        <div class="right">
+        <div class="box-right">
           <div class="chats-description">
             <p class="chats-title">チャットで映画を推理</p>
             <p class="chats-massage">
               チケットを購入するとチャットに参加いただけます。
             </p>
-
-            <read-only-chat class="hoge" :chats="chats" />
+            <div class="chat-wrap">
+              <read-only-chat :chats="chats" />
+            </div>
           </div>
         </div>
       </div>
@@ -81,30 +85,36 @@ export default Vue.extend({
   width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.box {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+
+  .box {
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 .secret-text {
   color: #ffffff;
   font-size: 80px;
 }
 
-.right {
-  display: flex;
-  align-items: center;
-  background-color: lightseagreen;
+.box-left {
+  .go-to-watch {
+    margin-top: 30%;
+  }
+}
 
+.box-right {
+  justify-content: flex-end;
   .chats-description {
     width: 638px;
     height: 100%;
     color: #ffffff;
-    background-color: lightcoral;
 
-    .hoge {
-      background-color: lightblue;
+    .chat-wrap {
+      margin-top: 10%;
       display: flex;
       justify-content: center;
     }
