@@ -70,9 +70,9 @@ export default Vue.extend({
       this.$store.dispatch('movies/requestTemporaryReservation', form)
     }
   },
-  data() {
+  data: function() {
     return {
-      defaultGenre: 'アクション',
+      movieId: this.$route.params.id,
       chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
     }
   }
