@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <div class="top">1</div>
-    <div>2</div>
+    <div class="top"></div>
+    <div></div>
     <main class="main">
       <p class="secret-text">シークレット映画</p>
       <secret-ganru-selecter />
@@ -10,7 +10,7 @@
         :handle-click="requestOpenDrawer"
       />
     </main>
-    <div>4</div>
+    <div></div>
     <div class="main">
       <div class="chats-description">
         <p class="chats-title">チャットで映画を推理</p>
@@ -21,7 +21,7 @@
         <read-only-chat class="hoge" :chats="chats" />
       </div>
     </div>
-    <div>6</div>
+    <div></div>
     <transition name="drawer">
       <div v-if="isOpenDrawer" class="drawer">
         <go-to-watch-drawer
@@ -31,7 +31,7 @@
         />
       </div>
     </transition>
-    <div class="footer">7</div>
+    <div class="footer"></div>
   </div>
 </template>
 
