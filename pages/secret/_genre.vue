@@ -27,7 +27,7 @@
         <go-to-watch-drawer
           :handle-close="requestCloseDrawer"
           :handle-submit="requestTemporaryReservation"
-          :movie-id="movieId"
+          :genre="genre"
         />
       </div>
     </transition>
@@ -72,7 +72,7 @@ export default Vue.extend({
   },
   data: function() {
     return {
-      movieId: this.$route.params.id,
+      genre: this.$route.params.genre,
       chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
     }
   }
@@ -86,6 +86,8 @@ export default Vue.extend({
   grid-template-rows: 237px 737px 106px;
   background-color: #0a2e41;
   justify-content: center;
+  height: 100vh;
+  width: 100vw;
 
   .top {
     grid-column-start: 1;
