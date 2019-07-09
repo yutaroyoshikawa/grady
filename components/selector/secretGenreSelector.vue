@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="wrap">
-      <select v-model="defaultGenre">
+      <select v-model="genre" @change="handleChange">
         <option
           v-for="genre in genres"
-          v-bind:value="genre.value"
-          v-bind:key="genre.value"
-        >{{ genre.text }}</option>
+          :key="genre.value"
+          :value="genre.value"
+          >{{ genre.text }}</option
+        >
       </select>
     </div>
   </div>
@@ -16,14 +17,15 @@
 import Vue from 'vue'
 export default Vue.extend({
   props: {
-    defaultGenre: String
+    genre: String,
+    handleChange: Function
   },
   data: function() {
     return {
       genres: [
         {
           text: 'アクション',
-          value: 'action'
+          value: 'Action'
         },
         {
           text: 'サスペンス',
@@ -147,4 +149,3 @@ export default Vue.extend({
   }
 }
 </style>
-
