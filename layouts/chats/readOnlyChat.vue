@@ -45,6 +45,8 @@ export default Vue.extend({
   flex-wrap: wrap;
   /*text-align: center;*/
   word-wrap: break-word;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 .chat_box2 {
   display: flex;
