@@ -63,7 +63,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions({
-      requestOpenDrawer: 'mkfovies/requestOpenDrawer',
+      requestOpenDrawer: 'movies/requestOpenDrawer',
       requestCloseDrawer: 'movies/requestCloseDrawer'
     }),
     requestTemporaryReservation: function(form: IReservationForm) {
