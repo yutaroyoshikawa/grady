@@ -1,6 +1,10 @@
-export default function(route: { path: any; params: any; }) {
-
-  const check = route.params
+export default (
+function (route: { genre: string; params: any; }) {
     // log出力
-    window.alert(check)
-}
+    const hoge = route.params.genre
+    if (hoge == 'Action' || hoge == 'Sucpense' || hoge == 'Science Fiction' ||hoge == 'Horror' || hoge == 'Comedy' || hoge == 'Romance') {
+      window.alert('ok')
+    } else {
+      window.alert('hogehoge')
+    }
+})
