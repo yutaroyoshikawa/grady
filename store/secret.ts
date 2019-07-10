@@ -7,12 +7,6 @@ interface ICommit {
 
 export interface IMovie {
   genre: string
-//   title: string
-//   releaseDate: string
-//   story: string
-//   isScreening: boolean
-//   cover: string
-//   coverBack: string
 }
 
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
@@ -38,12 +32,6 @@ export interface IReservationForm {
 export const state = (): IState => ({
   movie: {
     genre: '',
-    // title: '',
-    // releaseDate: '',
-    // story: '',
-    // isScreening: false,
-    // cover: '',
-    // coverBack: ''
   },
   loadState: 'none',
   submitState: 'done',
@@ -76,13 +64,7 @@ export const actions = {
         schemaKey: 'popularMovieInfo',
         entryId: payload,
         fields: [
-          'id',
-          'title',
-          'isScreening',
-          'releaseDate',
-          'story',
-          'cover',
-          'coverBack'
+          'genre',
         ],
       })
 
@@ -95,13 +77,7 @@ export const actions = {
             schemaKey: 'nowPlayingMovieInfo',
             entryId: payload,
             fields: [
-              'id',
-              'title',
-              'isScreening',
-              'releaseDate',
-              'story',
-              'cover',
-              'coverBack'
+              'genre'
             ],
           })
           
