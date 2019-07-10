@@ -29,23 +29,23 @@ export default Vue.extend({
         },
         {
           text: 'サスペンス',
-          value: 'suspense'
+          value: 'Suspense'
         },
         {
           text: 'SF',
-          value: 'sf'
+          value: 'Science Fiction'
         },
         {
           text: 'ホラー',
-          value: 'horror'
+          value: 'Horror'
         },
         {
           text: 'コメディ',
-          value: 'comedy'
+          value: 'Comedy'
         },
         {
           text: 'ロマンス',
-          value: 'romance'
+          value: 'Romance'
         }
       ]
     }
