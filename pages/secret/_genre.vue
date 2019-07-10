@@ -42,7 +42,7 @@ import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
-import { IMovie, loadStates, IReservationForm } from '~/store/movies'
+import { IMovie, loadStates, IReservationForm } from '~/store/secret'
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -55,7 +55,7 @@ export default Vue.extend({
       return this.$store.state.movies.movie
     },
     isOpenDrawer(): boolean {
-      return this.$store.state.movies.isOpenDrawer
+      return this.$store.state.secret.isOpenDrawer
     },
     loadState(): loadStates {
       return this.$store.state.movies.loadState
@@ -63,11 +63,11 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions({
-      requestOpenDrawer: 'movies/requestOpenDrawer',
-      requestCloseDrawer: 'movies/requestCloseDrawer'
+      requestOpenDrawer: 'secret/requestOpenDrawer',
+      requestCloseDrawer: 'secret/requestCloseDrawer'
     }),
     requestTemporaryReservation: function(form: IReservationForm) {
-      this.$store.dispatch('movies/requestTemporaryReservation', form)
+      this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
     handleChange: function(event: any) {
       // ルーティング
