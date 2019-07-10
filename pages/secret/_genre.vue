@@ -4,7 +4,7 @@
     <div></div>
     <main class="main">
       <p class="secret-text">シークレット映画</p>
-      <secret-genre-selecter :genre="genre" :handleChange="handleChange" />
+      <secret-genre-selecter :genre="genre" :handle-change="handleChange" />
       <go-to-watch-button
         class="drawer-btn"
         :handle-click="requestOpenDrawer"
@@ -43,6 +43,8 @@ import SecretGanruSelecter from '../../components/selector/secretGenreSelector.v
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
 import { IMovie, loadStates, IReservationForm } from '~/store/secret'
+import { firebaseApp } from '@/store/flamelink'
+
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -74,12 +76,32 @@ export default Vue.extend({
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
+    },
+    listenData: function() {
+      firebaseApp
+        .firestore()
+        .collection('chats')
+        .doc(this.genre)
+        .collection('chats')
+        .orderBy('postedAt', 'desc')
+        .onSnapshot((doc: any) => {
+          // eslint-disable-next-line no-console
+          console.log(doc.docs)
+          this.chats = doc.docs
+          doc.forEach((hoge: any) => {
+            // eslint-disable-next-line no-console
+            console.log(hoge.data())
+          })
+        })
     }
+  },
+  created() {
+    this.listenData()
   },
   data: function() {
     return {
       genre: this.$route.params.genre,
-      chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
+      chats: []
     }
   },
   middleware: ['secret']
