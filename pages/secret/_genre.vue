@@ -17,8 +17,9 @@
         <p class="chats-massage">
           チケットを購入するとチャットに参加いただけます。
         </p>
-        <read-only-chat class="hoge" :chats="chats" />
+        <div class="center-line"></div>
       </div>
+      <read-only-chat class="hoge" :chats="chats" />
     </div>
     <div></div>
     <transition name="drawer">
@@ -128,7 +129,6 @@ export default Vue.extend({
 
       .chats-description {
         color: #ffffff;
-
         .chats-title {
           font-size: 38px;
         }
@@ -157,19 +157,30 @@ export default Vue.extend({
     }
     .drawer-btn {
       position: relative;
-      bottom: -450px;
+      justify-content: center;
+      bottom: -500px;
       z-index: 2;
     }
     .secret-text {
       font-size: 61px;
     }
-    .chats-title {
-      font-size: 23px;
-    }
-    .chats-massage {
-      width: 218px;
-      font-size: 13px;
-      border-bottom: solid 3px #3e5d6e;
+    div.main {
+      display: flex;
+      flex-direction: column;
+      .chats-title {
+        text-align: center;
+        font-size: 23px;
+      }
+      .chats-massage {
+        text-align: center;
+        font-size: 13px;
+      }
+      .center-line {
+        display: flex;
+        justify-content: center;
+        width: 596px;
+        border-bottom: solid 3px #3e5d6e;
+      }
     }
   }
 }
