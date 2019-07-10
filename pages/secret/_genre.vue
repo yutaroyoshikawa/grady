@@ -81,7 +81,8 @@ export default Vue.extend({
       genre: this.$route.params.genre,
       chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
     }
-  }
+  },
+  middleware: ['secret']
 })
 </script>
 <style scoped lang="scss">
