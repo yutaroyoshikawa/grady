@@ -1,10 +1,12 @@
 export default (
 function (route: { genre: string; params: any; }) {
     // log出力
-    const hoge = route.params.genre
-    if (hoge == 'Action' || hoge == 'Sucpense' || hoge == 'Science Fiction' ||hoge == 'Horror' || hoge == 'Comedy' || hoge == 'Romance') {
-      window.alert('ok')
+    const check = route.params.genre
+    if (check == 'Action' || check == 'Sucpense' || check == 'Science Fiction' ||check == 'Horror' || check == 'Comedy' || check == 'Romance') {
+      return
+    } else if (check == null) {
+      return
     } else {
       window.alert('不正アクセスです')
     }
-})
+}) 
