@@ -1,5 +1,6 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
+import { firebaseApp } from '@/store/flamelink'
 
 interface ICommit {
   commit: vuex.Commit
@@ -17,6 +18,12 @@ interface IState {
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
+}
+
+// interface 宣言
+interface IHoge {
+  genre: string
+  chats: any
 }
 
 export interface IReservationForm {
@@ -38,6 +45,11 @@ export const state = (): IState => ({
   isOpenDrawer: false
 })
 
+export const state1 = (): IHoge => ({
+  genre: '',
+  chats: []
+})
+
 export const mutations = {
   setLoadState(state: IState, payload: loadStates) {
     state.loadState = payload
@@ -53,6 +65,23 @@ export const mutations = {
   },
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
+  },
+  listenData(genre: string, chats: Array) {
+    firebaseApp
+    .firestore()
+    .collection('chats')
+    .doc(this.genre)
+    .collection('chats')
+    .orderBy('postedAt', 'desc')
+    .onSnapshot((doc: any) => {
+      // eslint-disable-next-line no-console
+      console.log(doc.docs)
+      this.chats = doc.docs
+      doc.forEach((hoge: any) => {
+        // eslint-disable-next-line no-console
+        console.log(hoge.data())
+      })
+    })
   }
 }
 

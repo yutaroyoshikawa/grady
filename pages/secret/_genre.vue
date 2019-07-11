@@ -4,7 +4,7 @@
     <div></div>
     <main class="main">
       <p class="secret-text">シークレット映画</p>
-      <secret-genre-selecter :genre="genre" :handleChange="handleChange" />
+      <secret-genre-selecter :genre="genre" :handle-change="handleChange" />
       <go-to-watch-button
         class="drawer-btn"
         :handle-click="requestOpenDrawer"
@@ -17,9 +17,9 @@
         <p class="chats-massage">
           チケットを購入するとチャットに参加いただけます。
         </p>
-        <div class="center-line"></div>
+
+        <read-only-chat class="hoge" :chats="chats" />
       </div>
-      <read-only-chat class="hoge" :chats="chats" />
     </div>
     <div></div>
     <transition name="drawer">
@@ -43,6 +43,8 @@ import SecretGanruSelecter from '../../components/selector/secretGenreSelector.v
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
 import { IMovie, loadStates, IReservationForm } from '~/store/secret'
+import { firebaseApp } from '@/store/flamelink'
+
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -74,12 +76,32 @@ export default Vue.extend({
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
+    },
+    listenData: function() {
+      firebaseApp
+        .firestore()
+        .collection('chats')
+        .doc(this.genre)
+        .collection('chats')
+        .orderBy('postedAt', 'desc')
+        .onSnapshot((doc: any) => {
+          // eslint-disable-next-line no-console
+          console.log(doc.docs)
+          this.chats = doc.docs
+          doc.forEach((hoge: any) => {
+            // eslint-disable-next-line no-console
+            console.log(hoge.data())
+          })
+        })
     }
+  },
+  created() {
+    this.listenData()
   },
   data: function() {
     return {
       genre: this.$route.params.genre,
-      chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
+      chats: []
     }
   },
   middleware: ['secret']
@@ -87,156 +109,80 @@ export default Vue.extend({
 </script>
 <style scoped lang="scss">
 .wrapper {
+  display: grid;
+  grid-template-columns: 181px 640px 263px 638px 199px;
+  grid-template-rows: 237px 737px 106px;
   background-color: #0a2e41;
+  justify-content: center;
   height: 100vh;
   width: 100vw;
 
+  .top {
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
+
   .main {
+    .drawer-btn {
+      margin-top: 370px;
+    }
+
     .secret-text {
       color: #ffffff;
+      font-size: 80px;
     }
 
     .chats-description {
+      /*width: 638px;*/
       width: 100%;
       height: 100%;
       color: #ffffff;
-    }
-  }
-}
+      /*background-color: lightcyan;*/
 
-@media screen and (min-width: 1024px) {
-  .wrapper {
-    display: grid;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    grid-template-columns: 204px 640px 263px 638px 199px;
-    grid-template-rows: 237px 737px 106px;
-
-    .top {
-      grid-column-start: 1;
-      grid-column-end: 6;
-    }
-
-    .main {
-      .drawer-btn {
-        margin-top: 370px;
+      .chats-title {
+        font-size: 38px;
+      }
+      .chats-massage {
+        font-size: 21px;
+        border-bottom: solid 3px #ffffff;
       }
 
-      .secret-text {
-        font-size: 80px;
-      }
-
-      .chats-description {
-        color: #ffffff;
-        .chats-title {
-          font-size: 38px;
-        }
-        .chats-massage {
-          font-size: 21px;
-          border-bottom: solid 3px #ffffff;
-        }
+      .hoge {
+        /*background-color: lightblue;*/
+        display: flex;
+        justify-content: center;
+        height: 100%;
       }
     }
   }
+
+  .drawer-enter-active,
+  .drawer-leave-active {
+    transition: transform 400ms ease;
+  }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 20;
+  }
+
+  .drawer-enter {
+    transform: translateX(100%);
+  }
+
+  .drawer-enter-to {
+    transform: translateX(0);
+  }
+
+  .drawer-leave-to {
+    transform: translateX(100%);
+  }
+
   .footer {
     grid-column-start: 1;
     grid-column-end: 6;
   }
-}
-
-@media screen and (min-width: 767px) and (max-width: 1024px) {
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    main.main {
-      margin-top: 83.49px;
-      justify-content: center;
-    }
-    .drawer-btn {
-      position: relative;
-      justify-content: center;
-      bottom: -500px;
-      z-index: 2;
-    }
-    .secret-text {
-      font-size: 61px;
-    }
-    div.main {
-      display: flex;
-      flex-direction: column;
-      .chats-title {
-        text-align: center;
-        font-size: 23px;
-      }
-      .chats-massage {
-        text-align: center;
-        font-size: 13px;
-      }
-      .center-line {
-        display: flex;
-        justify-content: center;
-        width: 596px;
-        border-bottom: solid 3px #3e5d6e;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    .main {
-      .drawer-btn {
-        margin-top: 370px;
-      }
-
-      .secret-text {
-        font-size: 27px;
-      }
-
-      .chats-description {
-        color: #ffffff;
-
-        .chats-title {
-          font-size: 18px;
-        }
-
-        .chats-massage {
-          font-size: 13px;
-          border-bottom: solid 3px #ffffff;
-        }
-      }
-    }
-  }
-}
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: transform 400ms ease;
-}
-
-.drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 20;
-}
-
-.drawer-enter {
-  transform: translateX(100%);
-}
-
-.drawer-enter-to {
-  transform: translateX(0);
-}
-
-.drawer-leave-to {
-  transform: translateX(100%);
 }
 </style>
