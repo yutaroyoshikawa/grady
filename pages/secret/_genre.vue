@@ -18,8 +18,8 @@
           チケットを購入するとチャットに参加いただけます。
         </p>
         <div class="center-line"></div>
+        <read-only-chat class="hoge" :chats="chats" />
       </div>
-      <read-only-chat class="hoge" :chats="chats" />
     </div>
     <div></div>
     <transition name="drawer">
@@ -148,17 +148,16 @@ export default Vue.extend({
 @media screen and (min-width: 767px) and (max-width: 1024px) {
   .wrapper {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     main.main {
-      margin-top: 83.49px;
       justify-content: center;
+      height: 135px;
     }
     .drawer-btn {
       position: relative;
-      justify-content: center;
-      bottom: -500px;
+      margin: 150px;
+      bottom: -200px;
       z-index: 2;
     }
     .secret-text {
@@ -188,34 +187,42 @@ export default Vue.extend({
 @media screen and (max-width: 767px) {
   .wrapper {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    .main {
-      .drawer-btn {
-        margin-top: 370px;
+    main.main {
+      margin-top: 200px;
+      justify-content: center;
+    }
+    .drawer-btn {
+      position: relative;
+      margin: 50px;
+      bottom: -320px;
+      z-index: 2;
+    }
+    .secret-text {
+      font-size: 27px;
+    }
+    div.main {
+      display: flex;
+      flex-direction: column;
+      .chats-title {
+        text-align: center;
+        font-size: 18px;
       }
-
-      .secret-text {
-        font-size: 27px;
+      .chats-massage {
+        text-align: center;
+        font-size: 13px;
       }
-
-      .chats-description {
-        color: #ffffff;
-
-        .chats-title {
-          font-size: 18px;
-        }
-
-        .chats-massage {
-          font-size: 13px;
-          border-bottom: solid 3px #ffffff;
-        }
+      .center-line {
+        display: flex;
+        justify-content: center;
+        width: 218px;
+        border-bottom: solid 3px #3e5d6e;
       }
     }
   }
 }
+
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 400ms ease;
