@@ -4,7 +4,7 @@
     <div></div>
     <main class="main">
       <p class="secret-text">シークレット映画</p>
-      <secret-genre-selecter :genre="genre" :handleChange="handleChange" />
+      <secret-genre-selecter :genre="genre" :handle-change="handleChange" />
       <go-to-watch-button
         class="drawer-btn"
         :handle-click="requestOpenDrawer"
@@ -42,7 +42,9 @@ import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
-import { IMovie, loadStates, IReservationForm } from '~/store/movies'
+import { IMovie, loadStates, IReservationForm } from '~/store/secret'
+import { firebaseApp } from '@/store/flamelink'
+
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -55,7 +57,7 @@ export default Vue.extend({
       return this.$store.state.movies.movie
     },
     isOpenDrawer(): boolean {
-      return this.$store.state.movies.isOpenDrawer
+      return this.$store.state.secret.isOpenDrawer
     },
     loadState(): loadStates {
       return this.$store.state.movies.loadState
@@ -63,23 +65,43 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions({
-      requestOpenDrawer: 'movies/requestOpenDrawer',
-      requestCloseDrawer: 'movies/requestCloseDrawer'
+      requestOpenDrawer: 'secret/requestOpenDrawer',
+      requestCloseDrawer: 'secret/requestCloseDrawer'
     }),
     requestTemporaryReservation: function(form: IReservationForm) {
-      this.$store.dispatch('movies/requestTemporaryReservation', form)
+      this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
     handleChange: function(event: any) {
       // ルーティング
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
+    },
+    listenData: function() {
+      firebaseApp
+        .firestore()
+        .collection('chats')
+        .doc(this.genre)
+        .collection('chats')
+        .orderBy('postedAt', 'desc')
+        .onSnapshot((doc: any) => {
+          // eslint-disable-next-line no-console
+          console.log(doc.docs)
+          this.chats = doc.docs
+          doc.forEach((hoge: any) => {
+            // eslint-disable-next-line no-console
+            console.log(hoge.data())
+          })
+        })
     }
+  },
+  created() {
+    this.listenData()
   },
   data: function() {
     return {
       genre: this.$route.params.genre,
-      chats: [{ 0: 'hoge' }, { 1: 'hoge' }, { 2: 'hoge' }, { 3: 'hoge' }]
+      chats: []
     }
   },
   middleware: ['secret']
