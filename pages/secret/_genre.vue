@@ -120,9 +120,11 @@ export default Vue.extend({
   .top {
     grid-column-start: 1;
     grid-column-end: 6;
+    background-color: lightblue;
   }
 
   .main {
+    background-color: lightgreen;
     .drawer-btn {
       margin-top: 370px;
     }
@@ -183,6 +185,7 @@ export default Vue.extend({
   .footer {
     grid-column-start: 1;
     grid-column-end: 6;
+    background-color: lightcoral;
   }
 }
 </style>
