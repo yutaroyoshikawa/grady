@@ -158,6 +158,9 @@ export default Vue.extend({
           font-size: 21px;
           border-bottom: solid 3px #ffffff;
         }
+        .center-line {
+          display: none;
+        }
       }
     }
   }
@@ -168,12 +171,11 @@ export default Vue.extend({
 }
 
 @media screen and (min-width: 767px) and (max-width: 1024px) {
-  .wrapper {
+  /* .wrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
     main.main {
-      justify-content: center;
       height: 135px;
     }
     .drawer-btn {
@@ -186,8 +188,6 @@ export default Vue.extend({
       font-size: 61px;
     }
     div.main {
-      display: flex;
-      flex-direction: column;
       .chats-title {
         text-align: center;
         font-size: 23px;
@@ -197,22 +197,68 @@ export default Vue.extend({
         font-size: 13px;
       }
       .center-line {
-        display: flex;
-        justify-content: center;
+        top: 15px;
         width: 596px;
         border-bottom: solid 3px #3e5d6e;
       }
     }
   }
-}
+} */
+  .wrapper {
+    display: grid;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: 51.5px 218px 50.5px;
+    grid-template-rows: 91px 121px 77.22px 3px 173.31px 80.64px;
+    background-color: aliceblue;
 
+    .top {
+      background-color: aqua;
+      grid-column-start: 1;
+      grid-column-end: 6;
+    }
+
+    .main {
+      background-color: aquamarine;
+      .drawer-btn {
+        margin-top: 370px;
+      }
+
+      .secret-text {
+        background-color: blueviolet;
+        font-size: 80px;
+      }
+
+      .chats-description {
+        background-color: blue;
+        color: #ffffff;
+        .chats-title {
+          background-color: cornflowerblue;
+          font-size: 38px;
+        }
+        .chats-massage {
+          font-size: 21px;
+          border-bottom: solid 3px #ffffff;
+        }
+        .center-line {
+          display: none;
+        }
+      }
+    }
+  }
+  .footer {
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
+}
 @media screen and (max-width: 767px) {
   .wrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
     main.main {
-      margin-top: 200px;
+      margin-top: 150px;
       justify-content: center;
     }
     .drawer-btn {
@@ -227,6 +273,7 @@ export default Vue.extend({
     div.main {
       display: flex;
       flex-direction: column;
+      margin-top: -100px;
       .chats-title {
         text-align: center;
         font-size: 18px;
