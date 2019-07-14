@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="paymentButton">
+    <button class="pay-button">
       クレジットカード
     </button>
   </div>
@@ -18,6 +18,7 @@ button {
   cursor: pointer;
   outline: none;
   padding: 0;
+
   appearance: none;
 }
 .pay-button {
