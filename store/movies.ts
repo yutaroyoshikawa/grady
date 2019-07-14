@@ -76,7 +76,7 @@ export const actions = {
         schemaKey: 'popularMovieInfo',
         entryId: payload,
         fields: [
-          'id',
+          // 'id',
           'title',
           'isScreening',
           'releaseDate',
