@@ -1,7 +1,9 @@
 <template>
-  <button class="paymentButton">
-      クレジットカード
-  </button>
+  <div>
+    <button class="paymentButton">
+      決済
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,7 +11,7 @@ import Vue from 'vue'
 export default Vue.extend({})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 button {
   background-color: transparent;
   border: none;
@@ -20,11 +22,11 @@ button {
 }
 .paymentButton {
   font-size: 40px;
-  height: 85px;
-  width: 391px;
-  color: #0d0d36;
+  height: 75px;
+  width: 210px;
+  color: #3f6060;
   background: #ffffff;
   border: 1px solid #707070;
-  border-radius: 60px;
+  border-radius: 38px;
 }
 </style>
