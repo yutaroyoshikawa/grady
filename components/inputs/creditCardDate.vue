@@ -34,29 +34,46 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+input {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 29px;
+  border: none;
+  padding: 0 10px;
+  transition: all 300ms ease;
+  background: transparent;
+  color: #fff;
+}
 .wrap {
   display: flex;
-  width: 73px;
-  height: 47px;
   border-bottom: solid 2px #fff;
   transition: all 200ms ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.2);
   }
+}
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 73px;
+    height: 47px;
+  }
+}
 
-  input {
-    appearance: none;
-    border: none;
-    outline: none;
-    background: transparent;
-    width: 100%;
-    font-size: 29px;
-    border: none;
-    padding: 0 10px;
-    transition: all 300ms ease;
-    background: transparent;
-    color: #fff;
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 56px;
+    height: 40.5px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .wrap {
+    width: 34.42px;
+    height: 24.9px;
   }
 }
 </style>
