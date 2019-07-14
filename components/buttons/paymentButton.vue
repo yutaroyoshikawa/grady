@@ -1,8 +1,6 @@
 <template>
   <div>
-    <button class="paymentButton">
-      決済
-    </button>
+    <button class="payment-button">決済</button>
   </div>
 </template>
 
@@ -20,13 +18,29 @@ button {
   padding: 0;
   appearance: none;
 }
-.paymentButton {
-  font-size: 40px;
-  height: 75px;
-  width: 210px;
+.payment-button {
   color: #3f6060;
   background: #ffffff;
   border: 1px solid #707070;
-  border-radius: 38px;
+}
+@media screen and (min-width: 1024px) {
+  .payment-button {
+    font-size: 40px;
+    height: 75px;
+    width: 210px;
+    color: #3f6060;
+    background: #ffffff;
+    border: 1px solid #707070;
+    border-radius: 38px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+ .payment-button {
+    font-size: 17px;
+    height: 46.1px;
+    width: 129.09px;
+    border-radius: 38px;
+  }
 }
 </style>
