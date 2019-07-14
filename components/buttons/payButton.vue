@@ -18,7 +18,6 @@ button {
   cursor: pointer;
   outline: none;
   padding: 0;
-
   appearance: none;
 }
 .pay-button {
