@@ -2,9 +2,16 @@
   <div>
     <div class="wrap">
       <span>
-        <font-awesome-icon icon="credit-card"/>
+        <font-awesome-icon icon="credit-card" />
       </span>
-      <input type="tel" name="cardNumber" size="20" maxlength="20" placeholder="クレジットカード番号">
+      <input
+        type="tel"
+        name="cardNumber"
+        size="20"
+        maxlength="20"
+        placeholder="クレジットカード番号"
+        v-model.number="inputValue"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +27,20 @@ library.add({ faCreditCard })
 export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
+  },
+  props: {
+    handleChange: Function,
+    value: Number
+  },
+  computed: {
+    inputValue: {
+      get(): number | null {
+        return this.value ? this.value : null
+      },
+      set(value: number) {
+        this.handleChange(value)
+      }
+    }
   }
 })
 </script>
