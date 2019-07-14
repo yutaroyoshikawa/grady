@@ -18,7 +18,7 @@
           チケットを購入するとチャットに参加いただけます。
         </p>
         <div class="center-line"></div>
-        <!-- <read-only-chat class="hoge" :chats="chats" /> -->
+        <read-only-chat class="hoge" :chats="chats" />
       </div>
     </div>
     <div></div>
@@ -41,7 +41,7 @@ import { mapActions } from 'vuex'
 import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
-// import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
+import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
 import { IMovie, loadStates, IReservationForm } from '~/store/secret'
 import { firebaseApp } from '@/store/flamelink'
 
@@ -49,8 +49,8 @@ export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
     'secret-genre-selecter': SecretGanruSelecter,
-    'go-to-watch-button': GoToWatchButton
-    // 'read-only-chat': ReadOnlyChat
+    'go-to-watch-button': GoToWatchButton,
+    'read-only-chat': ReadOnlyChat
   },
   computed: {
     movie(): IMovie {
@@ -108,6 +108,9 @@ export default Vue.extend({
 })
 </script>
 <style scoped lang="scss">
+.read-only-chat {
+  overflow: scroll;
+}
 .wrapper {
   background-color: #0a2e41;
   height: 100vh;
@@ -148,7 +151,6 @@ export default Vue.extend({
         margin-top: 370px;
       }
       .secret-text {
-        color: #ffffff;
         font-size: 80px;
       }
       .chats-description {
