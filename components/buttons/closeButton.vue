@@ -1,10 +1,8 @@
 <template>
   <div>
-    <div class="wrap">
-      <button>
-        <font-awesome-icon class="close-button" icon="times-circle" />
-      </button>
-    </div>
+    <button @click="handleClick">
+      <font-awesome-icon icon="times-circle" />
+    </button>
   </div>
 </template>
 
@@ -15,52 +13,49 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add({ faTimesCircle })
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    handleClick: Function
+  }
+})
 </script>
 
-<style lang="scss">
-.wrap {
-  .close-button {
-    color: #fff;
-  }
+<style lang="scss" scoped>
+button {
+  color: #fff;
 }
 
 @media screen and (min-width: 1024px) {
-  .wrap {
-    button {
-      height: 62px;
-      width: 62px;
-
-      .close-button {
-        font-size: 62px;
-      }
-    }
+  button {
+    height: 62px;
+    width: 62px;
+    font-size: 62px;
+    background: none;
+    padding: 0;
+    border: none;
+    margin: 0;
+    appearance: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .wrap {
-    button {
-      height: 62px;
-      width: 62px;
-
-      .close-button {
-        font-size: 62px;
-      }
-    }
+  button {
+    height: 62px;
+    width: 62px;
+    font-size: 62px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .wrap {
-    button {
-      height: 35px;
-      width: 35px;
-
-      .close-button {
-        font-size: 35px;
-      }
-    }
+  button {
+    height: 35px;
+    width: 35px;
+    font-size: 35px;
   }
 }
 </style>
