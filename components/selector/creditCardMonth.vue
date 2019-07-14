@@ -47,7 +47,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .wrap {
   display: flex;
-  width: 60px;
   border-bottom: solid 2px #fff;
   transition: all 200ms ease;
 
@@ -67,6 +66,24 @@ export default Vue.extend({
     transition: all 300ms ease;
     background: transparent;
     color: #fff;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 73px;
+    height: 47px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 56px;
+    height: 40.5px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .wrap {
+    width: 34.42px;
+    height: 24.9px;
   }
 }
 </style>
