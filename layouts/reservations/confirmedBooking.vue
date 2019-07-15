@@ -1,19 +1,36 @@
 <template>
   <div>
+    <header v-if="!isSecret">
+      <h1>{{ movieTitle }}</h1>
+    </header>
+    <header v-if="isSecret">
+      <h1>シークレット映画</h1>
+      <h2>{{ reservation.genre | filterGenre }}</h2>
+    </header>
     <div class="wrap">
       <div>
         <div class="stepper-wrap">
           <stepper :step="page" :handleChange="changePage" />
         </div>
-        <div class="form">
+        <div class="form" v-if="loadState === 'done'">
           <div class="contents" v-if="page === 1">
-            <movie-theater-selector />
+            <movie-theater-selector
+              :theaters="theaters"
+              :value="reservation.theater"
+            />
             <div class="people-input-wrap">
-              <people-input type="adult" value="0" />
-              <people-input type="kids" value="0" />
+              <div>
+                <people-input type="adult" :value="reservation.adult" />
+              </div>
+              <div>
+                <people-input type="kids" :value="reservation.kids" />
+              </div>
             </div>
-            <screening-date-selector />
-            <screening-time-selector />
+            <screening-date-selector
+              :dates="dates"
+              :value="new Date(reservation.date)"
+            />
+            <screening-time-selector :times="times" :value="reservation.time" />
           </div>
           <div class="contents" v-if="page === 2">
             <div class="seats-wrap">
@@ -28,6 +45,7 @@
             <p>クリックして座席を選択</p>
           </div>
           <div class="contents" v-if="page === 3">
+            <div class="applepay" />
             <div @click="openCreditCardDrawer">
               <pay-button />
             </div>
@@ -75,6 +93,8 @@ import NextButton from '~/components/buttons/nextButton.vue'
 import CreditCardDrawer from '~/layouts/drawers/creditCardDrawer.vue'
 import SeatsDrawer from '~/layouts/drawers/seatsDrawer.vue'
 import SeatSelectorButton from '~/components/buttons/seatSelecterButton.vue'
+import { IReserve } from '~/store/reservations'
+import moment from 'moment'
 
 export default Vue.extend({
   components: {
@@ -109,7 +129,148 @@ export default Vue.extend({
           seat: ''
         }
       ],
-      selectedSeatIndex: 0
+      selectedSeatIndex: 0,
+      theaters: [
+        {
+          name: 'ぴよぴよ映画館',
+          value: 'ぴよぴよ映画館'
+        },
+        {
+          name: 'ふがふが映画館',
+          value: 'ふがふが映画館'
+        },
+        {
+          name: 'ほげほげ映画館',
+          value: 'ほげほげ映画館'
+        }
+      ],
+      times: [
+        {
+          finish: moment()
+            .hour(14)
+            .minute(0)
+            .toDate(),
+          start: moment()
+            .hour(12)
+            .minute(0)
+            .toDate()
+        },
+        {
+          finish: moment()
+            .hour(17)
+            .minute(0)
+            .toDate(),
+          start: moment()
+            .hour(15)
+            .minute(0)
+            .toDate()
+        }
+      ],
+      dates: [
+        moment()
+          .add(1, 'day')
+          .toDate(),
+        moment()
+          .add(2, 'day')
+          .toDate(),
+        moment()
+          .add(3, 'day')
+          .toDate(),
+        moment()
+          .add(4, 'day')
+          .toDate(),
+        moment()
+          .add(5, 'day')
+          .toDate(),
+        moment()
+          .add(6, 'day')
+          .toDate(),
+        moment()
+          .add(7, 'day')
+          .toDate(),
+        moment()
+          .add(8, 'day')
+          .toDate(),
+        moment()
+          .add(9, 'day')
+          .toDate(),
+        moment()
+          .add(10, 'day')
+          .toDate(),
+        moment()
+          .add(11, 'day')
+          .toDate(),
+        moment()
+          .add(12, 'day')
+          .toDate(),
+        moment()
+          .add(13, 'day')
+          .toDate(),
+        moment()
+          .add(14, 'day')
+          .toDate()
+      ],
+      isApplePay: false
+    }
+  },
+  computed: {
+    reservation(): IReserve {
+      return this.$store.state.reservations.reservation
+    },
+    loadState(): string {
+      return this.$store.state.reservations.loadState
+    },
+    movieTitle(): string {
+      return this.$store.state.reservations.movie.title
+    },
+    isSecret(): boolean {
+      return this.$store.state.reservations.isSecret
+    }
+  },
+  filters: {
+    filterGenre(genre: string): string {
+      switch (genre) {
+        case 'Action':
+          return 'アクション'
+        case 'Adventure':
+          return 'アドベンチャー'
+        case 'Animation':
+          return 'アニメ'
+        case 'Comedy':
+          return 'コメディ'
+        case 'Crime':
+          return '極道'
+        case 'Documentary':
+          return 'ドキュメンタリー'
+        case 'Drama':
+          return 'ドラマ'
+        case 'Family':
+          return 'ファミリー'
+        case 'Fantasy':
+          return 'ファンタジー'
+        case 'History':
+          return '歴史'
+        case 'Horror':
+          return 'ホラー'
+        case 'Music':
+          return '音楽'
+        case 'Mystery':
+          return 'ミステリー'
+        case 'Romance':
+          return 'ロマンス'
+        case 'Science Fiction':
+          return 'SF'
+        case 'TV Movie':
+          return 'テレビ番組'
+        case 'Thriller':
+          return 'スリラー'
+        case 'War':
+          return '戦争'
+        case 'Western':
+          return '西部劇'
+        default:
+          return ''
+      }
     }
   },
   methods: {
@@ -141,11 +302,36 @@ export default Vue.extend({
         seat
       }
     }
+  },
+  created() {
+    this.$store.dispatch(
+      'reservations/requestGetReservation',
+      this.$route.params.id
+    )
   }
 })
 </script>
 
 <style lang="scss" scoped>
+header {
+  position: absolute;
+  top: 80px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    color: #fff;
+    font-size: 38px;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 38px;
+    position: absolute;
+    right: 100px;
+  }
+}
 .wrap {
   width: 100vw;
   height: 100vh;
@@ -172,6 +358,12 @@ export default Vue.extend({
       flex-wrap: wrap;
       justify-content: space-between;
 
+      .applepay {
+        -webkit-appearance: -apple-pay-button;
+        -apple-pay-button-type: plain;
+        -apple-pay-button-style: black;
+      }
+
       .seats-wrap {
         width: 500px;
         display: flex;
@@ -191,6 +383,10 @@ export default Vue.extend({
 
     .people-input-wrap {
       display: flex;
+
+      div {
+        margin-right: 50px;
+      }
     }
   }
 
