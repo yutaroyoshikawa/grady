@@ -56,12 +56,31 @@ export default Vue.extend({
 </script>
 <style scoped lang="scss">
 .warp {
-  width: 885px;
-  height: 60px;
-
   .movieDetailsTab {
     display: flex;
     justify-content: space-evenly;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .warp {
+    width: 885px;
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .warp {
+    width: 577.09px;
+    height: 47.5px;
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .warp {
+    width: 275.77px;
+    height: 39.04px;
+    font-size: 18px;
   }
 }
 </style>
