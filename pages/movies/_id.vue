@@ -121,70 +121,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  width: 100vw;
-  height: 100vh;
-  background: #3f6060;
-
-  .cover-back-wrap {
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
-    width: 100vw;
-    height: 450px;
-
-    .cover-back {
-      width: 100vw;
-      height: 450px;
-      background: rgba(255, 255, 255, 0.3);
-      object-fit: cover;
-      filter: blur(5px);
-    }
-  }
-
-  .main-content {
-    width: 919px;
-    margin: 0 auto;
-    transform: translateY(-200px);
-
-    .top-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-
-      .top-right-content {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
-        flex-direction: column;
-
-        .reserve-button {
-          margin: 100px 0 40px 0;
-        }
-
-        .movie-title-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
-    }
-
-    .middle-content {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin: 35px 0 10px 0;
-    }
-
-    .content {
-      .overview {
-        font-size: 25px;
-        color: #fff;
-        text-align: justify;
-      }
-    }
-  }
-}
-
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 400ms ease;
@@ -207,5 +143,204 @@ export default Vue.extend({
 
 .drawer-leave-to {
   transform: translateX(100%);
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 100vw;
+    height: 100vh;
+    background: #3f6060;
+
+    .cover-back-wrap {
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+      width: 100vw;
+      height: 450px;
+
+      .cover-back {
+        width: 100vw;
+        height: 450px;
+        background: rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+        filter: blur(5px);
+      }
+    }
+
+    .main-content {
+      width: 919px;
+      margin: 0 auto;
+      transform: translateY(-200px);
+
+      .top-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .top-right-content {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          flex-direction: column;
+
+          .reserve-button {
+            margin: 100px 0 40px 0;
+          }
+
+          .movie-title-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+      }
+
+      .middle-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 35px 0 10px 0;
+      }
+
+      .content {
+        .overview {
+          font-size: 25px;
+          color: #fff;
+          text-align: justify;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 100vw;
+    height: 100vh;
+    background: #3f6060;
+
+    .cover-back-wrap {
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+      width: 100vw;
+      height: 390.82px;
+
+      .cover-back {
+        width: 100vw;
+        height: 390.82px;
+        background: rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+        filter: blur(5px);
+      }
+    }
+
+    .main-content {
+      width: 577.09px;
+      margin: 0 auto;
+      transform: translateY(-200px);
+
+      .top-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+
+        .top-right-content {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          flex-direction: column;
+
+          .reserve-button {
+            margin: 100px 0 40px 0;
+          }
+
+          .movie-title-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+      }
+
+      .middle-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .content {
+        .overview {
+          font-size: 25px;
+          color: #fff;
+          text-align: justify;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    width: 100vw;
+    height: 100vh;
+    background: #3f6060;
+
+    .cover-back-wrap {
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+      width: 100vw;
+      height: 400px;
+
+      .cover-back {
+        width: 100vw;
+        height: 400px;
+        background: rgba(255, 255, 255, 0.3);
+        object-fit: cover;
+        filter: blur(5px);
+      }
+    }
+
+    .main-content {
+      width: 275.77px;
+      margin: 0 auto;
+      transform: translateY(-200px);
+
+      .top-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+
+        .top-right-content {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          flex-direction: column;
+
+          .movie-title-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+      }
+
+      .middle-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 35px 0 10px 0;
+      }
+
+      .content {
+        .overview {
+          font-size: 15px;
+          color: #fff;
+          text-align: justify;
+        }
+      }
+    }
+  }
+  .reserve-button {
+    position: relative;
+    bottom: -500px;
+    z-index: 2;
+    margin-right: 30%;
+  }
 }
 </style>
