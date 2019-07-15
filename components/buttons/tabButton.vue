@@ -76,7 +76,7 @@ button {
 
 @media screen and (max-width: 767px) {
   .tab {
-    width: 71.5px;
+    width: 74px;
     height: 29px;
     border-radius: 40px;
     font-size: 18px;
