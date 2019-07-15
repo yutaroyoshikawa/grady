@@ -43,3 +43,24 @@ export const updateMovies = (movieInfo: any) => {
     .then(() => 'ok')
     .catch(e => e)
 }
+
+
+export const updateAlgolia = (snapshot: any) => {
+  const beforeData = snapshot.before.data() as FirebaseFirestore.DocumentData
+  const afterData = snapshot.after.data() as FirebaseFirestore.DocumentData
+
+  console.log(beforeData.objectID)
+
+  const data = {
+    objectID: beforeData.objectID,
+    isScreening: afterData.isScreening
+  }
+
+  // isScreeningが変更されていたらalgoliaを更新する
+  if (beforeData.isScreening !== afterData.isScreening) {
+    updateMovies(data)
+    console.log('algolia更新成功')
+  }
+
+  return 0
+}
