@@ -108,8 +108,8 @@ export default Vue.extend({
 })
 </script>
 <style scoped lang="scss">
-.read-only-chat {
-  overflow: scroll;
+.hoge {
+  overflow-y: scroll;
 }
 .wrapper {
   background-color: #0a2e41;
@@ -169,7 +169,7 @@ export default Vue.extend({
           /*background-color: lightblue;*/
           display: flex;
           justify-content: center;
-          height: 100%;
+          height: 527.5px;
         }
       }
     }
@@ -183,13 +183,12 @@ export default Vue.extend({
     flex-direction: column;
   }
   main.main {
-    margin-top: -600px;
     height: 135px;
   }
   .drawer-btn {
     position: relative;
     margin: 150px;
-    bottom: -200px;
+    bottom: -300px;
     z-index: 2;
   }
   .secret-text {
@@ -208,6 +207,10 @@ export default Vue.extend({
       width: 596px;
       border-bottom: solid 3px #3e5d6e;
     }
+  }
+  .hoge {
+    height: 200px;
+    width: 100%;
   }
 }
 
@@ -239,6 +242,9 @@ export default Vue.extend({
       width: 218px;
       border-bottom: solid 3px #3e5d6e;
     }
+  }
+  .hoge {
+    height: 184.62px;
   }
 }
 </style>
