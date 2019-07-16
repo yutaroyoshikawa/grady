@@ -37,13 +37,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapActions } from 'vuex'
+import { mapActions, Store } from 'vuex'
 import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
-import { IMovie, loadStates, IReservationForm } from '~/store/secret'
-import { firebaseApp } from '@/store/flamelink'
+import { IMovie, loadStates, IReservationForm, IHoge } from '~/store/secret'
+// import { firebaseApp } from '@/store/flamelink'
 
 export default Vue.extend({
   components: {
@@ -71,43 +71,48 @@ export default Vue.extend({
     requestTemporaryReservation: function(form: IReservationForm) {
       this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
+    // mutationへcommit
+    requestListenData: function(genre: IHoge) {
+      this.$store.dispatch('secret/requestListenData', genre)
+    },
     handleChange: function(event: any) {
       // ルーティング
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
     },
-    listenData: function() {
-      firebaseApp
-        .firestore()
-        .collection('chats')
-        .doc(this.genre)
-        .collection('chats')
-        .orderBy('postedAt', 'desc')
-        .onSnapshot((doc: any) => {
-          // eslint-disable-next-line no-console
-          console.log(doc.docs)
-          this.chats = doc.docs
-          doc.forEach((hoge: any) => {
-            // eslint-disable-next-line no-console
-            console.log(hoge.data())
-          })
-        })
-        // vuexで取り出したもの
-        // this.data = this.$store.state.data
-    }
-  },
-  // listen dataを早めに呼び出す
-  created() {
-    this.listenData()
-  },
-  data: function() {
-    return {
-      genre: this.$route.params.genre,
-      chats: []
-    }
-  },
-  middleware: ['secret']
+    //   listenData: function() {
+    //     firebaseApp
+    //       .firestore()
+    //       .collection('chats')
+    //       .doc(this.genre)
+    //       .collection('chats')
+    //       .orderBy('postedAt', 'desc')
+    //       .onSnapshot((doc: any) => {
+    //         // eslint-disable-next-line no-console
+    //         console.log(doc.docs)
+    //         this.chats = doc.docs
+    //         doc.forEach((hoge: any) => {
+    //           // eslint-disable-next-line no-console
+    //           console.log(hoge.data())
+    //         })
+    //       })
+    //     // vuexで取り出したもの
+    //     // this.data = this.$store.state.data
+    //   }
+    // },
+    // // listen dataを早めに呼び出す
+    // created() {
+    //   this.listenData()
+    // },
+    data: function() {
+      return {
+        genre: this.$route.params.genre,
+        chats: []
+      }
+    },
+    middleware: ['secret']
+  }
 })
 </script>
 <style scoped lang="scss">

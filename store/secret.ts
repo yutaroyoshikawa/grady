@@ -1,7 +1,7 @@
 import * as vuex from 'vuex'
+import { Router } from 'express'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
-import { Router } from 'express';
 
 interface ICommit {
   commit: vuex.Commit
@@ -22,8 +22,8 @@ interface IState {
 }
 
 // interface 宣言
-interface IHoge {
-  genre: String,
+export interface IHoge {
+  genre: String
   chats: []
 }
 
@@ -39,16 +39,12 @@ export interface IReservationForm {
 
 export const state = (): IState => ({
   movie: {
-    genre: '',
+    genre: ''
   },
   loadState: 'none',
   submitState: 'done',
   isOpenDrawer: false
 })
-
-export const state1 = (): IHoge => ({
-})
-
 export const mutations = {
   setLoadState(state: IState, payload: loadStates) {
     state.loadState = payload
@@ -65,22 +61,9 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  listenData(genre: string) {
-    firebaseApp
-    .firestore()
-    .collection('chats')
-    .doc(this.$route.params.genre)
-    .collection('chats')
-    .orderBy('postedAt', 'desc')
-    .onSnapshot((doc: any) => {
-      // eslint-disable-next-line no-console
-      console.log(doc.docs)
-      this.chats = doc.docs
-      doc.forEach((hoge: any) => {
-        // eslint-disable-next-line no-console
-        console.log(hoge.data())
-      })
-    })
+  genreData(state: IHoge, genre: string) {
+    // commitされた値を受け取る
+    state.genre = genre
   }
 }
 
@@ -91,9 +74,7 @@ export const actions = {
       const data = await flamelink.content.get({
         schemaKey: 'popularMovieInfo',
         entryId: payload,
-        fields: [
-          'genre',
-        ],
+        fields: ['genre']
       })
 
       if (data) {
@@ -104,11 +85,9 @@ export const actions = {
           const data = await flamelink.content.get({
             schemaKey: 'nowPlayingMovieInfo',
             entryId: payload,
-            fields: [
-              'genre'
-            ],
+            fields: ['genre']
           })
-          
+
           if (data) {
             dispatch.commit('setMovieInfo', data)
             dispatch.commit('setLoadState', 'done' as loadStates)
@@ -117,11 +96,13 @@ export const actions = {
           }
         } catch (e) {
           dispatch.commit('setLoadState', 'error' as loadStates)
+          // eslint-disable-next-line no-console
           console.error(e)
         }
       }
     } catch (e) {
       dispatch.commit('setLoadState', 'error' as loadStates)
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
@@ -133,12 +114,13 @@ export const actions = {
   },
   requestTemporaryReservation(dispatch: ICommit, payload: IReservationForm) {
     dispatch.commit('setSubmitState', 'submitting' as submitStates)
-    const url = 'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
+    const url =
+      'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
     fetch(url, {
       method: 'post',
       mode: 'cors',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
@@ -149,16 +131,38 @@ export const actions = {
         if (data === 'おけまる') {
           dispatch.commit('setSubmitState', 'done' as submitStates)
           dispatch.commit('closeDrawer')
+          // eslint-disable-next-line no-console
           console.log(data)
         } else {
           dispatch.commit('setSubmitState', 'error' as submitStates)
+          // eslint-disable-next-line no-console
           console.log('hoge')
         }
       })
       .catch(() => {
         dispatch.commit('setSubmitState', 'error' as submitStates)
+        // eslint-disable-next-line no-console
         console.log('hogehoge')
       })
   },
-  requestListenData(dispatch: IHoge, payload: )
+  requestListenData(genre: string, chats: []) {
+    firebaseApp
+      .firestore()
+      .collection('chats')
+      // genre dataを入れる
+      .doc(genre)
+      .collection('chats')
+      .orderBy('postedAt', 'desc')
+      .onSnapshot((doc: any) => {
+        // eslint-disable-next-line no-console
+        console.log(doc.docs)
+        // eslint-disable-next-line no-console
+        console.log(genre)
+        chats = doc.docs
+        doc.forEach((hoge: any) => {
+          // eslint-disable-next-line no-console
+          console.log(hoge.data())
+        })
+      })
+  }
 }
