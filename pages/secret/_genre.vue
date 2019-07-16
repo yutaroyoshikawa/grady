@@ -166,10 +166,8 @@ export default Vue.extend({
           border-bottom: solid 3px #ffffff;
         }
         .hoge {
-          /*background-color: lightblue;*/
-          display: flex;
-          justify-content: center;
           height: 700px;
+          width: 100%;
         }
       }
     }
@@ -197,10 +195,10 @@ export default Vue.extend({
   }
   div.main {
     .chats-title {
-      font-size: 38px;
+      font-size: 23px;
     }
     .chats-massage {
-      font-size: 21px;
+      font-size: 13px;
       border-bottom: solid 3px #ffffff;
     }
     .center-line {
