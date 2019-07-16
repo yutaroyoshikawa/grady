@@ -24,7 +24,7 @@ interface IState {
 // interface 宣言
 export interface IHoge {
   genre: String
-  chats: []
+  chats: any
 }
 
 export interface IReservationForm {
@@ -145,7 +145,7 @@ export const actions = {
         console.log('hogehoge')
       })
   },
-  requestListenData(genre: string, chats: []) {
+  requestListenData(genre: string, chats: IHoge) {
     firebaseApp
       .firestore()
       .collection('chats')
