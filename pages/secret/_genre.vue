@@ -210,7 +210,7 @@ export default Vue.extend({
     }
   }
   .hoge {
-    height: 180px;
+    height: 400px;
     width: 100%;
   }
 }
