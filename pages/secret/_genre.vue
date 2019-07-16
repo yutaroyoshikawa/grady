@@ -184,6 +184,7 @@ export default Vue.extend({
   }
   main.main {
     height: 135px;
+    margin-top: 150px;
   }
   .drawer-btn {
     position: relative;
