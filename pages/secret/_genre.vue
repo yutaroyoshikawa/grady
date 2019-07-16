@@ -93,8 +93,11 @@ export default Vue.extend({
             console.log(hoge.data())
           })
         })
+        // vuexで取り出したもの
+        // this.data = this.$store.state.data
     }
   },
+  // listen dataを早めに呼び出す
   created() {
     this.listenData()
   },
