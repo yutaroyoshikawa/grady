@@ -1,6 +1,7 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
+import { Router } from 'express';
 
 interface ICommit {
   commit: vuex.Commit
@@ -22,8 +23,8 @@ interface IState {
 
 // interface 宣言
 interface IHoge {
-  genre: string
-  chats: any
+  genre: String,
+  chats: []
 }
 
 export interface IReservationForm {
@@ -46,8 +47,6 @@ export const state = (): IState => ({
 })
 
 export const state1 = (): IHoge => ({
-  genre: '',
-  chats: []
 })
 
 export const mutations = {
@@ -66,11 +65,11 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  listenData(genre: string, chats: Array) {
+  listenData(genre: string) {
     firebaseApp
     .firestore()
     .collection('chats')
-    .doc(this.genre)
+    .doc(this.$route.params.genre)
     .collection('chats')
     .orderBy('postedAt', 'desc')
     .onSnapshot((doc: any) => {
@@ -160,5 +159,6 @@ export const actions = {
         dispatch.commit('setSubmitState', 'error' as submitStates)
         console.log('hogehoge')
       })
-  }
+  },
+  requestListenData(dispatch: IHoge, payload: )
 }
