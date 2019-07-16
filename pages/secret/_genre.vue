@@ -169,7 +169,7 @@ export default Vue.extend({
           /*background-color: lightblue;*/
           display: flex;
           justify-content: center;
-          height: 527.5px;
+          height: 700px;
         }
       }
     }
@@ -188,7 +188,7 @@ export default Vue.extend({
   .drawer-btn {
     position: relative;
     margin: 150px;
-    bottom: -300px;
+    bottom: -500px;
     z-index: 2;
   }
   .secret-text {
@@ -209,7 +209,7 @@ export default Vue.extend({
     }
   }
   .hoge {
-    height: 200px;
+    height: 180px;
     width: 100%;
   }
 }
@@ -245,6 +245,7 @@ export default Vue.extend({
   }
   .hoge {
     height: 184.62px;
+    width: 100%;
   }
 }
 </style>
