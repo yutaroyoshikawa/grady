@@ -146,7 +146,7 @@ export default Vue.extend({
       grid-column-start: 1;
       grid-column-end: 6;
     }
-    .main {
+    main.main {
       .drawer-btn {
         margin-top: 370px;
       }
@@ -166,6 +166,7 @@ export default Vue.extend({
           border-bottom: solid 3px #ffffff;
         }
         .hoge {
+          margin-top: 30px;
           height: 700px;
           width: 100%;
         }
@@ -182,7 +183,7 @@ export default Vue.extend({
   }
   main.main {
     height: 135px;
-    margin-top: 150px;
+    margin-top: -300px;
   }
   .drawer-btn {
     position: relative;
@@ -194,14 +195,19 @@ export default Vue.extend({
     font-size: 61px;
   }
   div.main {
+    margin-top: 30px;
     .chats-title {
+      margin-left: 50px;
+      width: 230px;
       font-size: 23px;
     }
     .chats-massage {
+      margin-left: 50px;
+      width: 312px;
       font-size: 13px;
-      border-bottom: solid 3px #ffffff;
     }
     .center-line {
+      position: relative;
       top: 15px;
       width: 596px;
       border-bottom: solid 3px #3e5d6e;
@@ -220,25 +226,30 @@ export default Vue.extend({
     flex-direction: column;
   }
   main.main {
-    margin-top: 200px;
+    margin-top: 30%;
   }
   .drawer-btn {
     position: relative;
-    bottom: -400px;
+    margin-left: 10px;
+    bottom: -360px;
     z-index: 2;
   }
   .secret-text {
     font-size: 27px;
   }
   div.main {
+    width: 218px;
     .chats-title {
+      margin-left: 20px;
       font-size: 18px;
     }
     .chats-massage {
+      margin-left: 20px;
+      width: 179px;
       font-size: 13px;
     }
     .center-line {
-      width: 218px;
+      width: 100%;
       border-bottom: solid 3px #3e5d6e;
     }
   }
