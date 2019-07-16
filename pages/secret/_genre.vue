@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapActions, Store } from 'vuex'
+import { mapActions } from 'vuex'
 import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
@@ -80,7 +80,7 @@ export default Vue.extend({
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
-    },
+    }
     //   listenData: function() {
     //     firebaseApp
     //       .firestore()
@@ -102,17 +102,17 @@ export default Vue.extend({
     //   }
     // },
     // // listen dataを早めに呼び出す
-    // created() {
-    //   this.listenData()
-    // },
-    data: function() {
-      return {
-        genre: this.$route.params.genre,
-        chats: []
-      }
-    },
-    middleware: ['secret']
-  }
+  },
+  // created() {
+  //   this.genre =
+  // },
+  data: function() {
+    return {
+      genre: this.$route.params.genre,
+      chats: []
+    }
+  },
+  middleware: ['secret']
 })
 </script>
 <style scoped lang="scss">
