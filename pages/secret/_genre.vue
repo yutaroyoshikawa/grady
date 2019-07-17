@@ -42,7 +42,7 @@ import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
-import { IMovie, loadStates, IReservationForm, Chats } from '~/store/secret'
+import { IMovie, loadStates, IReservationForm } from '~/store/secret'
 // import { firebaseApp } from '@/store/flamelink'
 
 export default Vue.extend({
@@ -62,9 +62,7 @@ export default Vue.extend({
     loadState(): loadStates {
       return this.$store.state.movies.loadState
     },
-    chats(): Chats {
-      // eslint-disable-next-line no-console
-      console.log(this.$store.state.secret.chats)
+    chats(): any {
       return this.$store.state.secret.chats
     }
   },
@@ -78,12 +76,7 @@ export default Vue.extend({
     },
     // mutationへdispatch
     requestListenData: function(genre: string) {
-      // eslint-disable-next-line no-console
-      console.log(genre)
-      this.$store.dispatch('secret/requestListenData', {
-        genre,
-        chats: []
-      })
+      this.$store.dispatch('secret/requestListenData', genre)
     },
     handleChange: function(event: any) {
       // ルーティング
@@ -91,27 +84,6 @@ export default Vue.extend({
         path: `/secret/${event.target.value}`
       })
     }
-    //   listenData: function() {
-    //     firebaseApp
-    //       .firestore()
-    //       .collection('chats')
-    //       .doc(this.genre)
-    //       .collection('chats')
-    //       .orderBy('postedAt', 'desc')
-    //       .onSnapshot((doc: any) => {
-    //         // eslint-disable-next-line no-console
-    //         console.log(doc.docs)
-    //         this.chats = doc.docs
-    //         doc.forEach((hoge: any) => {
-    //           // eslint-disable-next-line no-console
-    //           console.log(hoge.data())
-    //         })
-    //       })
-    //     // vuexで取り出したもの
-    //     // this.data = this.$store.state.data
-    //   }
-    // },
-    // // listen dataを早めに呼び出す
   },
   mounted() {
     this.requestListenData(this.$route.params.genre)

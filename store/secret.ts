@@ -1,5 +1,4 @@
 import * as vuex from 'vuex'
-// import { Router } from 'express'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
 
@@ -11,10 +10,6 @@ export interface IMovie {
   genre: string
 }
 
-export interface Chats {
-  chats: []
-}
-
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
 export type submitStates = 'submitting' | 'done' | 'error' | 'none'
 
@@ -23,12 +18,7 @@ interface IState {
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
-}
-
-// interface 宣言
-export interface IHoge {
-  genre: string
-  chats: []
+  chats: any
 }
 
 export interface IReservationForm {
@@ -47,13 +37,10 @@ export const state = (): IState => ({
   },
   loadState: 'none',
   submitState: 'done',
-  isOpenDrawer: false
-})
-
-export const state1 = (): IHoge => ({
-  genre: '',
+  isOpenDrawer: false,
   chats: []
 })
+
 export const mutations = {
   setLoadState(state: IState, payload: loadStates) {
     state.loadState = payload
@@ -70,17 +57,10 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  genreData(state: IHoge, genre: string) {
+  chatsData(state: IState, chats: any) {
+    const chatsData = chats.map((chat: any) => chat.data())
     // commitされた値を受け取る
-    state.genre = genre
-  },
-  chatsData(state: IHoge, chats: []) {
-    // commitされた値を受け取る
-    state.chats = chats
-    // eslint-disable-next-line no-console
-    console.log('mutationのchat')
-    // eslint-disable-next-line no-console
-    console.log(state.chats)
+    state.chats = chatsData
   }
 }
 
@@ -162,40 +142,19 @@ export const actions = {
         console.log('hogehoge')
       })
   },
-  requestListenData(dispatch: ICommit, payload: IHoge) {
-    // mutationにcommit
-    dispatch.commit('genreData', payload.genre)
-    // eslint-disable-next-line no-console
-    console.log('この下にgenre')
-    // eslint-disable-next-line no-console
-    console.log(payload)
+  requestListenData(dispatch: ICommit, payload: string) {
     // firestoreからdataを受け取る
     firebaseApp
       .firestore()
       .collection('chats')
-      // genre dataを入れる
-      .doc(payload.genre)
+      // payloadのgenre
+      .doc(payload)
       .collection('chats')
       .orderBy('postedAt', 'desc')
-      .onSnapshot((doc: any) => {
-        // eslint-disable-next-line no-console
-        console.log(doc.docs)
-        // eslint-disable-next-line no-console
-        console.log(payload.genre)
-        // 代入宣言
-        payload.chats = doc.docs
+      .onSnapshot(doc => {
+        const chats = doc.docs
         // mutationにcommit
-        dispatch.commit('chatsData', payload.chats)
-        // check
-        // eslint-disable-next-line no-console
-        console.log('この下にchats')
-        // eslint-disable-next-line no-console
-        console.log(payload.chats)
-        // foreach
-        doc.forEach((hoge: any) => {
-          // eslint-disable-next-line no-console
-          console.log(hoge.data())
-        })
+        dispatch.commit('chatsData', chats)
       })
   }
 }
