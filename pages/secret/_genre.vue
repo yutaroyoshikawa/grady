@@ -14,7 +14,7 @@
     <div class="main">
       <div class="chats-description">
         <p class="chats-title">チャットで映画を推理</p>
-        <p class="chats-massage">
+        <p class="chats-massage" @click="requestListenData">
           チケットを購入するとチャットに参加いただけます。
         </p>
 
@@ -71,7 +71,7 @@ export default Vue.extend({
     requestTemporaryReservation: function(form: IReservationForm) {
       this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
-    // mutationへcommit
+    // mutationへdispatch
     requestListenData: function(genre: IHoge) {
       this.$store.dispatch('secret/requestListenData', genre)
     },
