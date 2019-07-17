@@ -2,7 +2,7 @@
   <div>
     <div class="wrap">
       <div class="close-wrap">
-        <close-button />
+        <close-button :handleClick="handleClose" />
       </div>
       <div class="buttons-over-wrap">
         <span>スクリーン</span>
@@ -12,7 +12,11 @@
             :key="seat.value"
             :class="'seat' + index"
           >
-            <seat-button :value="seat.value" :isReserved="seat.isReserved" />
+            <seat-button
+              :value="seat.value"
+              :isReserved="seat.isReserved"
+              :handleClick="onClick"
+            />
           </div>
         </div>
       </div>
@@ -38,6 +42,11 @@ export default Vue.extend({
     'close-button': CloseButton,
     'reserved-seat-mark': ReservedSeatMark,
     'seat-button': SeatButton
+  },
+  props: {
+    handleClose: Function,
+    handleSelect: Function,
+    selectedIndex: Number
   },
   data: function() {
     return {
@@ -180,6 +189,14 @@ export default Vue.extend({
         }
       ]
     }
+  },
+  methods: {
+    onClick: function(selectedSeat: string) {
+      const index = this.seats.findIndex(seat => seat.value === selectedSeat)
+      this.seats[index].isReserved = true
+      this.handleSelect(selectedSeat, this.selectedIndex)
+      this.handleClose()
+    }
   }
 })
 </script>
@@ -188,9 +205,6 @@ export default Vue.extend({
 .wrap {
   background: #3f6060;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  top: 0;
-  right: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -248,6 +262,7 @@ export default Vue.extend({
       span {
         font-size: 30px;
         margin-bottom: 50px;
+        color: #fff;
       }
 
       .button-wrap {

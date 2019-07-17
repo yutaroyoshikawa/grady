@@ -18,7 +18,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 export default Vue.extend({})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap {
   button {
     background-color: transparent;
@@ -26,6 +26,8 @@ export default Vue.extend({})
     cursor: pointer;
     outline: none;
     appearance: none;
+    padding: 0;
+    margin: 0;
 
     .next-button {
       color: #fff;

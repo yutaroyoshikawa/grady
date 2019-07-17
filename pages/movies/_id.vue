@@ -116,7 +116,7 @@ export default Vue.extend({
       this.$store.dispatch('movies/requestTemporaryReservation', form)
     }
   },
-  layout: 'default'
+  layout: 'base'
 })
 </script>
 
