@@ -188,40 +188,40 @@ export default Vue.extend({
     flex-direction: column;
   }
   main.main {
-    height: 135px;
-    margin-top: -300px;
+    height: 120px;
+    margin-top: 130px;
   }
   .drawer-btn {
-    position: relative;
-    margin: 150px;
-    bottom: -500px;
+    position: absolute;
+    margin-left: 15%;
+    top: 850px;
     z-index: 2;
   }
   .secret-text {
     font-size: 61px;
   }
   div.main {
-    margin-top: 30px;
     .chats-title {
-      margin-left: 50px;
+      margin-left: 100px;
       width: 230px;
       font-size: 23px;
     }
     .chats-massage {
-      margin-left: 50px;
+      /* margin-top: -10px; */
+      margin-left: 100px;
       width: 312px;
       font-size: 13px;
     }
     .center-line {
       position: relative;
-      top: 15px;
+      margin-top: 5px;
       width: 596px;
       border-bottom: solid 3px #3e5d6e;
     }
   }
   .hoge {
-    margin-top: 30px;
-    height: 400px;
+    margin-top: 20px;
+    height: 470px;
     width: 300px;
     margin-left: 20%;
   }
