@@ -14,7 +14,7 @@
     <div class="main">
       <div class="chats-description">
         <p class="chats-title">チャットで映画を推理</p>
-        <p class="chats-massage" @click="requestListenData">
+        <p class="chats-massage">
           チケットを購入するとチャットに参加いただけます。
         </p>
 
@@ -42,7 +42,7 @@ import GoToWatchDrawer from '~/layouts/drawers/goToWatchDrawer.vue'
 import SecretGanruSelecter from '../../components/selector/secretGenreSelector.vue'
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
-import { IMovie, loadStates, IReservationForm, IHoge } from '~/store/secret'
+import { IMovie, loadStates, IReservationForm, Chats } from '~/store/secret'
 // import { firebaseApp } from '@/store/flamelink'
 
 export default Vue.extend({
@@ -61,6 +61,11 @@ export default Vue.extend({
     },
     loadState(): loadStates {
       return this.$store.state.movies.loadState
+    },
+    chats(): Chats {
+      // eslint-disable-next-line no-console
+      console.log(this.$store.state.secret.chats)
+      return this.$store.state.secret.chats
     }
   },
   methods: {
@@ -72,8 +77,13 @@ export default Vue.extend({
       this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
     // mutationへdispatch
-    requestListenData: function(genre: IHoge) {
-      this.$store.dispatch('secret/requestListenData', genre)
+    requestListenData: function(genre: string) {
+      // eslint-disable-next-line no-console
+      console.log(genre)
+      this.$store.dispatch('secret/requestListenData', {
+        genre,
+        chats: []
+      })
     },
     handleChange: function(event: any) {
       // ルーティング
@@ -103,13 +113,12 @@ export default Vue.extend({
     // },
     // // listen dataを早めに呼び出す
   },
-  // created() {
-  //   this.genre =
-  // },
+  mounted() {
+    this.requestListenData(this.$route.params.genre)
+  },
   data: function() {
     return {
-      genre: this.$route.params.genre,
-      chats: []
+      genre: this.$route.params.genre
     }
   },
   middleware: ['secret']

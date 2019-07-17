@@ -4,12 +4,12 @@
       <div v-for="(chat, index) in chats" :key="index">
         <div v-if="index % 2 === 0" class="chat_box">
           <p class="contents">
-            {{ chat.data().content }}
+            {{ chat }}
           </p>
         </div>
         <div v-else class="chat_box2">
           <p class="contents">
-            {{ chat.data().content }}
+            {{ chat }}
           </p>
         </div>
       </div>
@@ -22,11 +22,6 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     chats: Array
-  },
-  data() {
-    return {
-      count: 0
-    }
   }
 })
 </script>

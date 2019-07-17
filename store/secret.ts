@@ -11,6 +11,10 @@ export interface IMovie {
   genre: string
 }
 
+export interface Chats {
+  chats: []
+}
+
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
 export type submitStates = 'submitting' | 'done' | 'error' | 'none'
 
@@ -23,7 +27,7 @@ interface IState {
 
 // interface 宣言
 export interface IHoge {
-  genre: String
+  genre: string
   chats: []
 }
 
@@ -73,6 +77,10 @@ export const mutations = {
   chatsData(state: IHoge, chats: []) {
     // commitされた値を受け取る
     state.chats = chats
+    // eslint-disable-next-line no-console
+    console.log('mutationのchat')
+    // eslint-disable-next-line no-console
+    console.log(state.chats)
   }
 }
 
@@ -154,33 +162,28 @@ export const actions = {
         console.log('hogehoge')
       })
   },
-  requestListenData(
-    genre: string,
-    chats: IHoge,
-    dispatch: ICommit,
-    payload: IHoge
-  ) {
+  requestListenData(dispatch: ICommit, payload: IHoge) {
     // mutationにcommit
     dispatch.commit('genreData', payload.genre)
     // eslint-disable-next-line no-console
     console.log('この下にgenre')
     // eslint-disable-next-line no-console
-    console.log(payload.genre)
+    console.log(payload)
     // firestoreからdataを受け取る
     firebaseApp
       .firestore()
       .collection('chats')
       // genre dataを入れる
-      .doc(genre)
+      .doc(payload.genre)
       .collection('chats')
       .orderBy('postedAt', 'desc')
       .onSnapshot((doc: any) => {
         // eslint-disable-next-line no-console
         console.log(doc.docs)
         // eslint-disable-next-line no-console
-        console.log(genre)
-        // 変数宣言
-        chats = doc.docs
+        console.log(payload.genre)
+        // 代入宣言
+        payload.chats = doc.docs
         // mutationにcommit
         dispatch.commit('chatsData', payload.chats)
         // check
