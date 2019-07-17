@@ -34,6 +34,7 @@ export default Vue.extend({
 <style scoped lang="scss">
 .chat_box {
   display: flex;
+  align-items: center;
   height: auto !important;
   border: solid #000000 1px;
   background-color: #ffffff;
@@ -42,6 +43,7 @@ export default Vue.extend({
 }
 .chat_box2 {
   display: flex;
+  align-items: center;
   margin: 0 0 0 auto;
   height: auto !important;
   border: solid #000000 1px;
