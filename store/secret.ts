@@ -24,7 +24,7 @@ interface IState {
 // interface 宣言
 export interface IHoge {
   genre: String
-  chats: any
+  chats: []
 }
 
 export interface IReservationForm {
@@ -45,6 +45,11 @@ export const state = (): IState => ({
   submitState: 'done',
   isOpenDrawer: false
 })
+
+export const state1 = (): IHoge => ({
+  genre: '',
+  chats: []
+})
 export const mutations = {
   setLoadState(state: IState, payload: loadStates) {
     state.loadState = payload
@@ -64,6 +69,10 @@ export const mutations = {
   genreData(state: IHoge, genre: string) {
     // commitされた値を受け取る
     state.genre = genre
+  },
+  chatsData(state: IHoge, chats: []) {
+    // commitされた値を受け取る
+    state.chats = chats
   }
 }
 
@@ -145,7 +154,19 @@ export const actions = {
         console.log('hogehoge')
       })
   },
-  requestListenData(genre: string, chats: IHoge) {
+  requestListenData(
+    genre: string,
+    chats: IHoge,
+    dispatch: ICommit,
+    payload: IHoge
+  ) {
+    // mutationにcommit
+    dispatch.commit('genreData', payload.genre)
+    // eslint-disable-next-line no-console
+    console.log('この下にgenre')
+    // eslint-disable-next-line no-console
+    console.log(payload.genre)
+    // firestoreからdataを受け取る
     firebaseApp
       .firestore()
       .collection('chats')
@@ -158,7 +179,16 @@ export const actions = {
         console.log(doc.docs)
         // eslint-disable-next-line no-console
         console.log(genre)
+        // 変数宣言
         chats = doc.docs
+        // mutationにcommit
+        dispatch.commit('chatsData', payload.chats)
+        // check
+        // eslint-disable-next-line no-console
+        console.log('この下にchats')
+        // eslint-disable-next-line no-console
+        console.log(payload.chats)
+        // foreach
         doc.forEach((hoge: any) => {
           // eslint-disable-next-line no-console
           console.log(hoge.data())
