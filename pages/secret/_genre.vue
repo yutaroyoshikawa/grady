@@ -158,25 +158,26 @@ export default Vue.extend({
         width: 100%;
         height: 100%;
         /*background-color: lightcyan;*/
-        .chats-title {
-          font-size: 38px;
-        }
-        .chats-massage {
-          font-size: 21px;
-          border-bottom: solid 3px #ffffff;
-        }
-        .center-line {
-          height: 3px;
-          width: 100%;
-          background-color: #ffffff;
-        }
       }
     }
   }
   .hoge {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 700px;
     width: 100%;
+  }
+  .center-line {
+    height: 3px;
+    width: 100%;
+    background-color: #ffffff;
+  }
+  .chats-title {
+    font-size: 38px;
+    margin-bottom: 20px;
+  }
+  .chats-massage {
+    font-size: 21px;
+    margin-bottom: 20px;
   }
 }
 
