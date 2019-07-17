@@ -214,8 +214,10 @@ export default Vue.extend({
     }
   }
   .hoge {
+    margin-top: 30px;
     height: 400px;
-    width: 100%;
+    width: 300px;
+    margin-left: 20%;
   }
 }
 
