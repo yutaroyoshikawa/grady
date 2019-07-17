@@ -18,11 +18,6 @@ interface IState {
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
-}
-
-// interface 宣言
-interface IHoge {
-  genre: string
   chats: any
 }
 
@@ -38,15 +33,11 @@ export interface IReservationForm {
 
 export const state = (): IState => ({
   movie: {
-    genre: '',
+    genre: ''
   },
   loadState: 'none',
   submitState: 'done',
-  isOpenDrawer: false
-})
-
-export const state1 = (): IHoge => ({
-  genre: '',
+  isOpenDrawer: false,
   chats: []
 })
 
@@ -66,22 +57,10 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  listenData(genre: string, chats: Array) {
-    firebaseApp
-    .firestore()
-    .collection('chats')
-    .doc(this.genre)
-    .collection('chats')
-    .orderBy('postedAt', 'desc')
-    .onSnapshot((doc: any) => {
-      // eslint-disable-next-line no-console
-      console.log(doc.docs)
-      this.chats = doc.docs
-      doc.forEach((hoge: any) => {
-        // eslint-disable-next-line no-console
-        console.log(hoge.data())
-      })
-    })
+  chatsData(state: IState, chats: any) {
+    const chatsData = chats.map((chat: any) => chat.data())
+    // commitされた値を受け取る
+    state.chats = chatsData
   }
 }
 
@@ -92,9 +71,7 @@ export const actions = {
       const data = await flamelink.content.get({
         schemaKey: 'popularMovieInfo',
         entryId: payload,
-        fields: [
-          'genre',
-        ],
+        fields: ['genre']
       })
 
       if (data) {
@@ -105,11 +82,9 @@ export const actions = {
           const data = await flamelink.content.get({
             schemaKey: 'nowPlayingMovieInfo',
             entryId: payload,
-            fields: [
-              'genre'
-            ],
+            fields: ['genre']
           })
-          
+
           if (data) {
             dispatch.commit('setMovieInfo', data)
             dispatch.commit('setLoadState', 'done' as loadStates)
@@ -118,11 +93,13 @@ export const actions = {
           }
         } catch (e) {
           dispatch.commit('setLoadState', 'error' as loadStates)
+          // eslint-disable-next-line no-console
           console.error(e)
         }
       }
     } catch (e) {
       dispatch.commit('setLoadState', 'error' as loadStates)
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
@@ -134,12 +111,13 @@ export const actions = {
   },
   requestTemporaryReservation(dispatch: ICommit, payload: IReservationForm) {
     dispatch.commit('setSubmitState', 'submitting' as submitStates)
-    const url = 'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
+    const url =
+      'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
     fetch(url, {
       method: 'post',
       mode: 'cors',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
@@ -150,15 +128,33 @@ export const actions = {
         if (data === 'おけまる') {
           dispatch.commit('setSubmitState', 'done' as submitStates)
           dispatch.commit('closeDrawer')
+          // eslint-disable-next-line no-console
           console.log(data)
         } else {
           dispatch.commit('setSubmitState', 'error' as submitStates)
+          // eslint-disable-next-line no-console
           console.log('hoge')
         }
       })
       .catch(() => {
         dispatch.commit('setSubmitState', 'error' as submitStates)
+        // eslint-disable-next-line no-console
         console.log('hogehoge')
+      })
+  },
+  requestListenData(dispatch: ICommit, payload: string) {
+    // firestoreからdataを受け取る
+    firebaseApp
+      .firestore()
+      .collection('chats')
+      // payloadのgenre
+      .doc(payload)
+      .collection('chats')
+      .orderBy('postedAt', 'desc')
+      .onSnapshot(doc => {
+        const chats = doc.docs
+        // mutationにcommit
+        dispatch.commit('chatsData', chats)
       })
   }
 }
