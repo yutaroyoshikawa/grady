@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="wrap">
-      <select name="cardExpirationMonth" class="monthData">
+      <select
+        name="cardExpirationMonth"
+        class="monthData"
+        v-model.number="selectorValue"
+      >
         <option value="default" disabled selected>月</option>
         <option value="1">01</option>
         <option value="2">02</option>
@@ -22,7 +26,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    value: Number,
+    handleChange: Function
+  },
+  computed: {
+    selectorValue: {
+      get(): number | string {
+        return this.value ? this.value : 'default'
+      },
+      set(value: number) {
+        this.handleChange(value)
+      }
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

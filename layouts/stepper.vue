@@ -2,18 +2,18 @@
   <div>
     <div class="wrap">
       <step-button
-        :isActive="activeStep === '情報'"
+        :isActive="step === 1"
         :stepNumber="1"
         :hundleClick="clickInfo"
       />
       <step-button
-        :isActive="activeStep === '座席'"
+        :isActive="step === 2"
         :stepNumber="2"
         :hundleClick="clickSeat"
         class="seat-button"
       />
       <step-button
-        :isActive="activeStep === '決済'"
+        :isActive="step === 3"
         :stepNumber="3"
         :hundleClick="clickPay"
       />
@@ -29,20 +29,19 @@ export default Vue.extend({
   components: {
     'step-button': StepButton
   },
-  data: function() {
-    return {
-      activeStep: '情報'
-    }
+  props: {
+    step: Number,
+    handleChange: Function
   },
   methods: {
     clickInfo: function() {
-      this.activeStep = '情報'
+      this.handleChange(1)
     },
     clickSeat: function() {
-      this.activeStep = '座席'
+      this.handleChange(2)
     },
     clickPay: function() {
-      this.activeStep = '決済'
+      this.handleChange(3)
     }
   }
 })

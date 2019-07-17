@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="paymentButton">
-      決済
+      クレジットカード
     </button>
   </div>
 </template>
@@ -22,11 +22,11 @@ button {
 }
 .paymentButton {
   font-size: 40px;
-  height: 75px;
-  width: 210px;
-  color: #3f6060;
+  height: 85px;
+  width: 391px;
+  color: #0d0d36;
   background: #ffffff;
   border: 1px solid #707070;
-  border-radius: 38px;
+  border-radius: 60px;
 }
 </style>

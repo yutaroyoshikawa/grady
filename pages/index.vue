@@ -41,11 +41,13 @@
         <div class="hits-list-wrap" v-if="selectedStatus !== 'secret'">
           <ais-hits>
             <div slot="item" slot-scope="{ item }" class="movie-list">
-              <movie-thumbnail
-                :isScreening="item.isScreening"
-                :thumbUrl="'https://image.tmdb.org/t/p/w500/' + item.cover"
-                :thumbName="item.title"
-              />
+              <nuxt-link :to="'/movies/' + item.objectID">
+                <movie-thumbnail
+                  :isScreening="item.isScreening"
+                  :thumbUrl="'https://image.tmdb.org/t/p/w500/' + item.cover"
+                  :thumbName="item.title"
+                />
+              </nuxt-link>
             </div>
           </ais-hits>
         </div>
@@ -181,6 +183,7 @@ export default Vue.extend({
       filters: [] as string[]
     }
   },
+  layout: '',
   methods: {
     handleActiveGenre: function(genre: string) {
       this.selectedGenres.push(genre)

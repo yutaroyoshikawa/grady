@@ -38,10 +38,13 @@ export default Vue.extend({
   flex-wrap: center;
   flex-direction: column;
   color: #fff;
+  cursor: pointer;
 
   button {
     border-radius: 50%;
     transition: all 200ms ease;
+    outline: none;
+    cursor: pointer;
   }
 
   label {
@@ -62,9 +65,10 @@ export default Vue.extend({
 .inactive {
   color: #fff;
   border: solid 1px #fff;
+  background: none;
 
   &:hover {
-    background-color: #0d0d36;
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
   }
 }

@@ -2,12 +2,15 @@
   <div>
     <div class="wrap">
       <span>
-        <font-awesome-icon icon="user" />
+        <font-awesome-icon icon="key" />
       </span>
       <input
-        type="text"
-        placeholder="クレジットカード名義"
-        v-model="inputValue"
+        type="tel"
+        name="cardNumber"
+        size="3"
+        maxlength="3"
+        placeholder="CVG"
+        v-model.number="inputValue"
       />
     </div>
   </div>
@@ -16,25 +19,25 @@
 <script lang="ts">
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faKey } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add({ faUser })
+library.add({ faKey })
 
 export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
   },
   props: {
-    handleChange: Function,
-    value: String
+    value: Number,
+    handleChange: Function
   },
   computed: {
     inputValue: {
-      get(): string {
-        return this.value
+      get(): number | null {
+        return this.value ? this.value : null
       },
-      set(value: string) {
+      set(value: number) {
         this.handleChange(value)
       }
     }

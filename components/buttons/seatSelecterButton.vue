@@ -1,15 +1,8 @@
 <template>
   <div>
     <div class="wrap">
-      <button
-        :class="{
-          active: isReserved,
-          inactice: !isReserved
-        }"
-        :disabled="isReserved"
-        @click="onClick"
-      >
-        {{ value }}
+      <button @click="onClick">
+        {{ value ? value : '座席を選択' }}
       </button>
     </div>
   </div>
@@ -20,12 +13,12 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     value: String,
-    isReserved: Boolean,
-    handleClick: Function
+    handleClick: Function,
+    selectedSeatIndex: Number
   },
   methods: {
     onClick: function() {
-      this.handleClick(this.value)
+      this.handleClick(this.selectedSeatIndex)
     }
   }
 })
@@ -41,15 +34,7 @@ export default Vue.extend({
     appearance: none;
     display: block;
     border: 3px solid #fff;
-    border-radius: 20px;
-  }
-
-  .active {
-    color: #000;
-    background-color: #fff;
-  }
-
-  .inactice {
+    border-radius: 44px;
     color: #fff;
     background-color: transparent;
     transition: all 300ms ease;
@@ -63,9 +48,9 @@ export default Vue.extend({
 @media screen and (min-width: 1024px) {
   .wrap {
     button {
-      height: 69px;
-      width: 69px;
-      font-size: 31px;
+      height: 138px;
+      width: 138px;
+      font-size: 24px;
     }
   }
 }

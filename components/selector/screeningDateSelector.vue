@@ -2,9 +2,13 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="calendar-alt" class="icon" />
-      <select @change="handleChange" :value="value ? value : 'default'">
+      <select @change="handleChange" :value="value | filterDate">
         <option value="default" disabled selected>日付を選択</option>
-        <option v-for="(date, index) in dates" :key="index" :value="index + 1">
+        <option
+          v-for="(date, index) in dates"
+          :key="index"
+          :value="date | filterDate"
+        >
           {{ date | filterDate }}
         </option>
       </select>
@@ -25,7 +29,7 @@ export default Vue.extend({
   props: {
     dates: Array,
     handleChange: Function,
-    value: Number
+    value: Date
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon

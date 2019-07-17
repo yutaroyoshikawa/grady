@@ -4,8 +4,12 @@
       <font-awesome-icon icon="clock" class="icon" />
       <select @change="handleChange" :value="value ? value : 'default'">
         <option value="default" disabled selected>時間を選択</option>
-        <option v-for="(time, index) in times" :key="index" :value="index + 1">
-          {{ time.start | filterTime }} - {{ time.finish | filterTime }}
+        <option
+          v-for="(time, index) in times"
+          :key="index"
+          :value="time | formatTime"
+        >
+          {{ time | formatTime }}
         </option>
       </select>
     </div>
@@ -25,14 +29,16 @@ export default Vue.extend({
   props: {
     times: Array,
     handleChange: Function,
-    value: Number
+    value: String
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
   },
   filters: {
-    filterTime: function(time: Date) {
-      return moment(time).format('HH:mm')
+    formatTime: function(time: any) {
+      return `${moment(time.start).format('HH:mm')}-${moment(
+        time.finish
+      ).format('HH:mm')}`
     }
   }
 })
