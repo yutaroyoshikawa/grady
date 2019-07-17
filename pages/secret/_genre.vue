@@ -165,6 +165,11 @@ export default Vue.extend({
           font-size: 21px;
           border-bottom: solid 3px #ffffff;
         }
+        .center-line {
+          height: 3px;
+          width: 100%;
+          background-color: #ffffff;
+        }
       }
     }
   }
