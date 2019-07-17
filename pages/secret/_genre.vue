@@ -165,13 +165,13 @@ export default Vue.extend({
           font-size: 21px;
           border-bottom: solid 3px #ffffff;
         }
-        .hoge {
-          margin-top: 30px;
-          height: 700px;
-          width: 100%;
-        }
       }
     }
+  }
+  .hoge {
+    margin-top: 30px;
+    height: 700px;
+    width: 100%;
   }
 }
 
