@@ -29,9 +29,9 @@ export default Vue.extend({
 <style scoped lang="scss">
 .chat_box {
   display: flex;
-  width: 291px;
   height: auto !important;
   border: solid #000000 1px;
+  background-color: #ffffff;
   flex-wrap: wrap;
   word-wrap: break-word;
 }
@@ -39,7 +39,6 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   margin: 0 0 0 auto;
-  width: 291px;
   min-height: 61px;
   height: auto !important;
   border: solid #000000 1px;

@@ -18,7 +18,6 @@
             チケットを購入するとチャットに参加いただけます。
           </p>
         </div>
-        <div class="center-line"></div>
         <read-only-chat class="only-chat" :chats="chats" />
       </div>
     </div>
@@ -169,7 +168,6 @@ export default Vue.extend({
     height: 750px;
   }
 }
-
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .wrapper {
     justify-content: center;
@@ -221,7 +219,6 @@ export default Vue.extend({
     margin-left: 130px;
   }
 }
-
 @media screen and (max-width: 767px) {
   .wrapper {
     flex-flow: column;
