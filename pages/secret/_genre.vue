@@ -202,6 +202,7 @@ export default Vue.extend({
             margin-top: 15px;
             margin-bottom: 10px;
             text-align: center;
+            border-bottom: solid 3px #ffffff;
           }
         }
       }
@@ -250,6 +251,7 @@ export default Vue.extend({
           padding: 1px;
           margin-top: 10px;
           margin-bottom: 10px;
+          border-bottom: solid 3px #ffffff;
         }
       }
     }
