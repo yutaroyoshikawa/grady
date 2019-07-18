@@ -2,7 +2,11 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="calendar-alt" class="icon" />
-      <select @change="handleChange" :value="value | filterDate">
+      <select
+        @change="handleChange"
+        :value="value | filterDate"
+        :disabled="isReadOnly"
+      >
         <option value="default" disabled selected>日付を選択</option>
         <option
           v-for="(date, index) in dates"
@@ -29,7 +33,11 @@ export default Vue.extend({
   props: {
     dates: Array,
     handleChange: Function,
-    value: Date
+    value: Date,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
