@@ -6,7 +6,7 @@
           <confirmed-reservation />
         </div>
         <div v-if="paymentMethod">
-          決済済み
+          <show-reservation />
         </div>
       </div>
       <div v-if="loadState === 'loading'">
@@ -19,10 +19,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import ConfirmedReservation from '~/layouts/reservations/confirmedBooking.vue'
+import ShowReservation from '~/layouts/reservations/showReservation.vue'
 
 export default Vue.extend({
   components: {
-    'confirmed-reservation': ConfirmedReservation
+    'confirmed-reservation': ConfirmedReservation,
+    'show-reservation': ShowReservation
   },
   data: function() {
     return {

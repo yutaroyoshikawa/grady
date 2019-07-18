@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="wrap">
+    <div v-if="loadMovieData === 'loading'" class="wrap">loading...</div>
+    <div class="wrap" v-if="loadMovieData === 'done'">
       <div class="cover-back-wrap">
         <vue-load-image>
           <img
@@ -19,7 +20,7 @@
         <div class="top-content">
           <div>
             <movie-thumbnail
-              :isScreening="movie.isScreening"
+              :isScreening="true"
               :thumbName="movie.title"
               :thumbUrl="'https://image.tmdb.org/t/p/w500/' + movie.cover"
             />
@@ -34,36 +35,37 @@
             </div>
           </div>
         </div>
-        <div class="middle-content"></div>
         <div class="content">
           <div class="content-left">
-            <vue-qrcode :value="reservationId" :options="{ width: 253.15 }" />
+            <vue-qrcode :value="reservationId" :options="{ width: 222 }" />
           </div>
           <div class="content-right">
             <movie-theater-selector
               :theaters="theaters"
-              :handleChange="handleChangeTheater"
-              :value="formDatas.theater"
+              :value="reservation.theater"
+              :isReadOnly="true"
             />
-            <people-input
-              type="adult"
-              :handleChange="handleChangeAdult"
-              :value="formDatas.adult"
-            />
-            <people-input
-              type="kids"
-              :handleChange="handleChangeKids"
-              :value="formDatas.kids"
-            />
+            <div class="people-wrap">
+              <people-input
+                type="adult"
+                :value="reservation.adult"
+                :isReadOnly="true"
+              />
+              <people-input
+                type="kids"
+                :value="reservation.kids"
+                :isReadOnly="true"
+              />
+            </div>
             <screening-date-selector
               :dates="dates"
-              :handleChange="handleChangeDate"
-              :value="formDatas.date"
+              :value="reservation.date"
+              :isReadOnly="true"
             />
             <screening-time-selector
               :times="times"
-              :handleChange="handleChangeTime"
-              :value="formDatas.time"
+              :value="reservation.time"
+              :isReadOnly="true"
             />
           </div>
         </div>
@@ -76,7 +78,7 @@ import Vue from 'vue'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 import moment from 'moment'
 import VueLoadImage from 'vue-load-image'
-import { IMovie } from '~/store/movies'
+import { IMovie, IReserve } from '~/store/reservations'
 import MovieThumbnail from '~/layouts/movieThumbnail.vue'
 import MovieTitle from '~/components/texts/movieTitle.vue'
 import ScreeningYear from '~/components/texts/screeningYear.vue'
@@ -181,25 +183,25 @@ export default Vue.extend({
         moment()
           .add(14, 'day')
           .toDate()
-      ],
-      nowPage: 0,
-      formDatas: {
-        theater: '',
-        date: 0,
-        time: 0,
-        adult: 0,
-        kids: 0,
-        email: ''
-      }
+      ]
     }
   },
   computed: {
     movie(): IMovie {
-      return this.$store.state.movies.movie
+      return this.$store.state.reservations.movie
+    },
+    reservation(): IReserve {
+      return this.$store.state.reservations.reservation
+    },
+    loadMovieData(): string {
+      return this.$store.state.reservations.loadMovieData
     }
   },
-  created: function() {
-    this.$store.dispatch('movies/requestGetMovie', this.movieId)
+  mounted: function() {
+    this.$store.dispatch(
+      'reservations/requestGetMovie',
+      this.reservation.movieId
+    )
   }
 })
 </script>
@@ -269,29 +271,33 @@ export default Vue.extend({
       }
     }
 
-    .middle-content {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin: 35px 0 10px 0;
-    }
-
     .content {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 45px;
+
+      .content-right {
+        display: flex;
+        height: 253px;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        .people-wrap {
+          display: flex;
+        }
+      }
 
       .content-left {
-        width: 297px;
-        height: 300px;
-        background-color: white;
+        width: 253px;
+        height: 253px;
+        background-color: #fff;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-      }
-
-      .content-right {
-        background-color: red;
       }
     }
   }

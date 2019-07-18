@@ -32,9 +32,9 @@ export interface IReserve {
   paymentMethod: boolean
 }
 
-interface IMovie {
+export interface IMovie {
   title: string
-  screeningYear: number
+  releaseDate: Date
   cover: string
   coverBack: string
 }
@@ -42,6 +42,7 @@ interface IMovie {
 interface IState {
   loadState: loadStates
   loadSeatData: loadStates
+  loadMovieData: loadStates
   isSecret: boolean
   submitState: submitStates
   reservation: IReserve
@@ -51,6 +52,7 @@ interface IState {
 export const state = (): IState => ({
   loadState: 'loading',
   loadSeatData: 'none',
+  loadMovieData: 'loading',
   isSecret: false,
   submitState: 'none',
   reservation: {
@@ -66,7 +68,7 @@ export const state = (): IState => ({
   },
   movie: {
     title: '',
-    screeningYear: 0,
+    releaseDate: new Date(),
     cover: '',
     coverBack: ''
   }
@@ -100,6 +102,12 @@ export const mutations = {
   },
   setPaymentState(state: IState, payload: boolean) {
     state.reservation.paymentMethod = payload
+  },
+  setLoadMovie(state: IState, payload: loadStates) {
+    state.loadMovieData = payload
+  },
+  setMovieInfo(state: IState, payload: IMovie) {
+    state.movie = payload
   }
 }
 
@@ -231,7 +239,29 @@ export const actions = {
   requestCanselSeat(dispatch: ICommit, payload: string) {
     dispatch.commit('canselSeat', payload)
   },
-  successPayment(dispatch: ICommit) {
-    
+  async requestGetMovie(dispatch: ICommit, payload: string) {
+    dispatch.commit('setLoadMovie', 'loading' as loadStates)
+    try {
+      const data = await flamelink.content.get({
+        schemaKey: 'nowPlayingMovieInfo',
+        entryId: payload,
+        fields: [
+          'id',
+          'title',
+          'releaseDate',
+          'cover',
+          'coverBack'
+        ],
+      })
+      if (data) {
+        dispatch.commit('setMovieInfo', data)
+        dispatch.commit('setLoadMovie', 'done' as loadStates)
+      } else {
+        dispatch.commit('setLoadMovie', 'error' as loadStates)
+      }
+    } catch (e) {
+      dispatch.commit('setLoadMovie', 'error' as loadStates)
+      console.error(e)
+    }
   }
 }
