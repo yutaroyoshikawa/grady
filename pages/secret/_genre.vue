@@ -42,8 +42,6 @@ import SecretGanruSelecter from '../../components/selector/secretGenreSelector.v
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
 import { IMovie, loadStates, IReservationForm } from '~/store/secret'
-import { firebaseApp } from '@/store/flamelink'
-
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -60,6 +58,9 @@ export default Vue.extend({
     },
     loadState(): loadStates {
       return this.$store.state.movies.loadState
+    },
+    chats(): any {
+      return this.$store.state.secret.chats
     }
   },
   methods: {
@@ -70,37 +71,30 @@ export default Vue.extend({
     requestTemporaryReservation: function(form: IReservationForm) {
       this.$store.dispatch('secret/requestTemporaryReservation', form)
     },
+    // mutationへdispatch
+    requestListenData: function(genre: string) {
+      this.$store.dispatch('secret/requestListenData', genre)
+    },
+    stopListenData: function() {
+      this.$store.dispatch('secret/stopListenData')
+    },
     handleChange: function(event: any) {
       // ルーティング
       this.$nuxt.$router.push({
         path: `/secret/${event.target.value}`
       })
-    },
-    listenData: function() {
-      firebaseApp
-        .firestore()
-        .collection('chats')
-        .doc(this.genre)
-        .collection('chats')
-        .orderBy('postedAt', 'desc')
-        .onSnapshot((doc: any) => {
-          // eslint-disable-next-line no-console
-          console.log(doc.docs)
-          this.chats = doc.docs
-          doc.forEach((hoge: any) => {
-            // eslint-disable-next-line no-console
-            console.log(hoge.data())
-          })
-        })
     }
   },
-  created() {
-    this.listenData()
+  mounted() {
+    this.requestListenData(this.$route.params.genre)
+  },
+  // ここでfirebaseの通信終了
+  destroyed() {
+    this.stopListenData()
   },
   data: function() {
     return {
-      genre: this.$route.params.genre,
-      chats: []
+      genre: this.$route.params.genre
     }
   },
   middleware: ['secret']
