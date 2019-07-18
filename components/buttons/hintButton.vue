@@ -1,7 +1,11 @@
 <template>
-  <button>
-    <font-awesome-icon class="hint-button" icon="info-circle" />
-  </button>
+  <div>
+    <div class="wrap">
+      <button @click="handleClick">
+        <font-awesome-icon class="hint-button" icon="info-circle" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,34 +13,37 @@ import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 library.add({ faInfoCircle })
-Vue.component('info-circle', FontAwesomeIcon)
-export default Vue.extend({})
+
+export default Vue.extend({
+  components: {
+    'font-awesome-icon': FontAwesomeIcon
+  },
+  props: {
+    handleClick: Function
+  }
+})
 </script>
 
-<style lang="scss">
-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  appearance: none;
-}
+<style lang="scss" scoped>
+.wrap {
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    appearance: none;
+    width: 40px;
+    height: 40px;
 
-.hint-button {
-  color: #fff;
-}
-
-@media screen and (max-width: 1024px) {
-  .hint-button {
-    font-size: 40.43px;
-  }
-}
-
-@media screen and (min-width: 767px) and (max-width: 1024px) {
-  .hint-button {
-    font-size: 40.43px;
+    .hint-button {
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+    }
   }
 }
 </style>
