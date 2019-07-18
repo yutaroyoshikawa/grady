@@ -110,6 +110,9 @@ export default Vue.extend({
   width: 100vw;
   color: #ffffff;
 }
+.chats-massage {
+  border-bottom: solid 3px #ffffff;
+}
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 400ms ease;
@@ -158,7 +161,6 @@ export default Vue.extend({
             padding: 2px;
             margin-top: 15px;
             margin-bottom: 10px;
-            border-bottom: solid 3px #ffffff;
           }
         }
       }
@@ -202,7 +204,6 @@ export default Vue.extend({
             margin-top: 15px;
             margin-bottom: 10px;
             text-align: center;
-            border-bottom: solid 3px #ffffff;
           }
         }
       }
@@ -251,7 +252,6 @@ export default Vue.extend({
           padding: 1px;
           margin-top: 10px;
           margin-bottom: 10px;
-          border-bottom: solid 3px #ffffff;
         }
       }
     }
