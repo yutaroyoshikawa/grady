@@ -12,25 +12,39 @@
         <div class="stepper-wrap">
           <stepper :step="page" :handleChange="changePage" />
         </div>
-        <div class="form" v-if="loadState === 'done'">
+        <div class="form" v-if="loadSeatData === 'done'">
           <div class="contents" v-if="page === 1">
             <movie-theater-selector
               :theaters="theaters"
               :value="reservation.theater"
+              :isReadOnly="true"
             />
             <div class="people-input-wrap">
               <div>
-                <people-input type="adult" :value="reservation.adult" />
+                <people-input
+                  type="adult"
+                  :value="reservation.adult"
+                  :isReadOnly="true"
+                />
               </div>
               <div>
-                <people-input type="kids" :value="reservation.kids" />
+                <people-input
+                  type="kids"
+                  :value="reservation.kids"
+                  :isReadOnly="true"
+                />
               </div>
             </div>
             <screening-date-selector
               :dates="dates"
               :value="new Date(reservation.date)"
+              :isReadOnly="true"
             />
-            <screening-time-selector :times="times" :value="reservation.time" />
+            <screening-time-selector
+              :times="times"
+              :value="reservation.time"
+              :isReadOnly="true"
+            />
           </div>
           <div class="contents" v-if="page === 2">
             <div class="seats-wrap">
@@ -45,8 +59,8 @@
             <p>クリックして座席を選択</p>
           </div>
           <div class="contents" v-if="page === 3">
-            <div class="applepay" />
-            <div @click="openCreditCardDrawer">
+            <!-- <div class="applepay" /> -->
+            <div @click="requestPayment">
               <pay-button />
             </div>
           </div>
@@ -64,16 +78,12 @@
       </div>
     </div>
     <transition name="drawer">
-      <div v-if="isOpenCreditCardDrawer" class="drawer">
-        <credit-card-drawer :handleClose="closeCreditCardDrawer" />
-      </div>
-    </transition>
-    <transition name="drawer">
       <div v-if="isOpenSeatsDrawer" class="drawer">
         <seats-drawer
           :handleClose="closeSeatsDrawer"
           :handleSelect="onSelect"
           :selectedIndex="selectedSeatIndex"
+          :seats="reservation.sheets"
         />
       </div>
     </transition>
@@ -90,11 +100,15 @@ import ScreeningTimeSelector from '~/components/selector/screeningTimeSelector.v
 import PayButton from '~/components/buttons/payButton.vue'
 import BackButton from '~/components/buttons/backButton.vue'
 import NextButton from '~/components/buttons/nextButton.vue'
-import CreditCardDrawer from '~/layouts/drawers/creditCardDrawer.vue'
 import SeatsDrawer from '~/layouts/drawers/seatsDrawer.vue'
 import SeatSelectorButton from '~/components/buttons/seatSelecterButton.vue'
 import { IReserve } from '~/store/reservations'
 import moment from 'moment'
+
+interface ISheet {
+  isSelected: boolean
+  seat: string
+}
 
 export default Vue.extend({
   components: {
@@ -106,29 +120,14 @@ export default Vue.extend({
     'screening-date-selector': ScreeningDateSelector,
     'screening-time-selector': ScreeningTimeSelector,
     'pay-button': PayButton,
-    'credit-card-drawer': CreditCardDrawer,
     'seats-drawer': SeatsDrawer,
     'seat-selecter-button': SeatSelectorButton
   },
   data: function() {
     return {
       page: 1,
-      isOpenCreditCardDrawer: false,
       isOpenSeatsDrawer: false,
-      seats: [
-        {
-          isSelected: false,
-          seat: ''
-        },
-        {
-          isSelected: false,
-          seat: ''
-        },
-        {
-          isSelected: false,
-          seat: ''
-        }
-      ],
+      seats: [] as ISheet[],
       selectedSeatIndex: 0,
       theaters: [
         {
@@ -217,8 +216,8 @@ export default Vue.extend({
     reservation(): IReserve {
       return this.$store.state.reservations.reservation
     },
-    loadState(): string {
-      return this.$store.state.reservations.loadState
+    loadSeatData(): string {
+      return this.$store.state.reservations.loadSeatData
     },
     movieTitle(): string {
       return this.$store.state.reservations.movie.title
@@ -283,12 +282,6 @@ export default Vue.extend({
     backPage: function() {
       this.page = this.page - 1
     },
-    openCreditCardDrawer: function() {
-      this.isOpenCreditCardDrawer = true
-    },
-    closeCreditCardDrawer: function() {
-      this.isOpenCreditCardDrawer = false
-    },
     openSeatsDrawer: function(selectedIndex: number) {
       this.selectedSeatIndex = selectedIndex
       this.isOpenSeatsDrawer = true
@@ -297,17 +290,45 @@ export default Vue.extend({
       this.isOpenSeatsDrawer = false
     },
     onSelect: function(seat: string, selectedIndex: number) {
+      if (this.seats[selectedIndex].isSelected === true) {
+        this.$store.dispatch(
+          'reservations/requestCanselSeat',
+          this.seats[selectedIndex].seat
+        )
+      }
       this.seats[selectedIndex] = {
         isSelected: true,
         seat
       }
+    },
+    requestPayment: function() {
+      this.$store.dispatch('reservations/requestPayment', {
+        reservationId: this.$route.params.id,
+        adult: this.reservation.adult,
+        kids: this.reservation.kids,
+        sheets: this.reservation.sheets
+      })
     }
   },
-  created() {
-    this.$store.dispatch(
-      'reservations/requestGetReservation',
-      this.$route.params.id
-    )
+  mounted() {
+    this.$store.dispatch('reservations/requestGetSeatsData', {
+      date: this.reservation.date,
+      time: this.reservation.time,
+      theater: this.reservation.theater,
+      movieId: this.reservation.movieId
+    })
+    for (let loop = 0; loop < this.reservation.adult; loop++) {
+      this.seats.push({
+        isSelected: false,
+        seat: ''
+      })
+    }
+    for (let loop = 0; loop < this.reservation.kids; loop++) {
+      this.seats.push({
+        isSelected: false,
+        seat: ''
+      })
+    }
   }
 })
 </script>
@@ -399,6 +420,10 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      div {
+        margin: 0 20px;
+      }
     }
   }
 }

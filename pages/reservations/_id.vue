@@ -1,7 +1,17 @@
 <template>
   <div>
     <div>
-      <confirmed-reservation />
+      <div v-if="loadState === 'done'">
+        <div v-if="!paymentMethod">
+          <confirmed-reservation />
+        </div>
+        <div v-if="paymentMethod">
+          決済済み
+        </div>
+      </div>
+      <div v-if="loadState === 'loading'">
+        <div>loading...</div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +30,20 @@ export default Vue.extend({
       isOpenSeats: false,
       isOpenCreditCard: false
     }
+  },
+  computed: {
+    loadState(): string {
+      return this.$store.state.reservations.loadState
+    },
+    paymentMethod(): boolean {
+      return this.$store.state.reservations.reservation.paymentMethod
+    }
+  },
+  mounted: function() {
+    this.$store.dispatch(
+      'reservations/requestGetReservation',
+      this.reservationId
+    )
   }
 })
 </script>
