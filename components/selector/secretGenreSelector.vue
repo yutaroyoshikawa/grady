@@ -6,7 +6,8 @@
           v-for="genre in genres"
           v-bind:value="genre.value"
           v-bind:key="genre.value"
-        >{{ genre.text }}</option>
+          >{{ genre.text }}</option
+        >
       </select>
     </div>
   </div>
@@ -60,7 +61,7 @@ export default Vue.extend({
 
   &::after {
     content: '';
-    border: 0px;
+    border: 0;
     border-bottom: solid 2px #fff;
     border-right: solid 2px #fff;
     -ms-transform: rotate(45deg);
@@ -147,4 +148,3 @@ export default Vue.extend({
   }
 }
 </style>
-
