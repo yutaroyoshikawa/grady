@@ -106,7 +106,8 @@ export default Vue.extend({
   props: {
     handleClose: Function,
     handleSubmit: Function,
-    movieId: String
+    movieId: String,
+    genre: String
   },
   data: function() {
     return {
@@ -240,6 +241,7 @@ export default Vue.extend({
       if (e.target instanceof HTMLFormElement) {
         e.preventDefault()
         this.handleSubmit({
+          genre: this.genre,
           movieId: this.movieId,
           theater: this.formDatas.theater,
           date: moment(this.dates[this.formDatas.date - 1]).format(
