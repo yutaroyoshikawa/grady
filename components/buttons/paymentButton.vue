@@ -35,8 +35,18 @@ button {
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .payment-button {
+    font-size: 80px;
+    font-size: 17px;
+    height: 46.1px;
+    width: 129.09px;
+    border-radius: 38px;
+  }
+}
+
 @media screen and (max-width: 767px) {
- .payment-button {
+  .payment-button {
     font-size: 17px;
     height: 46.1px;
     width: 129.09px;
