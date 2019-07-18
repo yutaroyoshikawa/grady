@@ -149,9 +149,9 @@ export default Vue.extend({
 
       .top-right-content {
         display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
         flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
 
         .movie-title-wrap {
           display: flex;
@@ -237,6 +237,9 @@ export default Vue.extend({
   .reserve-button {
     margin: 100px 0 40px 0;
   }
+  .top-content {
+    margin-top: 5%;
+  }
 
   .content {
     .overview {
@@ -247,15 +250,20 @@ export default Vue.extend({
 
 @media screen and (max-width: 768px) {
   .cover-back-wrap {
-    height: 400px;
+    height: 300px;
     .cover-back {
-      height: 400px;
+      height: 300px;
     }
   }
-
+  .top-content {
+    margin-top: 30%;
+    width: 250px;
+  }
+  .top-right-content {
+    margin-top: 30%;
+  }
   .main-content {
-    width: 275.77px;
-
+    width: 275px;
     .content {
       .overview {
         font-size: 15px;
@@ -264,9 +272,9 @@ export default Vue.extend({
   }
   .reserve-button {
     position: relative;
-    bottom: -500px;
+    bottom: -480px;
     z-index: 2;
-    margin-right: 30%;
+    margin-right: 70%;
   }
 }
 </style>
