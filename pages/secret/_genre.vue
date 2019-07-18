@@ -1,27 +1,27 @@
 <template>
   <div class="wrapper">
-    <div class="top"></div>
-    <div></div>
-    <main class="main">
-      <p class="secret-text">シークレット映画</p>
-      <secret-genre-selecter :genre="genre" :handle-change="handleChange" />
-      <go-to-watch-button
-        class="drawer-btn"
-        :handle-click="requestOpenDrawer"
-      />
-    </main>
-    <div></div>
-    <div class="main">
-      <div class="chats-description">
-        <p class="chats-title">チャットで映画を推理</p>
-        <p class="chats-massage">
-          チケットを購入するとチャットに参加いただけます。
-        </p>
-
-        <read-only-chat class="hoge" :chats="chats" />
+    <div class="all-wrap">
+      <div class="secret-wrap">
+        <div class="secret-box">
+          <p class="secret-text">シークレット映画</p>
+          <secret-genre-selecter :genre="genre" :handle-change="handleChange" />
+        </div>
+        <go-to-watch-button
+          class="drawer-btn"
+          :handle-click="requestOpenDrawer"
+        />
+      </div>
+      <div class="chat-wrap">
+        <div class="chats-description">
+          <p class="chats-title">チャットで映画を推理</p>
+          <p class="chats-massage">
+            チケットを購入するとチャットに参加いただけます。
+          </p>
+        </div>
+        <div class="center-line"></div>
+        <read-only-chat class="only-chat" :chats="chats" />
       </div>
     </div>
-    <div></div>
     <transition name="drawer">
       <div v-if="isOpenDrawer" class="drawer">
         <go-to-watch-drawer
@@ -31,7 +31,6 @@
         />
       </div>
     </transition>
-    <div class="footer"></div>
   </div>
 </template>
 
@@ -108,81 +107,171 @@ export default Vue.extend({
 })
 </script>
 <style scoped lang="scss">
+.only-chat {
+  overflow-y: scroll;
+}
 .wrapper {
-  display: grid;
-  grid-template-columns: 181px 640px 263px 638px 199px;
-  grid-template-rows: 237px 737px 106px;
+  display: flex;
   background-color: #0a2e41;
-  justify-content: center;
   height: 100vh;
   width: 100vw;
-
-  .top {
-    grid-column-start: 1;
-    grid-column-end: 6;
-  }
-
-  .main {
-    .drawer-btn {
-      margin-top: 370px;
-    }
-
-    .secret-text {
-      color: #ffffff;
-      font-size: 80px;
-    }
-
-    .chats-description {
-      /*width: 638px;*/
-      width: 100%;
-      height: 100%;
-      color: #ffffff;
-      /*background-color: lightcyan;*/
-
-      .chats-title {
-        font-size: 38px;
-      }
-      .chats-massage {
-        font-size: 21px;
-        border-bottom: solid 3px #ffffff;
-      }
-
-      .hoge {
-        /*background-color: lightblue;*/
+  color: #ffffff;
+}
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: transform 400ms ease;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 20;
+}
+.drawer-enter {
+  transform: translateX(100%);
+}
+.drawer-enter-to {
+  transform: translateX(0);
+}
+.drawer-leave-to {
+  transform: translateX(100%);
+}
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    justify-content: center;
+    .all-wrap {
+      display: flex;
+      width: 1539px;
+      justify-content: space-between;
+      .secret-wrap {
         display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        .secret-text {
+          font-size: 80px;
+        }
+      }
+      .chat-wrap {
+        display: flex;
+        flex-flow: column;
         justify-content: center;
-        height: 100%;
+        .chats-description {
+          .chats-title {
+            font-size: 38px;
+          }
+          .chats-massage {
+            width: 638px;
+            font-size: 21px;
+            padding: 2px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            border-bottom: solid 3px #ffffff;
+          }
+        }
       }
     }
   }
-
-  .drawer-enter-active,
-  .drawer-leave-active {
-    transition: transform 400ms ease;
+  .only-chat {
+    height: 750px;
   }
+}
 
-  .drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 20;
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrapper {
+    justify-content: center;
+    .all-wrap {
+      display: flex;
+      flex-flow: column;
+      justify-content: space-evenly;
+      align-items: center;
+      .secret-wrap {
+        .secret-text {
+          font-size: 61px;
+        }
+        .drawer-btn {
+          position: absolute;
+          z-index: 1;
+          top: 88%;
+          margin-left: 13%;
+        }
+      }
+      .chat-wrap {
+        margin-top: -30%;
+        .chats-description {
+          .chats-title {
+            margin-right: 90px;
+            font-size: 23px;
+            text-align: center;
+          }
+          .chats-massage {
+            width: 598px;
+            font-size: 13px;
+            padding: 2px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            text-align: center;
+          }
+        }
+      }
+    }
   }
-
-  .drawer-enter {
-    transform: translateX(100%);
+  .center-line {
+    background-color: #3e5d6e;
+    height: 3px;
+    width: 596px;
   }
-
-  .drawer-enter-to {
-    transform: translateX(0);
+  .only-chat {
+    margin-top: 10px;
+    height: 400px;
+    width: 300px;
+    margin-left: 130px;
   }
+}
 
-  .drawer-leave-to {
-    transform: translateX(100%);
+@media screen and (max-width: 767px) {
+  .wrapper {
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    .secret-wrap {
+      .secret-text {
+        font-size: 27px;
+      }
+      .drawer-btn {
+        position: absolute;
+        z-index: 1;
+        top: 85%;
+        margin-left: 6%;
+      }
+    }
+    .chat-wrap {
+      margin-top: 20%;
+      display: flex;
+      justify-content: center;
+      flex-flow: column;
+      .chats-description {
+        .chats-title {
+          font-size: 18px;
+        }
+        .chats-massage {
+          width: 218px;
+          font-size: 13px;
+          padding: 1px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
+    }
   }
-
-  .footer {
-    grid-column-start: 1;
-    grid-column-end: 6;
+  .center-line {
+    background-color: #3e5d6e;
+    height: 3px;
+    width: 218px;
+  }
+  .only-chat {
+    margin-left: 45px;
+    height: 200px;
+    width: 150px;
   }
 }
 </style>

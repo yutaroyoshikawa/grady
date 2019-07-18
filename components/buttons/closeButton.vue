@@ -45,16 +45,12 @@ button {
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   button {
-    height: 62px;
-    width: 62px;
     font-size: 62px;
   }
 }
 
 @media screen and (max-width: 767px) {
   button {
-    height: 35px;
-    width: 35px;
     font-size: 35px;
   }
 }
