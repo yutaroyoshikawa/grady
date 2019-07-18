@@ -37,9 +37,9 @@ button {
 @media screen and (max-width: 767px) {
   .pay-button {
     font-size: 21px;
-    height: 168px;
-    width: 21px;
-    border-radius: 60px;
+    height: 21px;
+    width: 180px;
+    border-radius: 21px;
   }
 }
 </style>
