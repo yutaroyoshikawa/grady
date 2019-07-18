@@ -4,8 +4,20 @@ import flamelink, { firebaseApp } from './flamelink'
 type loadStates = 'loading' | 'done' | 'error' | 'none'
 type submitStates = 'submitting' | 'done' | 'error' | 'none'
 
+interface ISheet {
+  isReserved: boolean
+  value: string
+}
+
 interface ICommit {
   commit: vuex.Commit
+}
+
+interface IPaymentRequest {
+  reservationId: string
+  adult: number
+  kids: number
+  sheets: ISheet[]
 }
 
 export interface IReserve {
@@ -16,6 +28,8 @@ export interface IReserve {
   kids: number
   date: Date
   time: string
+  sheets: ISheet[]
+  paymentMethod: boolean
 }
 
 interface IMovie {
@@ -35,7 +49,7 @@ interface IState {
 }
 
 export const state = (): IState => ({
-  loadState: 'none',
+  loadState: 'loading',
   loadSeatData: 'none',
   isSecret: false,
   submitState: 'none',
@@ -46,7 +60,9 @@ export const state = (): IState => ({
     adult: 0,
     kids: 0,
     date: new Date(),
-    time: ''
+    time: '',
+    sheets: [],
+    paymentMethod: false
   },
   movie: {
     title: '',
@@ -74,6 +90,16 @@ export const mutations = {
   },
   setIsSecret(state: IState, payload: boolean) {
     state.isSecret = payload
+  },
+  setSheets(state: IState, payload: any) {
+    state.reservation.sheets = payload
+  },
+  canselSeat(state: IState, payload: string) {
+    const index = state.reservation.sheets.findIndex(sheet => sheet.value === payload)
+    state.reservation.sheets[index].isReserved = false
+  },
+  setPaymentState(state: IState, payload: boolean) {
+    state.reservation.paymentMethod = payload
   }
 }
 
@@ -92,7 +118,8 @@ export const actions = {
           'adult',
           'kids',
           'date',
-          'time'
+          'time',
+          'paymentMethod'
         ]
       })
       dispatch.commit('setReservationInfo', reservation)
@@ -117,11 +144,94 @@ export const actions = {
   },
   async requestGetSeatsData(dispatch: ICommit, payload: any) {
     dispatch.commit('setLoadSeatData', 'loading' as loadStates)
-    const snapshot = await firebaseApp
-      .firestore()
-      .collection(`theaterInfo/${payload.theater}/${payload.date}-${payload.time}`)
-      .where('movieID', '==', payload.movieId)
-      .get()
-    const sheets = snapshot.docs[0]
+    try {
+      console.log(payload)
+      const snapshot = await firebaseApp
+        .firestore()
+        .collection('theaterInfo')
+        .doc(payload.theater)
+        .collection(`${payload.date}_${payload.time}`)
+        .where('movieId', '==', payload.movieId)
+        .get()
+      dispatch.commit('setSheets', snapshot.docs[0].data().sheet)
+      dispatch.commit('setLoadSeatData', 'done' as loadStates)
+    } catch (e) {
+      dispatch.commit('setLoadSeatData', 'error' as loadStates)
+      console.error(e)
+    }
+  },
+  requestPayment(dispatch: ICommit, payload: IPaymentRequest) {
+    const supportedInstruments = [{
+      supportedMethods: ['basic-card'],
+      data: {
+        supportedNetworks: [
+          'visa', 'mastercard', 'amex', 'discover',
+          'diners', 'jcb', 'unionpay'
+        ]
+      }
+    }];
+
+    const details = {
+      displayItems: [{
+        label: `大人 × ${payload.adult}`,
+        amount: {
+          currency: 'JPY',
+          value: (1300 * payload.adult).toString()
+        }
+      }, {
+        label: `小人 × ${payload.kids}`,
+        amount: {
+          currency: 'JPY',
+          value: (900 * payload.kids).toString()
+        }
+      }],
+      total: {
+        label: '合計額',
+        amount: {
+          currency: 'JPY',
+          value : (1300 * payload.adult + 900 * payload.kids).toString()
+        }
+      }
+    }
+
+    const request = new PaymentRequest(supportedInstruments, details)
+
+    request
+      .show()
+      .then(result => {
+        const requestReservation = {
+          payment: result.toJSON(),
+          reservation: {
+            id: payload.reservationId,
+            sheets: payload.sheets
+          } 
+        }
+        console.log(requestReservation)
+        return fetch('https://asia-northeast1-grady-43e4a.cloudfunctions.net/paymentRequest', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          mode: 'cors',
+          body: JSON.stringify(requestReservation)
+        })
+        .then(response => {
+          if (response.status === 200) {
+            result.complete('success')
+            dispatch.commit('setPaymentState', true)
+          } else {
+            result.complete('fail')
+          }
+        })
+        .catch(() => (
+          result.complete('fail')
+        ))
+      })
+  },
+  requestCanselSeat(dispatch: ICommit, payload: string) {
+    dispatch.commit('canselSeat', payload)
+  },
+  successPayment(dispatch: ICommit) {
+    
   }
 }

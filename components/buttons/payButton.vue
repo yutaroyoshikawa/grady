@@ -1,7 +1,7 @@
 <template>
   <div>
     <button class="paymentButton">
-      クレジットカード
+      支払う
     </button>
   </div>
 </template>

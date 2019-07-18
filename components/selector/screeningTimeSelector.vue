@@ -2,7 +2,11 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="clock" class="icon" />
-      <select @change="handleChange" :value="value ? value : 'default'">
+      <select
+        @change="handleChange"
+        :value="value ? value : 'default'"
+        :disabled="isReadOnly"
+      >
         <option value="default" disabled selected>時間を選択</option>
         <option
           v-for="(time, index) in times"
@@ -29,7 +33,11 @@ export default Vue.extend({
   props: {
     times: Array,
     handleChange: Function,
-    value: String
+    value: String,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
