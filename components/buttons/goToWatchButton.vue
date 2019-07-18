@@ -22,6 +22,7 @@ export default Vue.extend({
   cursor: pointer;
   color: #fff;
   transition: all 500ms ease;
+  background: transparent;
 }
 
 .entire:hover {
