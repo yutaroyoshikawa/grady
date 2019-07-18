@@ -65,6 +65,7 @@ input {
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .wrap {
+    font-size: 29px;
     width: 56px;
     height: 40.5px;
   }
@@ -72,7 +73,8 @@ input {
 
 @media screen and (max-width: 767px) {
   .wrap {
-    width: 34.42px;
+    font-size: 5px;
+    width: 45px;
     height: 24.9px;
   }
 }
