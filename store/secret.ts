@@ -1,6 +1,7 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
+import { any } from '@/node_modules/@types/prop-types'
 
 interface ICommit {
   commit: vuex.Commit
@@ -12,6 +13,8 @@ export interface IMovie {
 
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
 export type submitStates = 'submitting' | 'done' | 'error' | 'none'
+
+let unsubscribe: any = null
 
 interface IState {
   movie: IMovie
@@ -143,8 +146,18 @@ export const actions = {
       })
   },
   requestListenData(dispatch: ICommit, payload: string) {
+    // 通信初期化
+    if (unsubscribe) {
+      unsubscribe()
+      // eslint-disable-next-line no-console
+      console.log('hoge')
+      unsubscribe = null
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('foo')
+    }
     // firestoreからdataを受け取る
-    firebaseApp
+    unsubscribe = firebaseApp
       .firestore()
       .collection('chats')
       // payloadのgenre
@@ -156,5 +169,12 @@ export const actions = {
         // mutationにcommit
         dispatch.commit('chatsData', chats)
       })
+  },
+  stopListenData() {
+    if (unsubscribe) {
+      unsubscribe()
+
+      unsubscribe = null
+    }
   }
 }

@@ -43,8 +43,6 @@ import SecretGanruSelecter from '../../components/selector/secretGenreSelector.v
 import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import ReadOnlyChat from '~/layouts/chats/readOnlyChat.vue'
 import { IMovie, loadStates, IReservationForm } from '~/store/secret'
-// import { firebaseApp } from '@/store/flamelink'
-
 export default Vue.extend({
   components: {
     'go-to-watch-drawer': GoToWatchDrawer,
@@ -78,6 +76,9 @@ export default Vue.extend({
     requestListenData: function(genre: string) {
       this.$store.dispatch('secret/requestListenData', genre)
     },
+    stopListenData: function() {
+      this.$store.dispatch('secret/stopListenData')
+    },
     handleChange: function(event: any) {
       // ルーティング
       this.$nuxt.$router.push({
@@ -87,6 +88,10 @@ export default Vue.extend({
   },
   mounted() {
     this.requestListenData(this.$route.params.genre)
+  },
+  // ここでfirebaseの通信終了
+  destroyed() {
+    this.stopListenData()
   },
   data: function() {
     return {
