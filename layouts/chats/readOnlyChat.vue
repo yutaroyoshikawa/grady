@@ -49,7 +49,6 @@ export default Vue.extend({
 p.contents {
   word-break: break-all;
   color: #0a2e41;
-  font-size: 20px;
   font-weight: 500;
 }
 
@@ -67,7 +66,8 @@ p.contents {
     border-radius: 56px;
   }
   p.contents {
-    padding: 10px;
+    font-size: 20px;
+    padding: 20px;
     margin: 20px;
   }
 }
@@ -86,7 +86,7 @@ p.contents {
     border-radius: 50px;
   }
   p.contents {
-    padding: 10px;
+    padding: 5px;
     margin: 20px;
   }
 }
@@ -105,6 +105,7 @@ p.contents {
     border-radius: 26.63px;
   }
   p.contents {
+    font-size: 5px;
     margin: 10px;
   }
 }
