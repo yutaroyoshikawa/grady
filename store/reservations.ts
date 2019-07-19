@@ -1,6 +1,8 @@
 import * as vuex from 'vuex'
 import flamelink, { firebaseApp } from './flamelink'
 
+let unsubscribe: any = null
+
 type loadStates = 'loading' | 'done' | 'error' | 'none'
 type submitStates = 'submitting' | 'done' | 'error' | 'none'
 
@@ -39,6 +41,12 @@ export interface IMovie {
   coverBack: string
 }
 
+export interface IHints {
+  hint1: string
+  hint2: string
+  hint3: string
+}
+
 interface IState {
   loadState: loadStates
   loadSeatData: loadStates
@@ -47,6 +55,8 @@ interface IState {
   submitState: submitStates
   reservation: IReserve
   movie: IMovie
+  hints: IHints
+  chats: any
 }
 
 export const state = (): IState => ({
@@ -71,7 +81,13 @@ export const state = (): IState => ({
     releaseDate: new Date(),
     cover: '',
     coverBack: ''
-  }
+  },
+  hints: {
+    hint1: '',
+    hint2: '',
+    hint3: ''
+  },
+  chats: []
 })
 
 export const mutations = {
@@ -108,6 +124,14 @@ export const mutations = {
   },
   setMovieInfo(state: IState, payload: IMovie) {
     state.movie = payload
+  },
+  setHints(state: IState, payload: IHints) {
+    state.hints = payload
+  },
+  chatsData(state: IState, chats: any) {
+    const chatsData = chats.map((chat: any) => chat.data())
+    // commitされた値を受け取る
+    state.chats = chatsData
   }
 }
 
@@ -133,17 +157,17 @@ export const actions = {
       dispatch.commit('setReservationInfo', reservation)
       if (reservation.movieId) {
         dispatch.commit('setIsSecret', false)
+        const movie = await flamelink.content.get({
+          schemaKey: 'nowPlayingMovieInfo',
+          entryId: reservation.movieId,
+          fields: [
+            'title'
+          ]
+        })
+        dispatch.commit('setMovieTitle', movie.title)
       } else if (reservation.genre) {
         dispatch.commit('setIsSecret', true)
       }
-      const movie = await flamelink.content.get({
-        schemaKey: 'nowPlayingMovieInfo',
-        entryId: reservation.movieId,
-        fields: [
-          'title'
-        ]
-      })
-      dispatch.commit('setMovieTitle', movie.title)
       dispatch.commit('setLoadState', 'done' as loadStates)
     } catch (e) {
       dispatch.commit('setLoadState', 'error' as loadStates)
@@ -262,6 +286,57 @@ export const actions = {
     } catch (e) {
       dispatch.commit('setLoadMovie', 'error' as loadStates)
       console.error(e)
+    }
+  },
+  async requestGetHint(dispatch: ICommit, payload: string) {
+    console.log(payload)
+    try {
+      const data = await flamelink.content.get({
+        schemaKey: 'secretMovieInfo',
+        orderByChild: 'genre',
+        equalTo: payload,
+        fields: [
+          'hint1',
+          'hint2',
+          'hint3'
+        ],
+      })
+      
+      dispatch.commit('setHints', data)
+    } catch(e) {
+      console.error(e)
+    }
+  },
+  requestListenData(dispatch: ICommit, payload: string) {
+    // 通信初期化
+    if (unsubscribe) {
+      unsubscribe()
+      // eslint-disable-next-line no-console
+      console.log('hoge')
+      unsubscribe = null
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('foo')
+    }
+    // firestoreからdataを受け取る
+    unsubscribe = firebaseApp
+      .firestore()
+      .collection('chats')
+      // payloadのgenre
+      .doc(payload)
+      .collection('chats')
+      .orderBy('postedAt', 'desc')
+      .onSnapshot(doc => {
+        const chats = doc.docs
+        // mutationにcommit
+        dispatch.commit('chatsData', chats)
+      })
+  },
+  stopListenData() {
+    if (unsubscribe) {
+      unsubscribe()
+
+      unsubscribe = null
     }
   }
 }

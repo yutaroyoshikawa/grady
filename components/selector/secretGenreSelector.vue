@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrap">
-      <select v-model="genre" @change="handleChange">
+      <select v-model="genre" @change="handleChange" :disabled="isReadOnly">
         <option
           v-for="genre in genres"
           :key="genre.value"
@@ -18,7 +18,11 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     genre: String,
-    handleChange: Function
+    handleChange: Function,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   data: function() {
     return {

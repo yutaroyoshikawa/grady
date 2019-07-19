@@ -6,7 +6,12 @@
           <confirmed-reservation />
         </div>
         <div v-if="paymentMethod">
-          <show-reservation />
+          <div v-if="!isSecret">
+            <show-reservation />
+          </div>
+          <div v-if="isSecret">
+            <show-secret-reservation />
+          </div>
         </div>
       </div>
       <div v-if="loadState === 'loading'">
@@ -20,11 +25,13 @@
 import Vue from 'vue'
 import ConfirmedReservation from '~/layouts/reservations/confirmedBooking.vue'
 import ShowReservation from '~/layouts/reservations/showReservation.vue'
+import ShowSecretReservation from '~/layouts/reservations/showSecretReservation.vue'
 
 export default Vue.extend({
   components: {
     'confirmed-reservation': ConfirmedReservation,
-    'show-reservation': ShowReservation
+    'show-reservation': ShowReservation,
+    'show-secret-reservation': ShowSecretReservation
   },
   data: function() {
     return {
@@ -39,6 +46,9 @@ export default Vue.extend({
     },
     paymentMethod(): boolean {
       return this.$store.state.reservations.reservation.paymentMethod
+    },
+    isSecret(): boolean {
+      return this.$store.state.reservations.isSecret
     }
   },
   mounted: function() {
