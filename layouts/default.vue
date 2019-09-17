@@ -2,7 +2,11 @@
   <div>
     <div class="wrap">
       <div class="logo-wrap">
-        <logo />
+        <nuxt-link to="/">
+          <div>
+            <logo />
+          </div>
+        </nuxt-link>
       </div>
       <nuxt />
     </div>

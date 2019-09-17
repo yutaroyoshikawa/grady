@@ -231,21 +231,14 @@ export const actions = {
     request
       .show()
       .then(result => {
-        const requestReservation = {
-          payment: result.toJSON(),
-          reservation: {
-            id: payload.reservationId,
-            sheets: payload.sheets
-          } 
-        }
-        console.log(requestReservation)
+        // console.log(JSON.stringify(requestReservation))
         return fetch('https://asia-northeast1-grady-43e4a.cloudfunctions.net/paymentRequest', {
-          method: 'POST',
+          method: 'post',
+          mode: 'cors',
           headers: {
             'Content-Type': 'application/json'
           },
-          mode: 'cors',
-          body: JSON.stringify(requestReservation)
+          body: JSON.stringify(result.toJSON())
         })
         .then(response => {
           if (response.status === 200) {

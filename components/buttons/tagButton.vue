@@ -46,6 +46,7 @@ export default Vue.extend({
   transition: all 200ms ease;
   font-size: 20px;
   color: #7b7a7a;
+  background: transparent;
 }
 
 .active {
