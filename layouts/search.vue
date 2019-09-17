@@ -11,18 +11,18 @@
         <ais-configure :facetFilters="filters" :tagFilters="selectedGenres" />
         <ais-search-box :value="inputValue" />
         <div class="search-wrapper">
+          <div v-if="isActive" @click="handleBlur" class="closer">
+            <close-button />
+          </div>
           <div class="search-box-wrapper">
-            <div class="logo-wrap">
-              <logo />
-            </div>
             <div class="search-box">
-              <input v-model="inputValue" />
+              <input @focus="handleFocus" v-model="inputValue" />
               <div class="search-mark">
                 <font-awesome-icon icon="search" />
               </div>
             </div>
           </div>
-          <div>
+          <div v-if="isActive">
             <div class="genre-wrapper">
               <div v-for="genre in genres" :key="genre.value" class="genre">
                 <tag-button
@@ -36,29 +36,35 @@
             <div class="screening-status">
               <screening-status-bar :handleChange="handleChangeStatus" />
             </div>
-          </div>
-        </div>
-        <div class="hits-list-wrap" v-if="selectedStatus !== 'secret'">
-          <ais-hits>
-            <div slot="item" slot-scope="{ item }" class="movie-list">
-              <nuxt-link :to="'/movies/' + item.objectID">
-                <movie-thumbnail
-                  :isScreening="item.isScreening"
-                  :thumbUrl="'https://image.tmdb.org/t/p/w500/' + item.cover"
-                  :thumbName="item.title"
-                />
-              </nuxt-link>
-            </div>
-          </ais-hits>
-        </div>
-        <div class="hits-list-wrap" v-if="selectedStatus === 'secret'">
-          <div class="ais-Hits-list">
-            <div
-              v-for="genre in genres"
-              :key="genre.value"
-              class="ais-Hits-item"
-            >
-              <secret-card :text="genre.text" :value="genre.value" />
+            <div class="hits-wrapper">
+              <div v-if="selectedStatus !== 'secret'">
+                <ais-hits>
+                  <div slot="item" slot-scope="{ item }" class="movie-list">
+                    <div @click="handleBlur">
+                      <nuxt-link :to="'/movies/' + item.objectID">
+                        <movie-thumbnail
+                          :isScreening="item.isScreening"
+                          :thumbUrl="
+                            'https://image.tmdb.org/t/p/w500/' + item.cover
+                          "
+                          :thumbName="item.title"
+                        />
+                      </nuxt-link>
+                    </div>
+                  </div>
+                </ais-hits>
+              </div>
+              <div class="secret-list-wrap" v-if="selectedStatus === 'secret'">
+                <div class="ais-Hits-list">
+                  <div
+                    v-for="genre in genres"
+                    :key="genre.value"
+                    class="ais-Hits-item"
+                  >
+                    <secret-card :text="genre.text" :value="genre.value" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -70,10 +76,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import ScreeningStatusBar from '~/layouts/screeningStatusBar.vue'
+import CloseButton from '~/components/buttons/closeButton.vue'
 import TagButton from '~/components/buttons/tagButton.vue'
 import MovieThumbnail from '~/layouts/movieThumbnail.vue'
 import SecretCard from '~/layouts/secretCard.vue'
-import Logo from '~/components/marks/logo.vue'
 import InstantSearch from 'vue-instantsearch'
 import algoliasearch from 'algoliasearch/lite'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -86,11 +92,11 @@ library.add({ faSearch })
 export default Vue.extend({
   components: {
     'screening-status-bar': ScreeningStatusBar,
+    'close-button': CloseButton,
     'tag-button': TagButton,
     'movie-thumbnail': MovieThumbnail,
     'font-awesome-icon': FontAwesomeIcon,
-    'secret-card': SecretCard,
-    logo: Logo
+    'secret-card': SecretCard
   },
   data: function() {
     return {
@@ -183,8 +189,13 @@ export default Vue.extend({
       filters: [] as string[]
     }
   },
-  layout: '',
   methods: {
+    handleFocus: function() {
+      this.isActive = true
+    },
+    handleBlur: function() {
+      this.isActive = false
+    },
     handleActiveGenre: function(genre: string) {
       this.selectedGenres.push(genre)
     },
@@ -215,12 +226,12 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .wrap {
-  height: 100vh;
-  overflow-y: scroll;
-  background: #377793;
   .search-wrapper {
-    position: fixed;
-    background: #377793;
+    transition: all 800ms ease;
+
+    .closer {
+      position: absolute;
+    }
 
     .genre-wrapper {
       display: flex;
@@ -231,15 +242,9 @@ export default Vue.extend({
     }
 
     .search-box-wrapper {
-      width: 100vw;
+      width: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
-
-      .logo-wrap {
-        width: 76px;
-        height: 76px;
-      }
 
       .search-box {
         border: solid 2px #fff;
@@ -247,7 +252,7 @@ export default Vue.extend({
         align-items: center;
 
         input {
-          width: 100vw;
+          width: 100%;
           height: 100%;
           background: transparent;
           color: #fff;
@@ -260,27 +265,50 @@ export default Vue.extend({
 
         .search-mark {
           color: #fff;
-          transform: translateY(-10px);
+          transform: translateY(-5px);
         }
       }
     }
 
     .screening-status {
-      width: 100vw;
+      width: 100%;
       display: flex;
       justify-content: center;
     }
+
+    .hits-wrapper {
+      overflow-y: scroll;
+
+      .secret-list-wrap {
+        &::before {
+          content: '';
+          background: linear-gradient(
+            rgba(58, 119, 146, 1),
+            rgba(58, 119, 146, 0)
+          );
+          position: absolute;
+          z-index: 10;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  .search-wrapper {
+    background-color: #377793;
+  }
+}
+
+.inactive {
+  .search-wrapper {
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .wrap {
-    width: 100vw;
-    background: #377793;
-
     .search-wrapper {
-      width: 100%;
-
       .closer {
         transform: translate(80px, 30px);
       }
@@ -294,16 +322,11 @@ export default Vue.extend({
       }
 
       .search-box-wrapper {
-        margin-top: 30px;
-
-        .logo-wrap {
-          transform: translateX(-200px);
-        }
-
         .search-box {
           width: 722px;
           height: 66px;
           border-radius: 38px;
+          margin-top: 30px;
 
           input {
             font-size: 30px;
@@ -324,10 +347,41 @@ export default Vue.extend({
       .screening-status {
         margin: 30px 0;
       }
+
+      .hits-wrapper {
+        height: 500px;
+
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 1355px;
+            height: 50px;
+          }
+        }
+      }
     }
-    .hits-list-wrap {
-      margin: 0 0 0 35px;
-      padding-top: 250px;
+  }
+
+  .active {
+    width: 1440px;
+    height: 762px;
+
+    .search-wrapper {
+      width: 1440px;
+      height: 762px;
+      border-radius: 53px;
+    }
+  }
+
+  .inactive {
+    width: 722px;
+    height: 66px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 53px;
     }
   }
 }
@@ -374,9 +428,40 @@ export default Vue.extend({
         margin: 30px 0;
       }
 
-      .secret-list-wrap {
-        margin-left: 35px;
+      .hits-wrapper {
+        height: 519px;
+
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 542px;
+            height: 50px;
+          }
+        }
       }
+    }
+  }
+
+  .active {
+    width: 588px;
+    height: 762px;
+
+    .search-wrapper {
+      width: 588px;
+      height: 762px;
+      border-radius: 53px;
+    }
+  }
+
+  .inactive {
+    width: 722px;
+    height: 66px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 53px;
     }
   }
 }
@@ -423,9 +508,40 @@ export default Vue.extend({
         margin: 15px 0;
       }
 
-      .secret-list-wrap {
-        margin-left: 35px;
+      .hits-wrapper {
+        height: 280px;
+
+        .secret-list-wrap {
+          margin-left: 35px;
+
+          &::before {
+            width: 252px;
+            height: 50px;
+          }
+        }
       }
+    }
+  }
+
+  .active {
+    width: 297px;
+    height: 457px;
+
+    .search-wrapper {
+      width: 297px;
+      height: 457px;
+      border-radius: 32px;
+    }
+  }
+
+  .inactive {
+    width: 188px;
+    height: 36px;
+
+    .search-wrapper {
+      width: 100%;
+      height: 66px;
+      border-radius: 36px;
     }
   }
 }

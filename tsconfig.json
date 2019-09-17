@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "experimentalDecorators": true,
     "types": [
+      "/",
       "@types/node",
       "@nuxt/vue-app"
     ],
@@ -12,5 +13,10 @@
     "module": "es2015",
     "moduleResolution": "node",
     "resolveJsonModule":true,
+    "skipLibCheck": true
   },
+  "exclude": [
+    "functions",
+    "node_modules"
+  ]
 }
