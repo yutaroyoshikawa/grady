@@ -28,10 +28,7 @@ export default Vue.extend({
   },
   props: {
     handleChange: Function,
-    value: {
-      value: String,
-      default: ''
-    }
+    value: String
   },
   data: function() {
     return {
