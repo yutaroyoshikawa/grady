@@ -76,7 +76,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
-import moment from 'moment'
+import * as moment from 'moment'
 import VueLoadImage from 'vue-load-image'
 import { IMovie, IReserve } from '~/store/reservations'
 import MovieThumbnail from '~/layouts/movieThumbnail.vue'

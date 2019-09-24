@@ -103,7 +103,7 @@ import NextButton from '~/components/buttons/nextButton.vue'
 import SeatsDrawer from '~/layouts/drawers/seatsDrawer.vue'
 import SeatSelectorButton from '~/components/buttons/seatSelecterButton.vue'
 import { IReserve } from '~/store/reservations'
-import moment from 'moment'
+import * as moment from 'moment'
 
 interface ISheet {
   isSelected: boolean
