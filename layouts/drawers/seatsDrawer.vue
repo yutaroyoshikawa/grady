@@ -31,16 +31,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import CloseButton from '~/components/buttons/closeButton.vue'
 import ReservedSeatMark from '~/components/marks/reservedSeatMark.vue'
 import SeatButton from '~/components/buttons/seatButton.vue'
-
-interface ISheet {
-  value: string
-  isReserved: boolean
-}
 
 export default Vue.extend({
   components: {
@@ -51,14 +46,11 @@ export default Vue.extend({
   props: {
     handleClose: Function,
     handleSelect: Function,
-    seats: {
-      value: Array,
-      default: [] as ISheet[]
-    },
+    seats: Array,
     selectedIndex: Number
   },
   methods: {
-    onClick: function(selectedSeat: string) {
+    onClick: function(selectedSeat) {
       const index = this.seats.findIndex(seat => seat.value === selectedSeat)
       this.seats[index].isReserved = true
       this.handleSelect(selectedSeat, this.selectedIndex)

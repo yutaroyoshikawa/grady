@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import ChatMessage from '../components/texts/chatMessage'
+import ChatMessage from '../components/texts/chatMessage.vue'
 
 export default Vue.extend({
   components: {
