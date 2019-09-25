@@ -1,12 +1,11 @@
 import * as admin from 'firebase-admin'
 import * as flamelink from 'flamelink/app'
 import * as adminConfig from './serviceAccountKey.json'
-// tslint:disable-next-line: no-import-side-effect
 import 'flamelink/content'
 
 export const firebaseApp = admin.initializeApp({
   credential: admin.credential.cert(adminConfig as any),
-  databaseURL: 'https://grady-43e4a.firebaseio.com',
+  databaseURL: 'https://grady-43e4a.firebaseio.com'
 })
 
 export const app = (flamelink as any)({
