@@ -13,6 +13,8 @@ export interface IMovie {
   isScreening: boolean
   cover: string
   coverBack: string
+  castName: []
+  staff: []
 }
 
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
@@ -43,7 +45,9 @@ export const state = (): IState => ({
     story: '',
     isScreening: false,
     cover: '',
-    coverBack: ''
+    coverBack: '',
+    castName: [],
+    staff: []
   },
   loadState: 'none',
   submitState: 'done',
@@ -82,8 +86,10 @@ export const actions = {
           'releaseDate',
           'story',
           'cover',
-          'coverBack'
-        ],
+          'coverBack',
+          'castName',
+          'staff'
+        ]
       })
 
       if (data) {
@@ -101,10 +107,12 @@ export const actions = {
               'releaseDate',
               'story',
               'cover',
-              'coverBack'
-            ],
+              'coverBack',
+              'castName',
+              'staff'
+            ]
           })
-          
+
           if (data) {
             dispatch.commit('setMovieInfo', data)
             dispatch.commit('setLoadState', 'done' as loadStates)
@@ -129,12 +137,13 @@ export const actions = {
   },
   requestTemporaryReservation(dispatch: ICommit, payload: IReservationForm) {
     dispatch.commit('setSubmitState', 'submitting' as submitStates)
-    const url = 'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
+    const url =
+      'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
     fetch(url, {
       method: 'post',
       mode: 'cors',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
