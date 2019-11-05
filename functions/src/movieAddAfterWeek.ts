@@ -3,13 +3,13 @@ import { app } from './flamelinkConfig'
 import { db } from './index'
 
 const theaters = ['ほげほげ映画館', 'ぴよぴよ映画館', 'ふがふが映画館']
-type theaterName = 'ほげほげ映画館' | 'ぴよぴよ映画館' | 'ふがふが映画館'
+type TheaterName = 'ほげほげ映画館' | 'ぴよぴよ映画館' | 'ふがふが映画館'
 
 const date = moment()
   .add(7, 'days')
   .format('YYYY-MM-DD')
 
-const dateTime = [`${date}_12:00-14:00`, `${date}_15:00-17:00`]
+const dateTimes = [`${date}_12:00-14:00`, `${date}_15:00-17:00`]
 
 const sheet = [
   {
@@ -186,7 +186,7 @@ const secretMovie = async () => {
 // }
 
 interface Interface {
-  theaterName: theaterName
+  theaterName: TheaterName
   dateTime: string
   nowPlayingSecretMovieGenre?: any
   nowPlayingMovieId?: any
@@ -240,8 +240,8 @@ export const FirestoreAddMovie = async () => {
   const nowPlayingSecretMovieGenre = await secretMovie()
 
   // 時間の数だけ回す
-  const forDateTime = (theaterName: theaterName) => {
-    dateTime.forEach((dateTime: string) => {
+  const forDateTime = (theaterName: TheaterName) => {
+    dateTimes.forEach((dateTime: string) => {
       movieAdd({
         nowPlayingMovieId,
         nowPlayingSecretMovieGenre,
@@ -252,5 +252,5 @@ export const FirestoreAddMovie = async () => {
   }
 
   // 映画館の数だけ回す
-  theaters.forEach(theater => forDateTime(theater as theaterName))
+  theaters.forEach(theater => forDateTime(theater as TheaterName))
 }

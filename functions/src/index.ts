@@ -42,6 +42,8 @@ export const temporaryReservationMail = functions
   .region('asia-northeast1')
   .https.onRequest((req, res) => {
     temporaryReservation(req, res)
+      .then(() => console.log())
+      .catch(() => console.log())
   })
 
 // 本予約メールの送信
@@ -49,6 +51,8 @@ export const reservedMail = functions
   .region('asia-northeast1')
   .https.onRequest((req, res) => {
     reserved(req, res)
+      .then(() => console.log())
+      .catch(() => console.log())
   })
 
 export const FirestoreAddMovieData = functions

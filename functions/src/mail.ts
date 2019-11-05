@@ -405,13 +405,13 @@ export const temporaryReservation = async (req: any, res: any) => {
         </body>
       </html>
       `
-      await sendMail(data.email, 'gradyチケット仮予約完了のお知らせ', text)
+      sendMail(data.email, 'gradyチケット仮予約完了のお知らせ', text)
       res.send('おけまる')
     })
     .catch((e: any) => e)
 }
 
-export interface requestBody {
+export interface RequestBody {
   movieId?: string
   genre?: string
   email: string
@@ -440,7 +440,7 @@ export const reserved = async (req: any, res: any) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   )
-  const requestBody: requestBody = req.body
+  const requestBody: RequestBody = req.body
   // const {theater, adult, kids, date, time, orderNumber, email} = requestBody
   const { orderNumber, email } = requestBody
 
@@ -476,6 +476,6 @@ export const reserved = async (req: any, res: any) => {
   //   data: addData
   // })
 
-  await sendMail(email, '完了', `予約完了`)
+  sendMail(email, '完了', `予約完了`)
   res.send('おけまる')
 }
