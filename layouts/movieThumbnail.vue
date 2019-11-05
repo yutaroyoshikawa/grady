@@ -82,8 +82,8 @@ export default Vue.extend({
 
 @media screen and (min-width: 1024px) {
   .wrap {
-    width: 242px;
-    height: 363px;
+    width: 18vw;
+    height: 26vw;
 
     img {
       border-radius: 20px;
