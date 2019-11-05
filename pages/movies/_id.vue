@@ -39,13 +39,32 @@
         </div>
         <div class="content">
           <div class="overview" v-if="selectedTab === '概要'">
-            <p>{{ movie.story }}</p>
+            <p v-if="movie.story === ''">準備中</p>
+            <p v-else>{{ movie.story }}</p>
           </div>
           <div class="overview" v-if="selectedTab === '出演者'">
-            <p>出演者</p>
+            <p v-if="movie.castName.length === 0">準備中</p>
+            <div v-else>
+              <p>出演者</p>
+              <ul
+                v-for="(castName, index) in movie.castName"
+                v-bind:key="castName + index"
+              >
+                <li>{{ castName }}</li>
+              </ul>
+            </div>
           </div>
           <div class="overview" v-if="selectedTab === 'スタッフ'">
-            <p>スタッフ</p>
+            <p v-if="movie.staff.length === 0">準備中</p>
+            <div v-else>
+              <p>スタッフ</p>
+              <ul
+                v-for="(staff, index) in movie.staff"
+                v-bind:key="staff + index"
+              >
+                <li>{{ staff.name }} ({{ staff.job }})</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -180,6 +199,8 @@ export default Vue.extend({
         font-size: 25px;
         color: #fff;
         text-align: justify;
+        height: 200px;
+        overflow-y: scroll;
       }
     }
   }
