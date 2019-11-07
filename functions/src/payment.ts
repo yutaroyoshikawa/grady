@@ -1,18 +1,20 @@
 import { app } from './flamelinkConfig'
-import seatUpdate from './seatUpdate'
+// import seatUpdate from './seatUpdate'
 import { timestamp } from './index'
+import * as functions from 'firebase-functions'
 
 interface requestBody {
-  id?: string
+  payment: PaymentRequest
+  reservationId: string
   sheets: []
 }
 
-interface data {
+interface paymentData {
   purchasedAt: any
   paymentMethod: boolean
 }
 
-export interface orderCheck {
+export interface order {
   movieId?: string
   genre?: string
   theater: string
@@ -22,18 +24,51 @@ export interface orderCheck {
   time: string
 }
 
-export const payment = async (req: any, res: any) => {
+export const updatePaymentMethod = async (req: functions.Request, res: functions.Response) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   )
-  const { id, sheets }: requestBody = req.body.reservation
+
+  const reservationId = req.body
+
+  console.log(reservationId)
+
+  const data: paymentData = {
+    paymentMethod: true,
+    purchasedAt: timestamp
+  }
+
+  await app.content.update({
+    schemaKey: 'paymentInfo',
+    entryId: reservationId,
+    data: {
+      ...data
+    }
+  })
+
+  res.status(200).send({
+    status: 0
+  })
+}
+
+export const payment = async (req: functions.Request, res: functions.Response) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  const paymentRequest = req.body as requestBody
+
+  console.log("リクエスト")
+
+  console.log(paymentRequest)
 
   // 予約番号の存在チェック
-  const orderCheck: orderCheck = await app.content.get({
+  const orderCheck: order = await app.content.get({
     schemaKey: 'paymentInfo',
-    entryId: id,
+    entryId: paymentRequest.reservationId,
     fields: ['movieId', 'genre', 'theater', 'adult', 'kids', 'date', 'time']
   })
   if (!orderCheck) {
@@ -41,24 +76,14 @@ export const payment = async (req: any, res: any) => {
     return
   }
 
-  const seatUpdateData = {
-    ...orderCheck,
-    sheets
-  }
-  await seatUpdate(seatUpdateData).catch(() => {
-    res.status(401).send('座席の重複')
-  })
-
-  // paymentMethodの更新処理
-  const addData: data = {
-    purchasedAt: timestamp,
-    paymentMethod: true
-  }
-  await app.content.update({
-    schemaKey: 'paymentInfo',
-    entryId: id,
-    data: addData
-  })
+  // const seatUpdateData = {
+  //   ...orderCheck,
+  //   sheets: paymentRequest.sheets,
+  // }
+  // await seatUpdate(seatUpdateData).catch(() => {
+  //   res.status(401).send('座席の重複')
+  //   return
+  // })
 
   res.status(200).send({
     status: 0

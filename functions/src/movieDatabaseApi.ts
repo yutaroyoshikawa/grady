@@ -1,9 +1,22 @@
 import axios from 'axios'
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions/lib'
 import { app } from './flamelinkConfig'
 
 import sleep from './sleep'
 import { addMovies } from './algolia'
+
+// 公開中映画のデータ件数を取得
+const getDataPage = async () => {
+  const dataPage = await axios
+    .get(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${
+        functions.config().movie_api.api_key
+      }&language=ja-JP&region=jp`
+    )
+    .then((response: any) => response.data.total_pages)
+    .catch((e: any) => e)
+  return dataPage
+}
 
 // 上映中映画情報を取得
 const getNowPlayingMovieInfo = async () => {
@@ -24,19 +37,6 @@ const getNowPlayingMovieInfo = async () => {
       .catch((e: any) => e)
   }
   return data
-}
-
-// 公開中映画のデータ件数を取得
-const getDataPage = async () => {
-  const dataPage = await axios
-    .get(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=${
-        functions.config().movie_api.api_key
-      }&language=ja-JP&region=jp`
-    )
-    .then((response: any) => response.data.total_pages)
-    .catch((e: any) => e)
-  return dataPage
 }
 
 // 人気の映画情報を取得
@@ -117,10 +117,10 @@ const getMovieData = (movies: any) => {
   )
 }
 
-type schemaKey = 'nowPlayingMovieInfo' | 'popularMovieInfo'
+// type schemaKey = 'nowPlayingMovieInfo' | 'popularMovieInfo'
 
 // schemaKeyで検索してデータが無ければFlamelinkに追加する
-const addFlamelinkData = (datas: any, schemaKey: schemaKey) => {
+const addFlamelinkData = (datas: any, schemaKey: 'nowPlayingMovieInfo' | 'popularMovieInfo') => {
   datas.forEach(async (data: any) => {
     const flemelinkData = await app.content.get({
       schemaKey,
@@ -147,7 +147,7 @@ export const nowPlayingMovie = async () => {
   const nowPlayingMovieInfo = await getNowPlayingMovieInfo()
   const movieDatas = await getMovieData(nowPlayingMovieInfo)
 
-  await addFlamelinkData(movieDatas, 'nowPlayingMovieInfo')
+  addFlamelinkData(movieDatas, 'nowPlayingMovieInfo')
   await addMovies(movieDatas)
 }
 
@@ -155,6 +155,6 @@ export const popularMovie = async () => {
   const popularMovieInfo = await getPopularMovieInfo()
   const movieDatas = await getMovieData(popularMovieInfo)
 
-  await addFlamelinkData(movieDatas, 'popularMovieInfo')
+  addFlamelinkData(movieDatas, 'popularMovieInfo')
   await addMovies(movieDatas)
 }

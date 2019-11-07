@@ -5,7 +5,7 @@ import { temporaryReservation, reserved } from './mail'
 import { updateAlgolia } from './algolia'
 import { nowPlayingMovie, popularMovie } from './movieDatabaseApi'
 import { FirestoreAddMovie } from './movieAddAfterWeek'
-import { payment } from './payment'
+import { payment, updatePaymentMethod } from './payment'
 
 export const timestamp = admin.firestore.FieldValue.serverTimestamp()
 export const db = admin.firestore()
@@ -42,6 +42,10 @@ export const temporaryReservationMail = functions
   .region('asia-northeast1')
   .https.onRequest((req, res) => {
     temporaryReservation(req, res)
+    .then(() => res.status(200).send({
+      status: 0,
+    }))
+    .catch(() => false)
   })
 
 // 本予約メールの送信
@@ -49,6 +53,10 @@ export const reservedMail = functions
   .region('asia-northeast1')
   .https.onRequest((req, res) => {
     reserved(req, res)
+    .then(() => res.status(200).send({
+      status: 0,
+    }))
+    .catch(() => false)
   })
 
 export const FirestoreAddMovieData = functions
@@ -79,3 +87,9 @@ export const paymentRequest = functions
   .https.onRequest(async (req, res) => {
     await payment(req, res)
   })
+
+export const changePurchase = functions
+  .region('asia-northeast1')
+  .https.onRequest(async (req, res) => {
+    await updatePaymentMethod(req, res);
+  });
