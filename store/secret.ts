@@ -2,6 +2,7 @@ import * as vuex from 'vuex'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
 import { any } from '@/node_modules/@types/prop-types'
+import { log } from '@/node_modules/typesync/lib/cli-util'
 
 interface ICommit {
   commit: vuex.Commit
@@ -150,7 +151,6 @@ export const actions = {
     if (unsubscribe) {
       unsubscribe()
       // eslint-disable-next-line no-console
-      console.log('hoge')
       unsubscribe = null
     } else {
       // eslint-disable-next-line no-console
@@ -169,6 +169,17 @@ export const actions = {
         // mutationにcommit
         dispatch.commit('chatsData', chats)
       })
+  },
+  async requestListenHintData() {
+    // @ts-ignore
+    const hint = await flamelink.content.get({
+      schemaKey: 'secretMovieInfo',
+      // 今だけidで指定
+      entryId: 'WFnlMNMHMZrReearPBu4'
+      // fields: ['genre']
+    })
+    // eslint-disable-next-line no-console
+    console.log('All of your hints:', hint)
   },
   stopListenData() {
     if (unsubscribe) {

@@ -74,6 +74,10 @@ export default Vue.extend({
     requestListenData: function(genre: string) {
       this.$store.dispatch('secret/requestListenData', genre)
     },
+    requestListenHintData: function() {
+      this.$store.dispatch('secret/requestListenHintData')
+    },
+
     stopListenData: function() {
       this.$store.dispatch('secret/stopListenData')
     },
@@ -86,6 +90,7 @@ export default Vue.extend({
   },
   mounted() {
     this.requestListenData(this.$route.params.genre)
+    this.requestListenHintData()
   },
   // ここでfirebaseの通信終了
   destroyed() {
