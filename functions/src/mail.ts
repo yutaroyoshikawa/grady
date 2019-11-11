@@ -20,12 +20,12 @@ const transport = {
 
 const transportor = nodemailer.createTransport(transport as any)
 
-export const sendMail = (to: string, subject: string, text: string) => {
+export const sendMail = (to: string, subject: string, html: string) => {
   const message = {
     from: functions.config().mail.address as string,
     to,
     subject,
-    text
+    html
   }
 
   transportor
@@ -76,7 +76,7 @@ export const temporaryReservation = async (req: any, res: any) => {
       data
     })
     .then(async () => {
-      const url = `http://localhost:3000/reservations/${reservationId}`
+      const url = `${functions.config().app.url}/reservations/${reservationId}`
       const text = `<!DOCTYPE html>
       <html
         xmlns="http://www.w3.org/1999/xhtml"
@@ -405,6 +405,7 @@ export const temporaryReservation = async (req: any, res: any) => {
         </body>
       </html>
       `
+
       sendMail(data.email, 'gradyチケット仮予約完了のお知らせ', text)
       res.send('おけまる')
     })
