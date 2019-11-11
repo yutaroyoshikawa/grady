@@ -117,10 +117,10 @@ const getMovieData = (movies: any) => {
   )
 }
 
-// type schemaKey = 'nowPlayingMovieInfo' | 'popularMovieInfo'
+type SchemaKey = 'nowPlayingMovieInfo' | 'popularMovieInfo'
 
 // schemaKeyで検索してデータが無ければFlamelinkに追加する
-const addFlamelinkData = (datas: any, schemaKey: 'nowPlayingMovieInfo' | 'popularMovieInfo') => {
+const addFlamelinkData = (datas: any, schemaKey: SchemaKey) => {
   datas.forEach(async (data: any) => {
     const flemelinkData = await app.content.get({
       schemaKey,

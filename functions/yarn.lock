@@ -305,9 +305,15 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
 "@types/algoliasearch@^3.30.12":
+<<<<<<< HEAD
   version "3.34.2"
   resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.34.2.tgz#f3daed26185a21b77632c28835e340147532f575"
   integrity sha512-a+ztY3iL+Dpor7wYaF4CO6obUYcVEyXue1ppQklP1VCUP+VGZyzMcYiZodNs9DFV1HEOW5VCLTIqiZ4ikQpKzA==
+=======
+  version "3.34.5"
+  resolved "https://registry.yarnpkg.com/@types/algoliasearch/-/algoliasearch-3.34.5.tgz#c40e346a6c5526f9b27af7863117d1200456e7d2"
+  integrity sha512-JS+5KT9SfwzGIkoCsj7EyYHzhrsagj321BEPH3oroHYnuKUfPVoei58qLsBPo9RRa27Vb79WJssSSPBicnaAng==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
 
 "@types/body-parser@*":
   version "1.17.0"
@@ -373,9 +379,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.49.tgz#f331afc5efed0796798e5591d6e0ece636969b7b"
 
 "@types/nodemailer@^6.2.0":
+<<<<<<< HEAD
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.2.1.tgz#8f089bf0ef826f04b9d8dd8750233b04978cb675"
   integrity sha512-6f46rxxaFwyOW39psPoQiM7jHjL7apDRNT5WPHIuv+TZFv+7sBGSI9J7blIC3/NWff4O9/VSzgoQtO6aPLUdvQ==
+=======
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.2.2.tgz#08df85c22546e9f3f3c86e5635571c5229ab43a3"
+  integrity sha512-vDbSSe3+bBXYgibKs8duOrH7bhAv1hMHl3Vtdr3KmXZWLfi5WtIg3X6D/+K4SMK1RbNlm5QZBQCOldST/sVjjg==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
   dependencies:
     "@types/node" "*"
 
@@ -438,9 +450,15 @@ agentkeepalive@^2.2.0:
   integrity sha1-xdG9SxKQCPEWPyNvhuX66iAm4u8=
 
 algoliasearch@^3.33.0:
+<<<<<<< HEAD
   version "3.34.0"
   resolved "https://registry.yarnpkg.com/algoliasearch/-/algoliasearch-3.34.0.tgz#02eb97bd6718e3a2c71121b9c3b655a35a4ba645"
   integrity sha512-s8LDedkTWTAWR5uCWgJzGxDkCrqiej5iE4Tc2iCV+ONOO35i5qnVdieKg5gv2VDXBE7IP0YoqfAq/CC0V8PA+Q==
+=======
+  version "3.35.1"
+  resolved "https://registry.yarnpkg.com/algoliasearch/-/algoliasearch-3.35.1.tgz#297d15f534a3507cab2f5dfb996019cac7568f0c"
+  integrity sha512-K4yKVhaHkXfJ/xcUnil04xiSrB8B8yHZoFEhWNpXg23eiCnqvTZw1tn/SqvdsANlYHLJlKl0qi3I/Q2Sqo7LwQ==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
   dependencies:
     agentkeepalive "^2.2.0"
     debug "^2.6.9"
@@ -858,7 +876,11 @@ events@^1.1.0:
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
   integrity sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=
 
+<<<<<<< HEAD
 express@^4.17.1:
+=======
+express@^4.16.2:
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
@@ -933,10 +955,17 @@ firebase-admin@~7.0.0:
     "@google-cloud/firestore" "^1.0.1"
     "@google-cloud/storage" "^2.3.0"
 
+<<<<<<< HEAD
 firebase-functions@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-3.2.0.tgz#c4c01ea2f97aafb7aa45776eaff52a0f7f44678e"
   integrity sha512-v61CXYFSb53SdSSqwc/QhdBrR+H0bhwxSOIhKIYFFa2m5APUsuj8SrkAOBL2CfOJo3yk7+nuuWOtz16JFaXLxg==
+=======
+firebase-functions@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-2.3.1.tgz#6ad741cb5f38f4ed1a679607ffdbec68fa11127f"
+  integrity sha512-MPeuzGFLS63VqfGErgf+kbZinXE4SoK+jxXh1NBWrjYUjXlOJBKRmVNAFJoQB8wzCvOtBuDYjGcnBNz6sKXsfw==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
   dependencies:
     "@types/express" "^4.17.0"
     cors "^2.8.5"
@@ -1205,9 +1234,15 @@ ipaddr.js@1.9.0:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.0.tgz#37df74e430a0e47550fe54a2defe30d8acd95f65"
 
 is-buffer@^2.0.2:
+<<<<<<< HEAD
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.3.tgz#4ecf3fcf749cbd1e472689e109ac66261a25e725"
   integrity sha512-U15Q7MXTuZlrbymiz95PJpZxu8IlipAp4dtS3wOdgPXx3mqBnslrWU14kxfHB+Py/+2PVKSr37dMAgM2A4uArw==
+=======
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
+  integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
 
 is-fullwidth-code-point@^1.0.0:
   version "1.0.0"
@@ -1487,9 +1522,15 @@ nan@^2.13.2:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
 
 nanoid@^2.0.3:
+<<<<<<< HEAD
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.1.tgz#524fd4acd45c126e0c87cd43ab5ee8346e695df9"
   integrity sha512-0YbJdaL4JFoejIOoawgLcYValFGJ2iyUuVDIWL3g8Es87SSOWFbWdRUMV3VMSiyPs3SQ3QxCIxFX00q5DLkMCw==
+=======
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.6.tgz#0665418f692e54cf44f34d4010761f3240a03314"
+  integrity sha512-2NDzpiuEy3+H0AVtdt8LoFi7PnqkOnIzYmJQp7xsEU6VexLluHQwKREuiz57XaQC5006seIadPrIZJhyS2n7aw==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
 
 needle@^2.2.1:
   version "2.4.0"
@@ -1531,9 +1572,15 @@ node-pre-gyp@^0.13.0:
     tar "^4"
 
 nodemailer@^6.2.1:
+<<<<<<< HEAD
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.3.0.tgz#a89b0c62d3937bdcdeecbf55687bd7911b627e12"
   integrity sha512-TEHBNBPHv7Ie/0o3HXnb7xrPSSQmH1dXwQKRaMKDBGt/ZN54lvDVujP6hKkO/vjkIYL9rK8kHSG11+G42Nhxuw==
+=======
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.3.1.tgz#2784beebac6b9f014c424c54dbdcc5c4d1221346"
+  integrity sha512-j0BsSyaMlyadEDEypK/F+xlne2K5m6wzPYMXS/yxKI0s7jmT1kBx6GEKRVbZmyYfKOsjkeC/TiMVDJBI/w5gMQ==
+>>>>>>> c2f962bb50a4ca398a70dcf55711d09def78af3c
 
 nopt@^4.0.1:
   version "4.0.1"

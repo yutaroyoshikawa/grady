@@ -14,7 +14,7 @@ interface paymentData {
   paymentMethod: boolean
 }
 
-export interface order {
+export interface OrderCheck {
   movieId?: string
   genre?: string
   theater: string
@@ -66,7 +66,7 @@ export const payment = async (req: functions.Request, res: functions.Response) =
   console.log(paymentRequest)
 
   // 予約番号の存在チェック
-  const orderCheck: order = await app.content.get({
+  const orderCheck: OrderCheck = await app.content.get({
     schemaKey: 'paymentInfo',
     entryId: paymentRequest.reservationId,
     fields: ['movieId', 'genre', 'theater', 'adult', 'kids', 'date', 'time']
