@@ -9,6 +9,11 @@
       <div class="search-wrap">
         <search />
       </div>
+      <transition name="toast">
+        <div v-if="isActiveToast" class="toast-massage-wrap">
+          <toast-massage massage="送信中" />
+        </div>
+      </transition>
     </header>
     <nuxt />
   </div>
@@ -18,11 +23,18 @@
 import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
+import ToastMassage from '~/components/texts/toastMassage.vue'
 
 export default Vue.extend({
   components: {
     logo: Logo,
-    search: Search
+    search: Search,
+    toastMassage: ToastMassage
+  },
+  computed: {
+    isActiveToast(): boolean {
+      return this.$store.state.movies.isActiveToast
+    }
   }
 })
 </script>
@@ -44,6 +56,29 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
+  }
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: transform 400ms ease;
+  }
+
+  .toast-massage-wrap {
+    position: absolute;
+    right: 0;
+    z-index: 30;
+    color: #000000;
+  }
+
+  .toast-enter {
+    transform: translateX(100%);
+  }
+
+  .toast-enter-to {
+    transform: translateX(0);
+  }
+
+  .toast-leave-to {
+    transform: translateX(100%);
   }
 }
 </style>
