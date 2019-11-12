@@ -22,7 +22,7 @@ const transportor = nodemailer.createTransport(transport as any)
 
 export const sendMail = (to: string, subject: string, html: string) => {
   const message = {
-    from: functions.config().mail.address as string,
+    from: `グラディ ${functions.config().mail.address as string}`,
     to,
     subject,
     html
@@ -239,7 +239,7 @@ export const temporaryReservation = async (req: any, res: any) => {
                               <div
                                 style="font-family:open Sans Helvetica, Arial, sans-serif;font-size:45px;font-weight:bold;line-height:1;text-align:left;color:#ffffff;"
                               >
-                                Grady
+                                グラディ
                               </div>
                             </td>
                           </tr>
