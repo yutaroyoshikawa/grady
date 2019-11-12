@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" :class="{ active: isActiveToast }">
+  <div class="wrap">
     <div class="toast-massage">
       <p>{{ massage }}</p>
     </div>
@@ -11,16 +11,13 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    massage: String,
-    isActiveToast: Boolean
+    massage: String
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .wrap {
-  /* transition: all 300ms 0s ease; */
-  /* transform: translateX(300px); */
   .toast-massage {
     background-color: #ffffff;
     display: flex;
@@ -34,9 +31,7 @@ export default Vue.extend({
     justify-content: center;
   }
 }
-/* .active {
-  transform: translateX(-300px);
-} */
+
 @media screen and (min-width: 1024px) {
   .toast-massage {
     width: 567px;
