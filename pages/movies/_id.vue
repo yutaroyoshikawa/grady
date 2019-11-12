@@ -78,9 +78,6 @@
         />
       </div>
     </transition>
-    <div class="toast" v-if="isActiveToast">
-      <toast-massage massage="メールを送信中" />
-    </div>
   </div>
 </template>
 
@@ -94,7 +91,6 @@ import GoToWatchButton from '~/components/buttons/goToWatchButton.vue'
 import MovieDetailsTab from '~/layouts/tabs/movieDetailsTab.vue'
 import MovieTitle from '~/components/texts/movieTitle.vue'
 import ScreeningYear from '~/components/texts/screeningYear.vue'
-import ToastMassage from '~/components/texts/toastMassage.vue'
 import VueLoadImage from 'vue-load-image'
 
 export default Vue.extend({
@@ -105,8 +101,7 @@ export default Vue.extend({
     'go-to-watch-button': GoToWatchButton,
     'movie-details-tab': MovieDetailsTab,
     'movie-title': MovieTitle,
-    'screening-year': ScreeningYear,
-    'toast-massage': ToastMassage
+    'screening-year': ScreeningYear
   },
   data: function() {
     return {
@@ -236,12 +231,5 @@ export default Vue.extend({
 
 .drawer-leave-to {
   transform: translateX(100%);
-}
-
-.toast {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 21;
 }
 </style>
