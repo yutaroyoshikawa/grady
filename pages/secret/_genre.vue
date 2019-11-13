@@ -62,6 +62,7 @@ export default Vue.extend({
       return this.$store.state.secret.chats
     }
   },
+  layout: 'base',
   methods: {
     ...mapActions({
       requestOpenDrawer: 'secret/requestOpenDrawer',
