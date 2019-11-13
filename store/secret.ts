@@ -1,7 +1,6 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
-import { any } from '@/node_modules/@types/prop-types'
 
 interface ICommit {
   commit: vuex.Commit
@@ -22,6 +21,7 @@ interface IState {
   submitState: submitStates
   isOpenDrawer: boolean
   chats: any
+  isActiveToast: boolean
 }
 
 export interface IReservationForm {
@@ -41,7 +41,8 @@ export const state = (): IState => ({
   loadState: 'none',
   submitState: 'done',
   isOpenDrawer: false,
-  chats: []
+  chats: [],
+  isActiveToast: false
 })
 
 export const mutations = {
@@ -64,6 +65,12 @@ export const mutations = {
     const chatsData = chats.map((chat: any) => chat.data())
     // commitされた値を受け取る
     state.chats = chatsData
+  },
+  openToastMassage(state: IState){
+    state.isActiveToast = true
+  },
+  closeToastMassage(state: IState){
+    state.isActiveToast = false
   }
 }
 
@@ -113,6 +120,7 @@ export const actions = {
     dispatch.commit('closeDrawer')
   },
   requestTemporaryReservation(dispatch: ICommit, payload: IReservationForm) {
+    dispatch.commit('openToastMassage')
     dispatch.commit('setSubmitState', 'submitting' as submitStates)
     const url =
       'https://asia-northeast1-grady-43e4a.cloudfunctions.net/temporaryReservationMail'
@@ -126,9 +134,9 @@ export const actions = {
       body: JSON.stringify(payload)
     })
       .then(res => res.text())
-
       .then(data => {
         if (data === 'おけまる') {
+          dispatch.commit('closeToastMassage')
           dispatch.commit('setSubmitState', 'done' as submitStates)
           dispatch.commit('closeDrawer')
           // eslint-disable-next-line no-console
