@@ -33,7 +33,13 @@ export default Vue.extend({
   },
   computed: {
     isActiveToast(): boolean {
-      return this.$store.state.movies.isActiveToast
+      const slicePath: any = this.$route.path //  .matchに適用されているRegExpMatchArrayの型がどうすればいいかわからないです……
+      const pathName = slicePath.match(/movies|secret/)
+      if (pathName[0] === 'movies') {
+        return this.$store.state.movies.isActiveToast
+      } else {
+        return this.$store.state.secret.isActiveToast
+      }
     }
   }
 })
