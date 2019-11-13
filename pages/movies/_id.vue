@@ -118,9 +118,6 @@ export default Vue.extend({
     },
     loadState(): loadStates {
       return this.$store.state.movies.loadState
-    },
-    isActiveToast(): boolean {
-      return this.$store.state.movies.isActiveToast
     }
   },
   created: function() {
