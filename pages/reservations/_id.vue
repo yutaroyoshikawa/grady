@@ -15,7 +15,9 @@
         </div>
       </div>
       <div v-if="loadState === 'loading'">
-        <div>loading...</div>
+        <div class="loading-warp">
+          <loading-mark />
+        </div>
       </div>
     </div>
   </div>
@@ -26,12 +28,14 @@ import Vue from 'vue'
 import ConfirmedReservation from '~/layouts/reservations/confirmedBooking.vue'
 import ShowReservation from '~/layouts/reservations/showReservation.vue'
 import ShowSecretReservation from '~/layouts/reservations/showSecretReservation.vue'
+import LoadingMark from '~/components/marks/loadingMark.vue'
 
 export default Vue.extend({
   components: {
     'confirmed-reservation': ConfirmedReservation,
     'show-reservation': ShowReservation,
-    'show-secret-reservation': ShowSecretReservation
+    'show-secret-reservation': ShowSecretReservation,
+    'loading-mark': LoadingMark
   },
   data: function() {
     return {
@@ -60,4 +64,15 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.loading-warp {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 300;
+  background-color: rgba(000, 000, 000, 0.8);
+}
+</style>
