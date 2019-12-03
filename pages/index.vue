@@ -54,11 +54,11 @@
         <div class="hits-list-wrap" v-if="selectedStatus === 'secret'">
           <div class="ais-Hits-list">
             <div
-              v-for="genre in genres"
+              v-for="genre in isSecretMovieGenres"
               :key="genre.value"
               class="ais-Hits-item"
             >
-              <secret-card :text="genre.text" :value="genre.value" />
+              <secret-card :text="genre.text" :genre="genre.genre" />
             </div>
           </div>
         </div>
@@ -98,81 +98,101 @@ export default Vue.extend({
       genres: [
         {
           value: '28',
-          text: 'アクション'
+          text: 'アクション',
+          genre: 'Action'
         },
         {
           value: '12',
-          text: 'アドベンチャー'
+          text: 'アドベンチャー',
+          genre: 'Adventure'
         },
         {
           value: '16',
-          text: 'アニメ'
+          text: 'アニメ',
+          genre: 'Animation'
         },
         {
           value: '35',
-          text: 'コメディ'
+          text: 'コメディ',
+          genre: 'Comedy'
         },
         {
           value: '80',
-          text: '極道'
+          text: '極道',
+          genre: 'Crime'
         },
         {
           value: '99',
-          text: 'ドキュメンタリー'
+          text: 'ドキュメンタリー',
+          genre: 'Documentary'
         },
         {
           value: '18',
-          text: 'ドラマ'
+          text: 'ドラマ',
+          genre: 'Drama'
         },
         {
           value: '10751',
-          text: 'ファミリー'
+          text: 'ファミリー',
+          genre: 'Family'
         },
         {
           value: '14',
-          text: 'ファンタジー'
+          text: 'ファンタジー',
+          genre: 'Fantasy'
         },
         {
           value: '36',
-          text: '時代劇'
+          text: '時代劇',
+          genre: 'Historical drama'
         },
         {
           value: '27',
-          text: 'ホラー'
+          text: 'ホラー',
+          genre: 'Horror'
         },
         {
           value: '10402',
-          text: 'ミュージック'
+          text: 'ミュージック',
+          genre: 'Music'
         },
         {
           value: '9648',
-          text: 'ミステリー'
+          text: 'ミステリー',
+          genre: 'Mystery'
         },
         {
           value: '10749',
-          text: 'ロマンス'
+          text: 'ロマンス',
+          genre: 'Romance'
         },
         {
           value: '878',
-          text: 'SF'
+          text: 'SF',
+          genre: 'Science Fiction'
         },
         {
           value: '10770',
-          text: 'バラエティ'
+          text: 'バラエティ',
+          genre: 'Variety'
         },
         {
           value: '53',
-          text: 'スリラー'
+          text: 'スリラー',
+          genre: 'Thriller'
         },
         {
           value: '10752',
-          text: '戦争'
+          text: '戦争',
+          genre: 'War'
         },
         {
           value: '37',
-          text: 'ウェスタン'
+          text: 'ウェスタン',
+          genre: 'Western'
         }
       ],
+      isSecretMovieGenres: [],
       searchClient: algoliasearch(
         process.env.ALGOLIA_APP_ID as string,
         process.env.ALGOLIA_API_KEY as string,
@@ -182,6 +202,22 @@ export default Vue.extend({
       selectedStatus: 'all',
       selectedGenres: [] as string[],
       filters: [] as string[]
+    }
+  },
+  computed: {
+    SecretMovie(): [] {
+      return this.$store.state.movies.isSecretMovie
+    }
+  },
+  watch: {
+    SecretMovie() {
+      this.$nextTick(() => {
+        const isSecretMovie = this.$store.state.movies.isSecretMovie
+
+        this.isSecretMovieGenres = this.genres.filter(genre => {
+          return isSecretMovie.includes(genre.genre)
+        })
+      })
     }
   },
   layout: '',
@@ -210,6 +246,9 @@ export default Vue.extend({
           break
       }
     }
+  },
+  created(): void {
+    this.$store.dispatch('movies/requestGetSecretGenre')
   }
 })
 </script>
