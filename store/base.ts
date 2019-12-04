@@ -15,31 +15,24 @@ interface IState {
 
 export const state = (): IState => ({
   isVisibleToast: false,
-  toastMassage: ""
+  toastMassage: ''
 })
 
-export const mutations =　{
-  openToastMassage(state: IState,payload: string) {
-    state.isVisibleToast = true,
+export const mutations = {
+  openToastMassage(state: IState, payload: string) {
+    state.isVisibleToast = true
     state.toastMassage = payload
   },
   closeToastMassage(state: IState) {
     state.isVisibleToast = false
-  },
+  }
 }
 
 export const actions = {
-  requestToastMassage(dispatch: ICommit,store: IStore) {
-      store.store.subscribe((mutations) => {
-        if (mutations.type === 'openDrawer') {
-          dispatch.commit('openToastMassage')
-          setTimeout(() => {
-            dispatch.commit('closeToastMassage')
-        }, 5000);
-        } else {
-          false
-        }
-      })
-    }
+  showToastMassage(dispatch: ICommit,payload: string) {
+    dispatch.commit('openToastMassage', payload)
+    setTimeout(() => {
+      dispatch.commit('closeToastMassage', payload)
+    }, 3000)
   }
 }
