@@ -42,6 +42,8 @@ export default Vue.extend({
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .wrap {
     .toast-message {
+      width: 500px;
+      height: 98px;
       p {
         font-size: 37px;
       }
@@ -51,6 +53,8 @@ export default Vue.extend({
 @media screen and (max-width: 767px) {
   .wrap {
     .toast-message {
+      width: 200px;
+      height: 70px;
       p {
         font-size: 21px;
       }
