@@ -21,7 +21,7 @@
                     <read-only-chat :chats="chats" />
                   </div>
                   <div>
-                    <chat-input />
+                    <chat-input value="" />
                   </div>
                 </div>
                 <div v-if="activeTab === 'QR'" class="qr">
