@@ -242,7 +242,6 @@ export const actions = {
     const request = new PaymentRequest(supportedInstruments, details)
 
     request.show().then(result => {
-      // console.log(JSON.stringify(requestReservation))
       return fetch(
         'https://asia-northeast1-grady-43e4a.cloudfunctions.net/paymentRequest',
         {
@@ -288,23 +287,6 @@ export const actions = {
       console.error(e)
     }
   },
-  async requestGetHint(dispatch: ICommit, payload: string) {
-    // eslint-disable-next-line no-console
-    console.log(payload)
-    try {
-      const data = await flamelink.content.get({
-        schemaKey: 'secretMovieInfo',
-        orderByChild: 'genre',
-        equalTo: payload,
-        fields: ['hint1', 'hint2', 'hint3']
-      })
-
-      dispatch.commit('setHints', data)
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e)
-    }
-  },
   requestListenData(dispatch: ICommit, payload: string) {
     // 通信初期化
     if (unsubscribe) {
@@ -333,7 +315,6 @@ export const actions = {
     const hint = await flamelink.content.getByField({
       schemaKey: 'secretMovieInfo',
       field: 'genre',
-      // Action Anime ...
       value: genre
     })
     const hints = hint[Object.keys(hint)[0]]

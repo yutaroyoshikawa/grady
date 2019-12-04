@@ -227,7 +227,6 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.$store.dispatch('reservations/requestGetHint', this.reservation.genre)
     this.$store.dispatch(
       'reservations/requestListenData',
       this.reservation.genre
