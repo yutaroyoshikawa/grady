@@ -326,30 +326,26 @@ export const actions = {
       .orderBy('postedAt', 'desc')
       .onSnapshot(doc => {
         const chats = doc.docs
-        // mutationにcommit
         dispatch.commit('chatsData', chats)
       })
   },
   async requestListenHintData(dispatch: ICommit, genre: string) {
-    // eslint-disable-next-line no-console
-    console.log('payloadの中身', genre)
     const hint = await flamelink.content.getByField({
       schemaKey: 'secretMovieInfo',
       field: 'genre',
       // Action Anime ...
       value: genre
     })
-    // eslint-disable-next-line no-console
-    console.log('All of your hints:', hint[Object.keys(hint)[0]])
-    // eslint-disable-next-line no-console,no-undef
-    // console.log('All of your hints:', hint[Object.keys(hint)[0]].hint1)
-    // eslint-disable-next-line no-console
-    // console.log(payload)
+    const hints = hint[Object.keys(hint)[0]]
+    dispatch.commit('setHints', {
+      hint1: hints.hint1,
+      hint2: hints.hint2,
+      hint3: hints.hint3
+    } as IHints)
   },
   stopListenData() {
     if (unsubscribe) {
       unsubscribe()
-
       unsubscribe = null
     }
   }
