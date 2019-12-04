@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header :v-on="showToastMassage('送信中')">
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -10,8 +10,8 @@
         <search />
       </div>
       <transition name="toast">
-        <div v-if="isActiveToast" class="toast-massage-wrap">
-          <toast-massage massage="送信中" />
+        <div v-if="isVisibleToast" class="toast-massage-wrap">
+          <toast-message :message="toastMassage" />
         </div>
       </transition>
     </header>
@@ -23,25 +23,36 @@
 import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
-import ToastMassage from '~/components/texts/toastMassage.vue'
+import ToastMassage from '~/components/marks/toastMessage.vue'
+
+interface ToastMessage {
+  isVisibleToast: boolean
+  toastMassage: string
+}
 
 export default Vue.extend({
   components: {
     logo: Logo,
     search: Search,
-    toastMassage: ToastMassage
+    'toast-message': ToastMassage
   },
   computed: {
-    isActiveToast(): boolean {
-      const slicePath: any = this.$route.path //  .matchに適用されているRegExpMatchArrayの型がどうすればいいかわからないです……
-      const pathName = slicePath.match(/movies|secret|\/$/)
-      if (pathName[0] === 'movies') {
-        return this.$store.state.movies.isActiveToast
-      } else if (pathName[0] === 'secret') {
-        return this.$store.state.secret.isActiveToast
-      } else {
-        return false
-      }
+    isVisibleToast(): ToastMessage {
+      return this.$store.state.base.isVisibleToast
+    },
+    toastMassage(): ToastMessage {
+      return this.$store.state.base.toastMassage
+    }
+  },
+  methods: {
+    showToastMassage: function(payload: string) {
+      this.$store.subscribeAction(action => {
+        if (action.type === 'movies/requestTemporaryReservation') {
+          this.$store.dispatch('base/showToastMassage', payload)
+        } else if (action.type === 'secret/requestTemporaryReservation') {
+          this.$store.dispatch('base/showToastMassage', payload)
+        }
+      })
     }
   }
 })
@@ -69,22 +80,18 @@ header {
   .toast-leave-active {
     transition: transform 400ms ease;
   }
-
   .toast-massage-wrap {
     position: absolute;
     right: 0;
     z-index: 30;
     color: #000000;
   }
-
   .toast-enter {
     transform: translateX(100%);
   }
-
   .toast-enter-to {
     transform: translateX(0);
   }
-
   .toast-leave-to {
     transform: translateX(100%);
   }
