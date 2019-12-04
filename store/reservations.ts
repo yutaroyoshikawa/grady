@@ -325,6 +325,22 @@ export const actions = {
         dispatch.commit('chatsData', chats)
       })
   },
+  async requestListenHintData(dispatch: ICommit, genre: string) {
+    // eslint-disable-next-line no-console
+    console.log('payloadの中身', genre)
+    const hint = await flamelink.content.getByField({
+      schemaKey: 'secretMovieInfo',
+      field: 'genre',
+      // Action Anime ...
+      value: genre
+    })
+    // eslint-disable-next-line no-console
+    console.log('All of your hints:', hint[Object.keys(hint)[0]])
+    // eslint-disable-next-line no-console,no-undef
+    // console.log('All of your hints:', hint[Object.keys(hint)[0]].hint1)
+    // eslint-disable-next-line no-console
+    // console.log(payload)
+  },
   stopListenData() {
     if (unsubscribe) {
       unsubscribe()
