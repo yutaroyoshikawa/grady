@@ -112,8 +112,10 @@ export const mutations = {
   setSheets(state: IState, payload: any) {
     state.reservation.sheets = payload
   },
-  canselSeat(state: IState, payload: string) {
-    const index = state.reservation.sheets.findIndex(sheet => sheet.value === payload)
+  cancelSeat(state: IState, payload: string) {
+    const index = state.reservation.sheets.findIndex(
+      sheet => sheet.value === payload
+    )
     state.reservation.sheets[index].isReserved = false
   },
   setPaymentState(state: IState, payload: boolean) {
@@ -253,8 +255,8 @@ export const actions = {
         ))
       })
   },
-  requestCanselSeat(dispatch: ICommit, payload: string) {
-    dispatch.commit('canselSeat', payload)
+  requestCancelSeat(dispatch: ICommit, payload: string) {
+    dispatch.commit('cancelSeat', payload)
   },
   async requestGetMovie(dispatch: ICommit, payload: string) {
     dispatch.commit('setLoadMovie', 'loading' as loadStates)

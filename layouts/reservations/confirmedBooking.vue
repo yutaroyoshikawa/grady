@@ -292,7 +292,7 @@ export default Vue.extend({
     onSelect: function(seat: string, selectedIndex: number) {
       if (this.seats[selectedIndex].isSelected === true) {
         this.$store.dispatch(
-          'reservations/requestCanselSeat',
+          'reservations/requestCancelSeat',
           this.seats[selectedIndex].seat
         )
       }
