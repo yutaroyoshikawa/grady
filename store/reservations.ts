@@ -311,7 +311,7 @@ export const actions = {
         dispatch.commit('chatsData', chats)
       })
   },
-  async requestListenHintData(dispatch: ICommit, genre: string) {
+  async requestHints(dispatch: ICommit, genre: string) {
     const hint = await flamelink.content.getByField({
       schemaKey: 'secretMovieInfo',
       field: 'genre',

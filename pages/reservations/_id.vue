@@ -70,7 +70,7 @@ export default Vue.extend({
         const genre = this.reservation.genre
         // eslint-disable-next-line no-console
         console.log(genre)
-        this.$store.dispatch('reservations/requestListenHintData', genre)
+        this.$store.dispatch('reservations/requestHints', genre)
       } else {
         // eslint-disable-next-line no-console
         console.log('残念でした', mutation.type)
