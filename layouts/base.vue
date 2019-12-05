@@ -9,6 +9,11 @@
       <div class="search-wrap">
         <search />
       </div>
+      <div v-if="isVisibleAnimation === 'loading'">
+        <div class="loading-wrap">
+          <loading-mark />
+        </div>
+      </div>
     </header>
     <nuxt />
   </div>
@@ -18,11 +23,18 @@
 import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
+import LoadingMark from '~/components/marks/loadingMark.vue'
 
 export default Vue.extend({
   components: {
     logo: Logo,
-    search: Search
+    search: Search,
+    'loading-mark': LoadingMark
+  },
+  computed: {
+    isVisibleAnimation(): string {
+      return this.$store.state.reservations.loadState
+    }
   }
 })
 </script>
@@ -44,6 +56,17 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
+  }
+
+  .loading-wrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    z-index: 666;
+    background-color: rgba(000, 000, 000, 0.8);
   }
 }
 </style>
