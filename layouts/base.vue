@@ -23,7 +23,7 @@
 import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
-import ToastMassage from '~/components/marks/toastMessage.vue'
+import ToastMassage from '~/components/texts/toastMessage.vue'
 
 interface ToastMessage {
   isVisibleToast: boolean
