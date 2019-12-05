@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import GoToWatchDrawer from '../layouts/drawers/goToWatchDrawer.vue'
-import ToastMassage from '../components/texts/toastMassage.vue'
+import ToastMassage from '../components/texts/toastMessage.vue'
 
 export default Vue.extend({
   components: {
