@@ -25,6 +25,7 @@ interface IState {
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
+  isSecretMovie: string[]
 }
 
 export interface IReservationForm {
@@ -51,7 +52,8 @@ export const state = (): IState => ({
   },
   loadState: 'none',
   submitState: 'done',
-  isOpenDrawer: false
+  isOpenDrawer: false,
+  isSecretMovie: []
 })
 
 export const mutations = {
@@ -69,6 +71,9 @@ export const mutations = {
   },
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
+  },
+  setIsGenre(state: IState, payload: string[]) {
+    state.isSecretMovie = payload
   }
 }
 
@@ -160,5 +165,19 @@ export const actions = {
       .catch(() => {
         dispatch.commit('setSubmitState', 'error' as submitStates)
       })
+  },
+  async requestGetSecretGenre(dispatch: ICommit) {
+    try {
+      const data = await flamelink.content.get({
+        schemaKey: 'secretMovieInfo',
+        fields: ['genre']
+      })
+      const isSecretGenre = Object.keys(data).map((key: string) => {
+        return data[key].genre
+      })
+      dispatch.commit('setIsGenre', isSecretGenre)
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
