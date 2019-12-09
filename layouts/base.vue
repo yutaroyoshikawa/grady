@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header :v-on="showToastMassage('送信中')">
+    <header :v-on="showToastMassage('メールを送信しました')">
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
