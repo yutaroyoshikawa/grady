@@ -25,7 +25,7 @@ interface IState {
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
-  isSecretMovie: []
+  isSecretMovie: string[]
 }
 
 export interface IReservationForm {
@@ -72,7 +72,7 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  setIsGenre(state: IState, payload: []) {
+  setIsGenre(state: IState, payload: string[]) {
     state.isSecretMovie = payload
   }
 }
@@ -179,5 +179,5 @@ export const actions = {
     } catch (e) {
       console.error(e)
     }
-  },
+  }
 }
