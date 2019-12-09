@@ -21,6 +21,9 @@
                     <read-only-chat :chats="chats" />
                   </div>
                   <div>
+<!--                    TODO
+  v-modelを使って親コンポーネントに入力値を渡す
+-->
                     <chat-input value="" />
                   </div>
                 </div>
