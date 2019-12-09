@@ -9,10 +9,8 @@
       <div class="search-wrap">
         <search />
       </div>
-      <div v-if="isVisibleAnimation === 'loading'">
-        <div class="loading-wrap">
-          <loading-mark />
-        </div>
+      <div v-if="isVisibleAnimation === !'loading'">
+        <loading-mark />
       </div>
     </header>
     <nuxt />
@@ -56,17 +54,6 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
-  }
-
-  .loading-wrap {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    z-index: 666;
-    background-color: rgba(000, 000, 000, 0.8);
   }
 }
 </style>
