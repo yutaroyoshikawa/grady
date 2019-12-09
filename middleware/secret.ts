@@ -10,6 +10,8 @@ export default (function(route: { genre: string; params: any }) {
     check === 'Romance'
   ) {
   } else {
+    const url = location.href
+    location.replace(url)
     window.alert('不正アクセスです')
   }
 })
