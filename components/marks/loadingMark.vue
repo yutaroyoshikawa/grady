@@ -47,7 +47,7 @@ export default Vue.extend({})
         width: 15%;
         height: 100%;
         border-radius: 20px;
-        animation-name: loding;
+        animation-name: loading;
         animation-duration: 3s;
         animation-iteration-count: infinite;
         background-color: #ffffff;
@@ -57,7 +57,7 @@ export default Vue.extend({})
         width: 15%;
         height: 100%;
         border-radius: 20px;
-        animation-name: loding;
+        animation-name: loading;
         animation-duration: 3s;
         animation-iteration-count: infinite;
         animation-delay: -0.2s;
@@ -67,7 +67,7 @@ export default Vue.extend({})
         width: 15%;
         height: 100%;
         border-radius: 20px;
-        animation-name: loding;
+        animation-name: loading;
         animation-duration: 3s;
         animation-iteration-count: infinite;
         animation-delay: -0.4s;
@@ -77,7 +77,7 @@ export default Vue.extend({})
         width: 15%;
         height: 100%;
         border-radius: 20px;
-        animation-name: loding;
+        animation-name: loading;
         animation-duration: 3s;
         animation-iteration-count: infinite;
         animation-delay: -0.6s;
@@ -86,7 +86,7 @@ export default Vue.extend({})
     }
   }
 }
-@keyframes loding {
+@keyframes loading {
   0% {
     height: 0%;
   }
