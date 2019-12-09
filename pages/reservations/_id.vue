@@ -65,15 +65,8 @@ export default Vue.extend({
   created: function() {
     this.$store.subscribe(mutation => {
       if (mutation.type === 'reservations/chatsData') {
-        // eslint-disable-next-line no-console
-        console.log('mutation.type', mutation.type)
         const genre = this.reservation.genre
-        // eslint-disable-next-line no-console
-        console.log(genre)
         this.$store.dispatch('reservations/requestHints', genre)
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('残念でした', mutation.type)
       }
     })
   }
