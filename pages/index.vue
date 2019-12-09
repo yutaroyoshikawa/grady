@@ -204,22 +204,6 @@ export default Vue.extend({
       filters: [] as string[]
     }
   },
-  computed: {
-    SecretMovie(): [] {
-      return this.$store.state.movies.isSecretMovie
-    }
-  },
-  watch: {
-    SecretMovie() {
-      this.$nextTick(() => {
-        const isSecretMovie = this.$store.state.movies.isSecretMovie
-
-        this.isSecretMovieGenres = this.genres.filter(genre => {
-          return isSecretMovie.includes(genre.genre)
-        })
-      })
-    }
-  },
   layout: '',
   methods: {
     handleActiveGenre: function(genre: string) {
@@ -249,6 +233,14 @@ export default Vue.extend({
   },
   created(): void {
     this.$store.dispatch('movies/requestGetSecretGenre')
+    this.$store.subscribe(mutation => {
+      if (mutation.type === 'movies/setIsGenre') {
+        const isSecretMovie = this.$store.state.movies.isSecretMovie
+        this.isSecretMovieGenres = this.genres.filter(genre => {
+          return isSecretMovie.includes(genre.genre)
+        })
+      }
+    })
   }
 })
 </script>
