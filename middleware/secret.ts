@@ -1,14 +1,9 @@
 export default (function(route: { genre: string; params: any }) {
-  // log出力
-  const check = route.params.genre
-  if (
-    check === 'Action' ||
-    check === 'Animation' ||
-    check === 'Horror'
-  ) {
-  } else {
-    const url = '/'
-    location.replace(url)
+  const path = route.params.genre
+  const genres = ['Action', 'Animation', 'Horror']
+  const genreExists = genres.find(genre => genre === path)
+  if (!genreExists) {
+    location.replace('/')
     window.alert('存在しないページです')
   }
 })
