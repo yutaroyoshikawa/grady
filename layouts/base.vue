@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header :v-on="showToastMassage('メールを送信しました')">
+    <header :v-on="openAndCloseToastMassage('メールを送信しました')">
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -45,7 +45,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    showToastMassage: function(payload: string) {
+    openAndCloseToastMassage: function(payload: string) {
       this.$store.subscribeAction(action => {
         if (action.type === 'movies/requestTemporaryReservation') {
           this.$store.dispatch('base/showToastMassage', payload)
