@@ -84,7 +84,8 @@ export default Vue.extend({
   .wrap {
     width: 18vw;
     height: 26vw;
-
+    max-width: 242px;
+    max-height: 363px;
     img {
       border-radius: 20px;
     }
