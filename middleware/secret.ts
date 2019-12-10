@@ -3,15 +3,12 @@ export default (function(route: { genre: string; params: any }) {
   const check = route.params.genre
   if (
     check === 'Action' ||
-    check === 'Suspense' ||
-    check === 'Science Fiction' ||
-    check === 'Horror' ||
-    check === 'Comedy' ||
-    check === 'Romance'
+    check === 'Animation' ||
+    check === 'Horror'
   ) {
   } else {
-    const url = location.href
+    const url = '/'
     location.replace(url)
-    window.alert('不正アクセスです')
+    window.alert('存在しないページです')
   }
 })
