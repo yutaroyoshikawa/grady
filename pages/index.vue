@@ -83,6 +83,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.use(InstantSearch)
 library.add({ faSearch })
 
+interface Genre {
+  value: string
+  text: string
+  genre: string
+}
+
 export default Vue.extend({
   components: {
     'screening-status-bar': ScreeningStatusBar,
@@ -191,8 +197,8 @@ export default Vue.extend({
           text: 'ウェスタン',
           genre: 'Western'
         }
-      ],
-      isSecretMovieGenres: [],
+      ] as Genre[],
+      isSecretMovieGenres: [] as Genre[],
       searchClient: algoliasearch(
         process.env.ALGOLIA_APP_ID as string,
         process.env.ALGOLIA_API_KEY as string,
@@ -235,7 +241,7 @@ export default Vue.extend({
     this.$store.dispatch('movies/requestGetSecretGenre')
     this.$store.subscribe(mutation => {
       if (mutation.type === 'movies/setIsGenre') {
-        const isSecretMovie = this.$store.state.movies.isSecretMovie
+        const isSecretMovie: string[] = this.$store.state.movies.isSecretMovie
         this.isSecretMovieGenres = this.genres.filter(genre => {
           return isSecretMovie.includes(genre.genre)
         })
