@@ -40,13 +40,17 @@
               <div v-if="selectedStatus !== 'secret'">
                 <ais-hits>
                   <div slot="item" slot-scope="{ item }" class="movie-list">
-                    <movie-thumbnail
-                      :isScreening="item.isScreening"
-                      :thumbUrl="
-                        'https://image.tmdb.org/t/p/w500/' + item.cover
-                      "
-                      :thumbName="item.title"
-                    />
+                    <div @click="handleBlur">
+                      <nuxt-link :to="'/movies/' + item.objectID">
+                        <movie-thumbnail
+                          :isScreening="item.isScreening"
+                          :thumbUrl="
+                            'https://image.tmdb.org/t/p/w500/' + item.cover
+                          "
+                          :thumbName="item.title"
+                        />
+                      </nuxt-link>
+                    </div>
                   </div>
                 </ais-hits>
               </div>
@@ -77,7 +81,7 @@ import TagButton from '~/components/buttons/tagButton.vue'
 import MovieThumbnail from '~/layouts/movieThumbnail.vue'
 import SecretCard from '~/layouts/secretCard.vue'
 import InstantSearch from 'vue-instantsearch'
-import algoliasearch from 'algoliasearch/lite'
+import * as algoliasearch from 'algoliasearch/lite'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -177,7 +181,8 @@ export default Vue.extend({
       ],
       searchClient: algoliasearch(
         process.env.ALGOLIA_APP_ID as string,
-        process.env.ALGOLIA_API_KEY as string
+        process.env.ALGOLIA_API_KEY as string,
+        undefined
       ),
       inputValue: '',
       selectedStatus: 'all',

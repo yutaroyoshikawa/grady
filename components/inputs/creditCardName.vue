@@ -2,9 +2,13 @@
   <div>
     <div class="wrap">
       <span>
-        <font-awesome-icon icon="user"/>
+        <font-awesome-icon icon="user" />
       </span>
-      <input type="text" placeholder="クレジットカード名義">
+      <input
+        type="text"
+        placeholder="クレジットカード名義"
+        v-model="inputValue"
+      />
     </div>
   </div>
 </template>
@@ -20,6 +24,20 @@ library.add({ faUser })
 export default Vue.extend({
   components: {
     'font-awesome-icon': FontAwesomeIcon
+  },
+  props: {
+    handleChange: Function,
+    value: String
+  },
+  computed: {
+    inputValue: {
+      get(): string {
+        return this.value
+      },
+      set(value: string) {
+        this.handleChange(value)
+      }
+    }
   }
 })
 </script>

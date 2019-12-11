@@ -7,6 +7,7 @@
           inactice: !isReserved
         }"
         :disabled="isReserved"
+        @click="onClick"
       >
         {{ value }}
       </button>
@@ -19,7 +20,13 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     value: String,
-    isReserved: Boolean
+    isReserved: Boolean,
+    handleClick: Function
+  },
+  methods: {
+    onClick: function() {
+      this.handleClick(this.value)
+    }
   }
 })
 </script>

@@ -2,9 +2,17 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="calendar-alt" class="icon" />
-      <select @change="handleChange" :value="value ? value : 'default'">
+      <select
+        @change="handleChange"
+        :value="value | filterDate"
+        :disabled="isReadOnly"
+      >
         <option value="default" disabled selected>日付を選択</option>
-        <option v-for="(date, index) in dates" :key="index" :value="index + 1">
+        <option
+          v-for="(date, index) in dates"
+          :key="index"
+          :value="date | filterDate"
+        >
           {{ date | filterDate }}
         </option>
       </select>
@@ -17,7 +25,7 @@ import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import moment from 'moment'
+import * as moment from 'moment'
 
 library.add({ faCalendarAlt })
 
@@ -25,7 +33,11 @@ export default Vue.extend({
   props: {
     dates: Array,
     handleChange: Function,
-    value: Number
+    value: Date,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon

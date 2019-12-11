@@ -18,6 +18,7 @@ action "Build Master" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["Install Dependencies"]
   args = "run build"
+  secrets = ["ALGOLIA_API_KEY", "FIREBASE_TOKEN", "ALGOLIA_APP_ID"]
 }
 
 action "Deploy to Master" {

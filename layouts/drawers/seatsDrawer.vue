@@ -2,7 +2,7 @@
   <div>
     <div class="wrap">
       <div class="close-wrap">
-        <close-button />
+        <close-button :handleClick="handleClose" />
       </div>
       <div class="buttons-over-wrap">
         <span>スクリーン</span>
@@ -12,7 +12,11 @@
             :key="seat.value"
             :class="'seat' + index"
           >
-            <seat-button :value="seat.value" :isReserved="seat.isReserved" />
+            <seat-button
+              :value="seat.value"
+              :isReserved="seat.isReserved"
+              :handleClick="onClick"
+            />
           </div>
         </div>
       </div>
@@ -27,7 +31,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import CloseButton from '~/components/buttons/closeButton.vue'
 import ReservedSeatMark from '~/components/marks/reservedSeatMark.vue'
@@ -39,146 +43,18 @@ export default Vue.extend({
     'reserved-seat-mark': ReservedSeatMark,
     'seat-button': SeatButton
   },
-  data: function() {
-    return {
-      seats: [
-        {
-          value: 'A1',
-          isReserved: false
-        },
-        {
-          value: 'A2',
-          isReserved: false
-        },
-        {
-          value: 'A3',
-          isReserved: false
-        },
-        {
-          value: 'A4',
-          isReserved: false
-        },
-        {
-          value: 'B1',
-          isReserved: false
-        },
-        {
-          value: 'B2',
-          isReserved: false
-        },
-        {
-          value: 'B3',
-          isReserved: false
-        },
-        {
-          value: 'B4',
-          isReserved: false
-        },
-        {
-          value: 'B5',
-          isReserved: false
-        },
-        {
-          value: 'B6',
-          isReserved: false
-        },
-        {
-          value: 'C1',
-          isReserved: false
-        },
-        {
-          value: 'C2',
-          isReserved: false
-        },
-        {
-          value: 'C3',
-          isReserved: false
-        },
-        {
-          value: 'C4',
-          isReserved: false
-        },
-        {
-          value: 'C5',
-          isReserved: false
-        },
-        {
-          value: 'C6',
-          isReserved: false
-        },
-        {
-          value: 'D1',
-          isReserved: false
-        },
-        {
-          value: 'D2',
-          isReserved: false
-        },
-        {
-          value: 'D3',
-          isReserved: false
-        },
-        {
-          value: 'D4',
-          isReserved: false
-        },
-        {
-          value: 'D5',
-          isReserved: false
-        },
-        {
-          value: 'D6',
-          isReserved: false
-        },
-        {
-          value: 'E1',
-          isReserved: false
-        },
-        {
-          value: 'E2',
-          isReserved: false
-        },
-        {
-          value: 'E3',
-          isReserved: false
-        },
-        {
-          value: 'E4',
-          isReserved: false
-        },
-        {
-          value: 'E5',
-          isReserved: false
-        },
-        {
-          value: 'E6',
-          isReserved: false
-        },
-        {
-          value: 'F1',
-          isReserved: false
-        },
-        {
-          value: 'F2',
-          isReserved: false
-        },
-        {
-          value: 'F3',
-          isReserved: false
-        },
-        {
-          value: 'F4',
-          isReserved: false
-        },
-        {
-          value: 'F5',
-          isReserved: false
-        },
-        {
-          value: 'F6',
-          isReserved: false
-        }
-      ]
+  props: {
+    handleClose: Function,
+    handleSelect: Function,
+    seats: Array,
+    selectedIndex: Number
+  },
+  methods: {
+    onClick: function(selectedSeat) {
+      const index = this.seats.findIndex(seat => seat.value === selectedSeat)
+      this.seats[index].isReserved = true
+      this.handleSelect(selectedSeat, this.selectedIndex)
+      this.handleClose()
     }
   }
 })
@@ -188,9 +64,6 @@ export default Vue.extend({
 .wrap {
   background: #3f6060;
   box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  top: 0;
-  right: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -248,6 +121,7 @@ export default Vue.extend({
       span {
         font-size: 30px;
         margin-bottom: 50px;
+        color: #fff;
       }
 
       .button-wrap {

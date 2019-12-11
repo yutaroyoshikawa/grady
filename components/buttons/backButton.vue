@@ -1,7 +1,11 @@
 <template>
-  <button class="nextButton">
-    <font-awesome-icon class="nextButton" icon="chevron-circle-left" />
-  </button>
+  <div>
+    <div class="wrap">
+      <button>
+        <font-awesome-icon class="back-button" icon="chevron-circle-left" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,17 +18,38 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 export default Vue.extend({})
 </script>
 
-<style lang="scss">
-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  appearance: none;
+<style lang="scss" scoped>
+.wrap {
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    padding: 0;
+    margin: 0;
+
+    .back-button {
+      color: #fff;
+    }
+  }
 }
-.nextButton {
-  font-size: 96px;
-  color: #fff;
+
+@media screen and (min-width: 1024px) {
+  .back-button {
+    font-size: 96px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .back-button {
+    font-size: 80px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .back-button {
+    font-size: 45px;
+  }
 }
 </style>

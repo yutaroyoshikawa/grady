@@ -20,13 +20,26 @@ button {
   padding: 0;
   appearance: none;
 }
-.paymentButton {
-  font-size: 40px;
-  height: 85px;
-  width: 391px;
+.pay-button {
   color: #0d0d36;
   background: #ffffff;
   border: 1px solid #707070;
-  border-radius: 60px;
+}
+@media screen and (min-width: 1024px) {
+  .pay-button {
+    font-size: 40px;
+    height: 85px;
+    width: 391px;
+    border-radius: 60px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pay-button {
+    font-size: 21px;
+    height: 21px;
+    width: 180px;
+    border-radius: 21px;
+  }
 }
 </style>

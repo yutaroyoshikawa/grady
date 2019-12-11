@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrap">
-      <select name="cardExpirationYear">
+      <select name="cardExpirationYear" v-model.number="selectorValue">
         <option value="default" disabled selected>年</option>
         <option v-for="year in years" :key="year" :value="year">
           {{ year.toString().substring(2) }}
@@ -17,14 +17,23 @@ import Vue from 'vue'
 const now = new Date().getFullYear()
 
 export default Vue.extend({
+  props: {
+    handleChange: Function,
+    value: Number
+  },
   data: function() {
     return {
-      years: [
-        now,
-        now + 1,
-        now + 2,
-        now + 3,
-      ]
+      years: [now, now + 1, now + 2, now + 3]
+    }
+  },
+  computed: {
+    selectorValue: {
+      get(): number | string {
+        return this.value ? this.value : 'default'
+      },
+      set(value: number) {
+        this.handleChange(value)
+      }
     }
   }
 })

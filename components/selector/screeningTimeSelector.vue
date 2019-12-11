@@ -2,10 +2,18 @@
   <div>
     <div class="wrap">
       <font-awesome-icon icon="clock" class="icon" />
-      <select @change="handleChange" :value="value ? value : 'default'">
+      <select
+        @change="handleChange"
+        :value="value ? value : 'default'"
+        :disabled="isReadOnly"
+      >
         <option value="default" disabled selected>時間を選択</option>
-        <option v-for="(time, index) in times" :key="index" :value="index + 1">
-          {{ time.start | filterTime }} - {{ time.finish | filterTime }}
+        <option
+          v-for="(time, index) in times"
+          :key="index"
+          :value="time | formatTime"
+        >
+          {{ time | formatTime }}
         </option>
       </select>
     </div>
@@ -17,7 +25,7 @@ import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import moment from 'moment'
+import * as moment from 'moment'
 
 library.add({ faClock })
 
@@ -25,14 +33,20 @@ export default Vue.extend({
   props: {
     times: Array,
     handleChange: Function,
-    value: Number
+    value: String,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   components: {
     'font-awesome-icon': FontAwesomeIcon
   },
   filters: {
-    filterTime: function(time: Date) {
-      return moment(time).format('HH:mm')
+    formatTime: function(time: any) {
+      return `${moment(time.start).format('HH:mm')}-${moment(
+        time.finish
+      ).format('HH:mm')}`
     }
   }
 })

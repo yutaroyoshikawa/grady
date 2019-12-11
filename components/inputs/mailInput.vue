@@ -1,5 +1,5 @@
 <template>
-  <div class="aaaaa">
+  <div>
     <div class="input_wrapper">
       <input
         type="email"

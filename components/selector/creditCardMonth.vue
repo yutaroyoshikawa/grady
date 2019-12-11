@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="wrap">
-      <select name="cardExpirationMonth" class="monthData">
+      <select
+        name="cardExpirationMonth"
+        class="monthData"
+        v-model.number="selectorValue"
+      >
         <option value="default" disabled selected>月</option>
         <option value="1">01</option>
         <option value="2">02</option>
@@ -22,13 +26,27 @@
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+export default Vue.extend({
+  props: {
+    value: Number,
+    handleChange: Function
+  },
+  computed: {
+    selectorValue: {
+      get(): number | string {
+        return this.value ? this.value : 'default'
+      },
+      set(value: number) {
+        this.handleChange(value)
+      }
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 .wrap {
   display: flex;
-  width: 60px;
   border-bottom: solid 2px #fff;
   transition: all 200ms ease;
 
@@ -48,6 +66,24 @@ export default Vue.extend({})
     transition: all 300ms ease;
     background: transparent;
     color: #fff;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .wrap {
+    width: 73px;
+    height: 47px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    width: 56px;
+    height: 40.5px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .wrap {
+    width: 46px;
+    height: 24.9px;
   }
 }
 </style>

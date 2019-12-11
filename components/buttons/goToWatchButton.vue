@@ -1,15 +1,19 @@
 <template>
   <div>
-    <button class="entire">
+    <button class="entire" @click="handleClick">
       観に行く
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 
-export default class extends Vue {}
+export default Vue.extend({
+  props: {
+    handleClick: Function
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -18,6 +22,7 @@ export default class extends Vue {}
   cursor: pointer;
   color: #fff;
   transition: all 500ms ease;
+  background: transparent;
 }
 
 .entire:hover {
@@ -25,7 +30,7 @@ export default class extends Vue {}
 }
 
 .entire:focus {
-  outline: rgba($color: #000000, $alpha: 0)
+  outline: rgba($color: #000000, $alpha: 0);
 }
 
 @media screen and (min-width: 1024px) {
@@ -46,7 +51,7 @@ export default class extends Vue {}
   }
 }
 
-@media screen and (min-width: 300px) {
+@media screen and (max-width: 767px) {
   .entire {
     width: 218px;
     height: 45px;

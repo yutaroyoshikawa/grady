@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="value">
+  <nuxt-link :to="genre | linkFormat">
     <div class="secretGanreButton">
       <showing-mark class="mark" />
       <div class="tagText">
@@ -17,12 +17,17 @@ import Vue from 'vue'
 import ShowingMark from '../components/marks/showingMark.vue'
 
 export default Vue.extend({
-  props: {
-    text: String,
-    value: String
+  filters: {
+    linkFormat(genre: string): string {
+      return `secret/${genre}`
+    }
   },
   components: {
     'showing-mark': ShowingMark
+  },
+  props: {
+    text: String,
+    genre: String
   }
 })
 </script>
