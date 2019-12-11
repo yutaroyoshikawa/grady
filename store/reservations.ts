@@ -112,8 +112,10 @@ export const mutations = {
   setSheets(state: IState, payload: any) {
     state.reservation.sheets = payload
   },
-  canselSeat(state: IState, payload: string) {
-    const index = state.reservation.sheets.findIndex(sheet => sheet.value === payload)
+  cancelSeat(state: IState, payload: string) {
+    const index = state.reservation.sheets.findIndex(
+      sheet => sheet.value === payload
+    )
     state.reservation.sheets[index].isReserved = false
   },
   setPaymentState(state: IState, payload: boolean) {
@@ -160,9 +162,7 @@ export const actions = {
         const movie = await flamelink.content.get({
           schemaKey: 'nowPlayingMovieInfo',
           entryId: reservation.movieId,
-          fields: [
-            'title'
-          ]
+          fields: ['title']
         })
         dispatch.commit('setMovieTitle', movie.title)
       } else if (reservation.genre) {
@@ -171,12 +171,14 @@ export const actions = {
       dispatch.commit('setLoadState', 'done' as loadStates)
     } catch (e) {
       dispatch.commit('setLoadState', 'error' as loadStates)
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
   async requestGetSeatsData(dispatch: ICommit, payload: any) {
     dispatch.commit('setLoadSeatData', 'loading' as loadStates)
     try {
+      // eslint-disable-next-line no-console
       console.log(payload)
       const snapshot = await firebaseApp
         .firestore()
@@ -189,57 +191,68 @@ export const actions = {
       dispatch.commit('setLoadSeatData', 'done' as loadStates)
     } catch (e) {
       dispatch.commit('setLoadSeatData', 'error' as loadStates)
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
   requestPayment(dispatch: ICommit, payload: IPaymentRequest) {
-    const supportedInstruments = [{
-      supportedMethods: ['basic-card'],
-      data: {
-        supportedNetworks: [
-          'visa', 'mastercard', 'amex', 'discover',
-          'diners', 'jcb', 'unionpay'
-        ]
+    const supportedInstruments = [
+      {
+        supportedMethods: ['basic-card'],
+        data: {
+          supportedNetworks: [
+            'visa',
+            'mastercard',
+            'amex',
+            'discover',
+            'diners',
+            'jcb',
+            'unionpay'
+          ]
+        }
       }
-    }];
+    ]
 
     const details = {
-      displayItems: [{
-        label: `大人 × ${payload.adult}`,
-        amount: {
-          currency: 'JPY',
-          value: (1300 * payload.adult).toString()
+      displayItems: [
+        {
+          label: `大人 × ${payload.adult}`,
+          amount: {
+            currency: 'JPY',
+            value: (1300 * payload.adult).toString()
+          }
+        },
+        {
+          label: `小人 × ${payload.kids}`,
+          amount: {
+            currency: 'JPY',
+            value: (900 * payload.kids).toString()
+          }
         }
-      }, {
-        label: `小人 × ${payload.kids}`,
-        amount: {
-          currency: 'JPY',
-          value: (900 * payload.kids).toString()
-        }
-      }],
+      ],
       total: {
         label: '合計額',
         amount: {
           currency: 'JPY',
-          value : (1300 * payload.adult + 900 * payload.kids).toString()
+          value: (1300 * payload.adult + 900 * payload.kids).toString()
         }
       }
     }
 
     const request = new PaymentRequest(supportedInstruments, details)
 
-    request
-      .show()
-      .then(result => {
-        // console.log(JSON.stringify(requestReservation))
-        return fetch('https://asia-northeast1-grady-43e4a.cloudfunctions.net/paymentRequest', {
+    request.show().then(result => {
+      return fetch(
+        'https://asia-northeast1-grady-43e4a.cloudfunctions.net/paymentRequest',
+        {
           method: 'post',
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(result.toJSON())
-        })
+        }
+      )
         .then(response => {
           if (response.status === 200) {
             result.complete('success')
@@ -248,13 +261,11 @@ export const actions = {
             result.complete('fail')
           }
         })
-        .catch(() => (
-          result.complete('fail')
-        ))
-      })
+        .catch(() => result.complete('fail'))
+    })
   },
-  requestCanselSeat(dispatch: ICommit, payload: string) {
-    dispatch.commit('canselSeat', payload)
+  requestCancelSeat(dispatch: ICommit, payload: string) {
+    dispatch.commit('cancelSeat', payload)
   },
   async requestGetMovie(dispatch: ICommit, payload: string) {
     dispatch.commit('setLoadMovie', 'loading' as loadStates)
@@ -262,13 +273,7 @@ export const actions = {
       const data = await flamelink.content.get({
         schemaKey: 'nowPlayingMovieInfo',
         entryId: payload,
-        fields: [
-          'id',
-          'title',
-          'releaseDate',
-          'cover',
-          'coverBack'
-        ],
+        fields: ['id', 'title', 'releaseDate', 'cover', 'coverBack']
       })
       if (data) {
         dispatch.commit('setMovieInfo', data)
@@ -278,25 +283,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch.commit('setLoadMovie', 'error' as loadStates)
-      console.error(e)
-    }
-  },
-  async requestGetHint(dispatch: ICommit, payload: string) {
-    console.log(payload)
-    try {
-      const data = await flamelink.content.get({
-        schemaKey: 'secretMovieInfo',
-        orderByChild: 'genre',
-        equalTo: payload,
-        fields: [
-          'hint1',
-          'hint2',
-          'hint3'
-        ],
-      })
-      
-      dispatch.commit('setHints', data)
-    } catch(e) {
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
@@ -321,14 +308,25 @@ export const actions = {
       .orderBy('postedAt', 'desc')
       .onSnapshot(doc => {
         const chats = doc.docs
-        // mutationにcommit
         dispatch.commit('chatsData', chats)
       })
+  },
+  async requestHints(dispatch: ICommit, genre: string) {
+    const hint = await flamelink.content.getByField({
+      schemaKey: 'secretMovieInfo',
+      field: 'genre',
+      value: genre
+    })
+    const hints = hint[Object.keys(hint)[0]]
+    dispatch.commit('setHints', {
+      hint1: hints.hint1,
+      hint2: hints.hint2,
+      hint3: hints.hint3
+    } as IHints)
   },
   stopListenData() {
     if (unsubscribe) {
       unsubscribe()
-
       unsubscribe = null
     }
   }

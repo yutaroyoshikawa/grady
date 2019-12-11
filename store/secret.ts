@@ -1,7 +1,6 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
 import { firebaseApp } from '@/store/flamelink'
-import { any } from '@/node_modules/@types/prop-types'
 
 interface ICommit {
   commit: vuex.Commit
@@ -150,7 +149,6 @@ export const actions = {
     if (unsubscribe) {
       unsubscribe()
       // eslint-disable-next-line no-console
-      console.log('hoge')
       unsubscribe = null
     } else {
       // eslint-disable-next-line no-console

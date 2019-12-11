@@ -101,4 +101,26 @@ export default Vue.extend({
     outline: rgba(0, 0, 0, 0);
   }
 }
+@media screen and (max-width: 767px) {
+  .entire {
+    width: 85px;
+    .icon-name {
+      font-size: 14px;
+    }
+    .icon {
+      font-size: 30px;
+    }
+    .kids {
+      margin-right: 5px;
+    }
+    .input-box {
+      padding-bottom: 0;
+    }
+    select {
+      font-size: 17px;
+      padding: 3px 10px;
+      width: 100%;
+    }
+  }
+}
 </style>

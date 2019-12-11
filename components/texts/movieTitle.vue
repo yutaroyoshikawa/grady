@@ -28,8 +28,30 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .wrap {
   h1 {
-    font-size: 40px;
     color: #fff;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .wrap {
+    h1 {
+      font-size: 40px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .wrap {
+    h1 {
+      font-size: 26px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    h1 {
+      font-size: 15px;
+    }
   }
 }
 </style>
