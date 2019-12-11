@@ -25,7 +25,7 @@
             />
           </div>
           <div class="top-right-content">
-            <div class="reserve-button">
+            <div class="reserve-button" v-if="movie.isScreening">
               <go-to-watch-button :handleClick="requestOpenDrawer" />
             </div>
             <div class="movie-title-wrap">
