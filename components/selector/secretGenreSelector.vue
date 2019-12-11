@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="wrap">
-      <select v-model="defaultGenre">
+      <select v-model="genre" @change="handleChange" :disabled="isReadOnly">
         <option
           v-for="genre in genres"
-          v-bind:value="genre.value"
-          v-bind:key="genre.value"
-        >{{ genre.text }}</option>
+          :key="genre.value"
+          :value="genre.value"
+          >{{ genre.text }}</option
+        >
       </select>
     </div>
   </div>
@@ -16,34 +17,39 @@
 import Vue from 'vue'
 export default Vue.extend({
   props: {
-    defaultGenre: String
+    genre: String,
+    handleChange: Function,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   },
   data: function() {
     return {
       genres: [
         {
           text: 'アクション',
-          value: 'action'
+          value: 'Action'
         },
         {
           text: 'サスペンス',
-          value: 'suspense'
+          value: 'Suspense'
         },
         {
           text: 'SF',
-          value: 'sf'
+          value: 'Science Fiction'
         },
         {
           text: 'ホラー',
-          value: 'horror'
+          value: 'Horror'
         },
         {
           text: 'コメディ',
-          value: 'comedy'
+          value: 'Comedy'
         },
         {
           text: 'ロマンス',
-          value: 'romance'
+          value: 'Romance'
         }
       ]
     }
@@ -60,7 +66,7 @@ export default Vue.extend({
 
   &::after {
     content: '';
-    border: 0px;
+    border: 0;
     border-bottom: solid 2px #fff;
     border-right: solid 2px #fff;
     -ms-transform: rotate(45deg);
@@ -115,7 +121,7 @@ export default Vue.extend({
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 767px) and (max-width: 1024px) {
   .wrap {
     width: 401px;
     height: 41px;
@@ -147,4 +153,3 @@ export default Vue.extend({
   }
 }
 </style>
-

@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import CloseButton from '~/components/buttons/closeButton.vue'
 import ReservedSeatMark from '~/components/marks/reservedSeatMark.vue'
@@ -46,152 +46,11 @@ export default Vue.extend({
   props: {
     handleClose: Function,
     handleSelect: Function,
+    seats: Array,
     selectedIndex: Number
   },
-  data: function() {
-    return {
-      seats: [
-        {
-          value: 'A1',
-          isReserved: false
-        },
-        {
-          value: 'A2',
-          isReserved: false
-        },
-        {
-          value: 'A3',
-          isReserved: false
-        },
-        {
-          value: 'A4',
-          isReserved: false
-        },
-        {
-          value: 'B1',
-          isReserved: false
-        },
-        {
-          value: 'B2',
-          isReserved: false
-        },
-        {
-          value: 'B3',
-          isReserved: false
-        },
-        {
-          value: 'B4',
-          isReserved: false
-        },
-        {
-          value: 'B5',
-          isReserved: false
-        },
-        {
-          value: 'B6',
-          isReserved: false
-        },
-        {
-          value: 'C1',
-          isReserved: false
-        },
-        {
-          value: 'C2',
-          isReserved: false
-        },
-        {
-          value: 'C3',
-          isReserved: false
-        },
-        {
-          value: 'C4',
-          isReserved: false
-        },
-        {
-          value: 'C5',
-          isReserved: false
-        },
-        {
-          value: 'C6',
-          isReserved: false
-        },
-        {
-          value: 'D1',
-          isReserved: false
-        },
-        {
-          value: 'D2',
-          isReserved: false
-        },
-        {
-          value: 'D3',
-          isReserved: false
-        },
-        {
-          value: 'D4',
-          isReserved: false
-        },
-        {
-          value: 'D5',
-          isReserved: false
-        },
-        {
-          value: 'D6',
-          isReserved: false
-        },
-        {
-          value: 'E1',
-          isReserved: false
-        },
-        {
-          value: 'E2',
-          isReserved: false
-        },
-        {
-          value: 'E3',
-          isReserved: false
-        },
-        {
-          value: 'E4',
-          isReserved: false
-        },
-        {
-          value: 'E5',
-          isReserved: false
-        },
-        {
-          value: 'E6',
-          isReserved: false
-        },
-        {
-          value: 'F1',
-          isReserved: false
-        },
-        {
-          value: 'F2',
-          isReserved: false
-        },
-        {
-          value: 'F3',
-          isReserved: false
-        },
-        {
-          value: 'F4',
-          isReserved: false
-        },
-        {
-          value: 'F5',
-          isReserved: false
-        },
-        {
-          value: 'F6',
-          isReserved: false
-        }
-      ]
-    }
-  },
   methods: {
-    onClick: function(selectedSeat: string) {
+    onClick: function(selectedSeat) {
       const index = this.seats.findIndex(seat => seat.value === selectedSeat)
       this.seats[index].isReserved = true
       this.handleSelect(selectedSeat, this.selectedIndex)

@@ -10,7 +10,7 @@
         <font-awesome-icon icon="baby" class="icon" />
       </div>
       <div class="input-box">
-        <select v-model="value" @change="handleChange">
+        <select v-model="value" @change="handleChange" :disabled="isReadOnly">
           <option v-for="loop in 11" :key="loop - 1" :value="loop - 1">{{
             loop - 1
           }}</option>
@@ -38,7 +38,11 @@ export default Vue.extend({
   props: {
     type: String,
     handleChange: Function,
-    value: Number
+    value: Number,
+    isReadOnly: {
+      value: Boolean,
+      default: false
+    }
   }
 })
 </script>
@@ -95,6 +99,28 @@ export default Vue.extend({
 
   select:focus {
     outline: rgba(0, 0, 0, 0);
+  }
+}
+@media screen and (max-width: 767px) {
+  .entire {
+    width: 85px;
+    .icon-name {
+      font-size: 14px;
+    }
+    .icon {
+      font-size: 30px;
+    }
+    .kids {
+      margin-right: 5px;
+    }
+    .input-box {
+      padding-bottom: 0;
+    }
+    select {
+      font-size: 17px;
+      padding: 3px 10px;
+      width: 100%;
+    }
   }
 }
 </style>

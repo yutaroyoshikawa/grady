@@ -89,7 +89,7 @@ import EmailInput from '~/components/inputs/mailInput.vue'
 import MovieTheaterSelector from '~/components/selector/movieTheaterSelector.vue'
 import PeopleInput from '~/components/selector/peopleInput.vue'
 import TicketPrice from '~/components/texts/ticketPrice.vue'
-import moment from 'moment'
+import * as moment from 'moment'
 
 export default Vue.extend({
   components: {
@@ -106,7 +106,8 @@ export default Vue.extend({
   props: {
     handleClose: Function,
     handleSubmit: Function,
-    movieId: String
+    movieId: String,
+    genre: String
   },
   data: function() {
     return {
@@ -193,8 +194,8 @@ export default Vue.extend({
       nowPage: 0,
       formDatas: {
         theater: '',
-        date: 0,
-        time: 0,
+        date: new Date(),
+        time: '',
         adult: 0,
         kids: 0,
         email: ''
@@ -215,12 +216,12 @@ export default Vue.extend({
     },
     handleChangeDate: function(e: Event) {
       if (e.target instanceof HTMLSelectElement) {
-        this.formDatas.date = Number(e.target.value)
+        this.formDatas.date = new Date(e.target.value)
       }
     },
     handleChangeTime: function(e: Event) {
       if (e.target instanceof HTMLSelectElement) {
-        this.formDatas.time = Number(e.target.value)
+        this.formDatas.time = e.target.value
       }
     },
     handleChangeAdult: function(e: Event) {
@@ -240,16 +241,11 @@ export default Vue.extend({
       if (e.target instanceof HTMLFormElement) {
         e.preventDefault()
         this.handleSubmit({
+          genre: this.genre,
           movieId: this.movieId,
           theater: this.formDatas.theater,
-          date: moment(this.dates[this.formDatas.date - 1]).format(
-            'YYYY-MM-DD'
-          ),
-          time: `${moment(this.times[this.formDatas.time - 1].start).format(
-            'HH:mm'
-          )}-${moment(this.times[this.formDatas.time - 1].finish).format(
-            'HH:mm'
-          )}`,
+          date: moment(this.formDatas.date).format('YYYY-MM-DD'),
+          time: this.formDatas.time,
           adult: this.formDatas.adult,
           kids: this.formDatas.kids,
           email: this.formDatas.email

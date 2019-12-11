@@ -39,13 +39,32 @@
         </div>
         <div class="content">
           <div class="overview" v-if="selectedTab === '概要'">
-            <p>{{ movie.story }}</p>
+            <p v-if="movie.story === ''">準備中</p>
+            <p v-else>{{ movie.story }}</p>
           </div>
           <div class="overview" v-if="selectedTab === '出演者'">
-            <p>出演者</p>
+            <p v-if="movie.castName.length === 0">準備中</p>
+            <div v-else>
+              <p>出演者</p>
+              <ul
+                v-for="(castName, index) in movie.castName"
+                v-bind:key="castName + index"
+              >
+                <li>{{ castName }}</li>
+              </ul>
+            </div>
           </div>
           <div class="overview" v-if="selectedTab === 'スタッフ'">
-            <p>スタッフ</p>
+            <p v-if="movie.staff.length === 0">準備中</p>
+            <div v-else>
+              <p>スタッフ</p>
+              <ul
+                v-for="(staff, index) in movie.staff"
+                v-bind:key="staff + index"
+              >
+                <li>{{ staff.name }} ({{ staff.job }})</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -116,7 +135,7 @@ export default Vue.extend({
       this.$store.dispatch('movies/requestTemporaryReservation', form)
     }
   },
-  layout: 'default'
+  layout: 'base'
 })
 </script>
 
@@ -129,11 +148,9 @@ export default Vue.extend({
   .cover-back-wrap {
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
     width: 100vw;
-    height: 450px;
 
     .cover-back {
       width: 100vw;
-      height: 450px;
       background: rgba(255, 255, 255, 0.3);
       object-fit: cover;
       filter: blur(5px);
@@ -141,7 +158,6 @@ export default Vue.extend({
   }
 
   .main-content {
-    width: 919px;
     margin: 0 auto;
     transform: translateY(-200px);
 
@@ -152,13 +168,9 @@ export default Vue.extend({
 
       .top-right-content {
         display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
         flex-direction: column;
-
-        .reserve-button {
-          margin: 100px 0 40px 0;
-        }
+        justify-content: flex-start;
+        align-items: center;
 
         .movie-title-wrap {
           display: flex;
@@ -177,14 +189,14 @@ export default Vue.extend({
 
     .content {
       .overview {
-        font-size: 25px;
         color: #fff;
         text-align: justify;
+        height: 200px;
+        overflow-y: scroll;
       }
     }
   }
 }
-
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 400ms ease;
@@ -207,5 +219,83 @@ export default Vue.extend({
 
 .drawer-leave-to {
   transform: translateX(100%);
+}
+
+@media screen and (min-width: 1024px) {
+  .cover-back-wrap {
+    height: 450px;
+
+    .cover-back {
+      height: 450px;
+    }
+  }
+
+  .main-content {
+    width: 919px;
+
+    .reserve-button {
+      margin: 100px 0 40px 0;
+    }
+    .content {
+      .overview {
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .cover-back-wrap {
+    height: 390.82px;
+    .cover-back {
+      height: 390.82px;
+    }
+  }
+
+  .main-content {
+    width: 577.09px;
+  }
+  .reserve-button {
+    margin: 100px 0 40px 0;
+  }
+  .top-content {
+    margin-top: 5%;
+  }
+
+  .content {
+    .overview {
+      font-size: 25px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cover-back-wrap {
+    height: 300px;
+    .cover-back {
+      height: 300px;
+    }
+  }
+  .top-content {
+    margin-top: 30%;
+    width: 250px;
+  }
+  .top-right-content {
+    margin-top: 30%;
+  }
+  .main-content {
+    width: 275px;
+    .content {
+      .overview {
+        font-size: 15px;
+      }
+    }
+  }
+  .reserve-button {
+    position: relative;
+    bottom: -480px;
+    z-index: 2;
+    margin-right: 70%;
+  }
 }
 </style>

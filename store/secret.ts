@@ -1,35 +1,30 @@
 import * as vuex from 'vuex'
 import flamelink from './flamelink'
+import { firebaseApp } from '@/store/flamelink'
 
 interface ICommit {
   commit: vuex.Commit
 }
 
 export interface IMovie {
-  id: string
-  title: string
-  releaseDate: string
-  story: string
-  isScreening: boolean
-  cover: string
-  coverBack: string
-  castName: []
-  staff: []
+  genre: string
 }
 
 export type loadStates = 'loading' | 'done' | 'error' | 'none'
 export type submitStates = 'submitting' | 'done' | 'error' | 'none'
+
+let unsubscribe: any = null
 
 interface IState {
   movie: IMovie
   loadState: loadStates
   submitState: submitStates
   isOpenDrawer: boolean
-  isSecretMovie: string[]
+  chats: any
 }
 
 export interface IReservationForm {
-  movieId: string
+  genre: string
   theater: string
   date: Date
   time: string
@@ -40,20 +35,12 @@ export interface IReservationForm {
 
 export const state = (): IState => ({
   movie: {
-    id: '',
-    title: '',
-    releaseDate: '',
-    story: '',
-    isScreening: false,
-    cover: '',
-    coverBack: '',
-    castName: [],
-    staff: []
+    genre: ''
   },
   loadState: 'none',
   submitState: 'done',
   isOpenDrawer: false,
-  isSecretMovie: []
+  chats: []
 })
 
 export const mutations = {
@@ -72,8 +59,10 @@ export const mutations = {
   setSubmitState(state: IState, payload: submitStates) {
     state.submitState = payload
   },
-  setIsGenre(state: IState, payload: string[]) {
-    state.isSecretMovie = payload
+  chatsData(state: IState, chats: any) {
+    const chatsData = chats.map((chat: any) => chat.data())
+    // commitされた値を受け取る
+    state.chats = chatsData
   }
 }
 
@@ -84,17 +73,7 @@ export const actions = {
       const data = await flamelink.content.get({
         schemaKey: 'popularMovieInfo',
         entryId: payload,
-        fields: [
-          // 'id',
-          'title',
-          'isScreening',
-          'releaseDate',
-          'story',
-          'cover',
-          'coverBack',
-          'castName',
-          'staff'
-        ]
+        fields: ['genre']
       })
 
       if (data) {
@@ -105,17 +84,7 @@ export const actions = {
           const data = await flamelink.content.get({
             schemaKey: 'nowPlayingMovieInfo',
             entryId: payload,
-            fields: [
-              'id',
-              'title',
-              'isScreening',
-              'releaseDate',
-              'story',
-              'cover',
-              'coverBack',
-              'castName',
-              'staff'
-            ]
+            fields: ['genre']
           })
 
           if (data) {
@@ -126,11 +95,13 @@ export const actions = {
           }
         } catch (e) {
           dispatch.commit('setLoadState', 'error' as loadStates)
+          // eslint-disable-next-line no-console
           console.error(e)
         }
       }
     } catch (e) {
       dispatch.commit('setLoadState', 'error' as loadStates)
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   },
@@ -154,30 +125,54 @@ export const actions = {
       body: JSON.stringify(payload)
     })
       .then(res => res.text())
+
       .then(data => {
         if (data === 'おけまる') {
           dispatch.commit('setSubmitState', 'done' as submitStates)
           dispatch.commit('closeDrawer')
+          // eslint-disable-next-line no-console
+          console.log(data)
         } else {
           dispatch.commit('setSubmitState', 'error' as submitStates)
+          // eslint-disable-next-line no-console
+          console.log('hoge')
         }
       })
       .catch(() => {
         dispatch.commit('setSubmitState', 'error' as submitStates)
+        // eslint-disable-next-line no-console
+        console.log('hogehoge')
       })
   },
-  async requestGetSecretGenre(dispatch: ICommit) {
-    try {
-      const data = await flamelink.content.get({
-        schemaKey: 'secretMovieInfo',
-        fields: ['genre']
+  requestListenData(dispatch: ICommit, payload: string) {
+    // 通信初期化
+    if (unsubscribe) {
+      unsubscribe()
+      // eslint-disable-next-line no-console
+      unsubscribe = null
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('foo')
+    }
+    // firestoreからdataを受け取る
+    unsubscribe = firebaseApp
+      .firestore()
+      .collection('chats')
+      // payloadのgenre
+      .doc(payload)
+      .collection('chats')
+      .orderBy('postedAt', 'desc')
+      .onSnapshot(doc => {
+        const chats = doc.docs
+        // mutationにcommit
+        dispatch.commit('chatsData', chats)
       })
-      const isSecretGenre = Object.keys(data).map((key: string) => {
-        return data[key].genre
-      })
-      dispatch.commit('setIsGenre', isSecretGenre)
-    } catch (e) {
-      console.error(e)
+  },
+  stopListenData() {
+    if (unsubscribe) {
+      unsubscribe()
+
+      unsubscribe = null
     }
   }
 }

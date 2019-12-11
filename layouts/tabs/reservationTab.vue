@@ -3,18 +3,18 @@
     <div>
       <div class="movieDetailsTab">
         <tab-button
-          text="概要"
-          :is-active="active === '概要'"
+          text="チャット"
+          :is-active="active === 'チャット'"
           :on-click="clickOverview"
         />
         <tab-button
-          text="出演者"
-          :is-active="active === '出演者'"
+          text="QR"
+          :is-active="active === 'QR'"
           :on-click="clickPerformer"
         />
         <tab-button
-          text="スタッフ"
-          :is-active="active === 'スタッフ'"
+          text="予約情報"
+          :is-active="active === '予約情報'"
           :on-click="clickStaff"
         />
       </div>
@@ -35,52 +35,33 @@ export default Vue.extend({
   },
   data: function() {
     return {
-      active: '概要'
+      active: 'チャット'
     }
   },
   methods: {
     clickOverview: function() {
-      this.active = '概要'
-      this.handleChangeSelected('概要')
+      this.active = 'チャット'
+      this.handleChangeSelected('チャット')
     },
     clickPerformer: function() {
-      this.active = '出演者'
-      this.handleChangeSelected('出演者')
+      this.active = 'QR'
+      this.handleChangeSelected('QR')
     },
     clickStaff: function() {
-      this.active = 'スタッフ'
-      this.handleChangeSelected('スタッフ')
+      this.active = '予約情報'
+      this.handleChangeSelected('予約情報')
     }
   }
 })
 </script>
 <style scoped lang="scss">
 .warp {
+  width: 885px;
+  height: 60px;
+
   .movieDetailsTab {
     display: flex;
     justify-content: space-evenly;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .warp {
-    width: 885px;
-    height: 60px;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .warp {
-    width: 577.09px;
-    height: 47.5px;
-    font-size: 25px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .warp {
-    width: 275.77px;
-    height: 39.04px;
-    font-size: 18px;
   }
 }
 </style>
