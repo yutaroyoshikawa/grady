@@ -21,7 +21,10 @@
                     <read-only-chat :chats="chats" />
                   </div>
                   <div>
-                    <chat-input />
+                    <!--                    TODO
+  v-modelを使って親コンポーネントに入力値を渡す
+-->
+                    <chat-input value="" />
                   </div>
                 </div>
                 <div v-if="activeTab === 'QR'" class="qr">
@@ -227,7 +230,6 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.$store.dispatch('reservations/requestGetHint', this.reservation.genre)
     this.$store.dispatch(
       'reservations/requestListenData',
       this.reservation.genre
