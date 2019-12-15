@@ -178,8 +178,6 @@ export const actions = {
   async requestGetSeatsData(dispatch: ICommit, payload: any) {
     dispatch.commit('setLoadSeatData', 'loading' as loadStates)
     try {
-      // eslint-disable-next-line no-console
-      console.log(payload)
       const snapshot = await firebaseApp
         .firestore()
         .collection('theaterInfo')
