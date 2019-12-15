@@ -148,7 +148,6 @@ export const actions = {
     if (unsubscribe) {
       unsubscribe()
       // eslint-disable-next-line no-console
-      console.log('hoge')
       unsubscribe = null
     } else {
       // eslint-disable-next-line no-console
