@@ -125,7 +125,6 @@ export const actions = {
       body: JSON.stringify(payload)
     })
       .then(res => res.text())
-
       .then(data => {
         if (data === 'おけまる') {
           dispatch.commit('setSubmitState', 'done' as submitStates)

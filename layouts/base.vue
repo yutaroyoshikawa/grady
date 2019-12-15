@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header :v-on="openAndCloseToastMassage('メールを送信しました')">
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -9,6 +9,11 @@
       <div class="search-wrap">
         <search />
       </div>
+      <transition name="toast">
+        <div v-if="isVisibleToast" class="toast-massage-wrap">
+          <toast-message :message="toastMassage" />
+        </div>
+      </transition>
     </header>
     <nuxt />
   </div>
@@ -18,11 +23,37 @@
 import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
+import ToastMassage from '~/components/texts/toastMessage.vue'
+
+interface ToastMessage {
+  isVisibleToast: boolean
+  toastMassage: string
+}
 
 export default Vue.extend({
   components: {
     logo: Logo,
-    search: Search
+    search: Search,
+    'toast-message': ToastMassage
+  },
+  computed: {
+    isVisibleToast(): ToastMessage {
+      return this.$store.state.base.isVisibleToast
+    },
+    toastMassage(): ToastMessage {
+      return this.$store.state.base.toastMassage
+    }
+  },
+  methods: {
+    openAndCloseToastMassage: function(payload: string) {
+      this.$store.subscribeAction(action => {
+        if (action.type === 'movies/requestTemporaryReservation') {
+          this.$store.dispatch('base/showToastMassage', payload)
+        } else if (action.type === 'secret/requestTemporaryReservation') {
+          this.$store.dispatch('base/showToastMassage', payload)
+        }
+      })
+    }
   }
 })
 </script>
@@ -44,6 +75,25 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
+  }
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: transform 400ms ease;
+  }
+  .toast-massage-wrap {
+    position: absolute;
+    right: 0;
+    z-index: 30;
+    color: #000000;
+  }
+  .toast-enter {
+    transform: translateX(100%);
+  }
+  .toast-enter-to {
+    transform: translateX(0);
+  }
+  .toast-leave-to {
+    transform: translateX(100%);
   }
 }
 </style>
