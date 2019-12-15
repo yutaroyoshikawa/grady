@@ -29,7 +29,7 @@ export const mutations = {
 }
 
 export const actions = {
-  showToastMassage(dispatch: ICommit,payload: string) {
+  openAndCloseMassage(dispatch: ICommit,payload: string) {
     dispatch.commit('openToastMassage', payload)
     setTimeout(() => {
       dispatch.commit('closeToastMassage', payload)
