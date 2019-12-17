@@ -17,11 +17,11 @@
           <toast-message :message="toastMassage" />
         </div>
       </transition>
-      <transition :v-on="openAndCloseAnimation()">
+      <template :v-on="openAndCloseAnimation()">
         <div class="loading-wrap" v-if="isVisibleAnimation">
           <loading-mark />
         </div>
-      </transition>
+      </template>
     </header>
     <nuxt />
   </div>
