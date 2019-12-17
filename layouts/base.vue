@@ -140,8 +140,9 @@ header {
   .toast-leave-to {
     transform: translateX(100%);
 
-  .loading-wrap {
-    background-color: aqua;
+    .loading-wrap {
+      background-color: aqua;
+    }
   }
 }
 </style>
