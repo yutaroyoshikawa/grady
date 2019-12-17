@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header :v-on="openAndCloseToastMassage('メールを送信しました')">
+    <header>
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -9,9 +9,17 @@
       <div class="search-wrap">
         <search />
       </div>
-      <transition name="toast">
+      <transition
+        :v-on="openAndCloseToastMassage('メールを送信しました')"
+        name="toast"
+      >
         <div v-if="isVisibleToast" class="toast-massage-wrap">
           <toast-message :message="toastMassage" />
+        </div>
+      </transition>
+      <transition :v-on="openAndCloseAnimation()">
+        <div class="loading-wrap" v-if="isVisibleAnimation">
+          <loading-mark />
         </div>
       </transition>
     </header>
@@ -24,6 +32,7 @@ import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
 import ToastMassage from '~/components/texts/toastMessage.vue'
+import LoadingMark from '~/components/marks/loadingMark.vue'
 
 interface ToastMessage {
   isVisibleToast: boolean
@@ -34,7 +43,8 @@ export default Vue.extend({
   components: {
     logo: Logo,
     search: Search,
-    'toast-message': ToastMassage
+    'toast-message': ToastMassage,
+    'loading-mark': LoadingMark
   },
   computed: {
     isVisibleToast(): ToastMessage {
@@ -42,6 +52,9 @@ export default Vue.extend({
     },
     toastMassage(): ToastMessage {
       return this.$store.state.base.toastMassage
+    },
+    isVisibleAnimation(): string {
+      return this.$store.state.base.isVisibleLoading
     }
   },
   methods: {
@@ -51,6 +64,38 @@ export default Vue.extend({
           this.$store.dispatch('base/showToastMassage', payload)
         } else if (action.type === 'secret/requestTemporaryReservation') {
           this.$store.dispatch('base/showToastMassage', payload)
+        }
+      })
+    },
+    openAndCloseAnimation: function() {
+      this.$store.subscribe(mutation => {
+        if (mutation.type === 'movies/setMovieInfo') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ')
+          while (this.$store.state.movies.loadStates !== 'none') {
+            if (
+              this.$store.state.movies.loadStates === 'loading' &&
+              this.$store.state.movies.loadStates === 'none'
+            ) {
+              this.$store.dispatch('base/openLoadingAction')
+            }
+            this.$store.dispatch('base/closeLoadingAction')
+            break
+          }
+        } else if (mutation.type === 'secret/requestTemporaryReservation') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ２')
+          while (this.$store.state.secret.loadStates === !'loading' && 'none') {
+            this.$store.dispatch('base/openLoadingAction')
+          }
+          this.$store.dispatch('base/closeLoadingAction')
+        } else if (mutation.type === 'reservations/setReservationInfo') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ３')
+          while (this.$store.state.reservations.loadStates !== 'loading') {
+            this.$store.dispatch('base/openLoadingAction')
+          }
+          this.$store.dispatch('base/closeLoadingAction')
         }
       })
     }
@@ -94,6 +139,9 @@ header {
   }
   .toast-leave-to {
     transform: translateX(100%);
+
+  .loading-wrap {
+    background-color: aqua;
   }
 }
 </style>

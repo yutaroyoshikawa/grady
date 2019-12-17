@@ -14,9 +14,6 @@
           </div>
         </div>
       </div>
-      <div v-if="loadState === 'loading'">
-        <div>loading...</div>
-      </div>
     </div>
   </div>
 </template>
@@ -69,8 +66,8 @@ export default Vue.extend({
         this.$store.dispatch('reservations/requestHints', genre)
       }
     })
-  }
-  // }
+  },
+  layout: 'base'
 })
 </script>
 
