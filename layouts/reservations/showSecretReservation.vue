@@ -218,9 +218,8 @@ export default Vue.extend({
     onChangeTab(tab: string) {
       this.activeTab = tab
     },
-    setData(hoge: string) {
-      this.inputData = hoge
-      window.alert(this.inputData)
+    setData(childInputData: string) {
+      this.inputData = childInputData
     }
   },
   computed: {
