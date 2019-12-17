@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header v-on="openAndCloseAnimation()">
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -9,7 +9,7 @@
       <div class="search-wrap">
         <search />
       </div>
-      <div v-if="isVisibleAnimation === !'loading'">
+      <div class="loading-wrap" v-if="isVisibleAnimation">
         <loading-mark />
       </div>
     </header>
@@ -31,7 +31,45 @@ export default Vue.extend({
   },
   computed: {
     isVisibleAnimation(): string {
-      return this.$store.state.reservations.loadState
+      return this.$store.state.base.isVisibleLoading
+    }
+  },
+  methods: {
+    openAndCloseAnimation: function() {
+      this.$store.subscribe(mutation => {
+        // eslint-disable-next-line no-console
+        console.log('StoreState:', this.$store.state.base.isVisibleLoading)
+        // eslint-disable-next-line no-console
+        console.log(mutation.type)
+        if (mutation.type === 'movies/setMovieInfo') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ')
+          while (this.$store.state.movies.loadStates !== 'none') {
+            if (
+              this.$store.state.movies.loadStates === 'loading' &&
+              this.$store.state.movies.loadStates === 'none'
+            ) {
+              this.$store.dispatch('base/openLoadingAction')
+            }
+            this.$store.dispatch('base/closeLoadingAction')
+            break
+          }
+        } else if (mutation.type === 'secret/requestTemporaryReservation') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ２')
+          while (this.$store.state.secret.loadStates === !'loading' && 'none') {
+            this.$store.dispatch('base/openLoadingAction')
+          }
+          this.$store.dispatch('base/closeLoadingAction')
+        } else if (mutation.type === 'reservations/setReservationInfo') {
+          // eslint-disable-next-line no-console
+          console.log('見ているぞ３')
+          while (this.$store.state.reservations.loadStates !== 'loading') {
+            this.$store.dispatch('base/openLoadingAction')
+          }
+          this.$store.dispatch('base/closeLoadingAction')
+        }
+      })
     }
   }
 })
@@ -54,6 +92,10 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
+  }
+
+  .loading-wrap {
+    background-color: aqua;
   }
 }
 </style>
