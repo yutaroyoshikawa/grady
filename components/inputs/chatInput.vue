@@ -1,17 +1,22 @@
 <template>
-  <div>
+  <form>
     <div class="input_wrapper">
       <input
         type="text"
         class="text"
         placeholder="コメントを入力"
-        v-model="hoge"
+        v-model="inputData"
       />
-      <button class="btn" :disabled="isDisable" @click="submit">
+      <button
+        type="submit"
+        class="btn"
+        :disabled="isDisable"
+        @click.prevent="submit"
+      >
         <font-awesome-icon icon="paper-plane" size="3x" />
       </button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script lang="ts">
@@ -37,13 +42,12 @@ export default Vue.extend({
     }
   },
   watch: {
-    hoge: function(val: string) {
+    inputData: function(val: string) {
       if (val.length > 1) {
         this.isDisable = false
       } else {
         this.isDisable = true
       }
-      // this.handleChange(val)
     }
   },
   mounted: function() {
@@ -55,7 +59,7 @@ export default Vue.extend({
   },
   methods: {
     submit: function() {
-      this.$emit('inputData', this.inputData)
+      this.$emit('submitData', this.inputData)
     }
   }
 })
