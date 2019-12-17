@@ -61,41 +61,38 @@ export default Vue.extend({
     openAndCloseToastMassage: function(payload: string) {
       this.$store.subscribeAction(action => {
         if (action.type === 'movies/requestTemporaryReservation') {
-          this.$store.dispatch('base/showToastMassage', payload)
+          this.$store.dispatch('base/openAndCloseMassage', payload)
         } else if (action.type === 'secret/requestTemporaryReservation') {
-          this.$store.dispatch('base/showToastMassage', payload)
+          this.$store.dispatch('base/openAndCloseMassage', payload)
         }
       })
     },
     openAndCloseAnimation: function() {
       this.$store.subscribe(mutation => {
-        if (mutation.type === 'movies/setMovieInfo') {
-          // eslint-disable-next-line no-console
-          console.log('見ているぞ')
-          while (this.$store.state.movies.loadStates !== 'none') {
-            if (
-              this.$store.state.movies.loadStates === 'loading' &&
-              this.$store.state.movies.loadStates === 'none'
-            ) {
+        switch (mutation.type) {
+          case 'movies/setLoadState':
+            if (this.$store.state.movies.loadState === 'loading') {
               this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
             }
-            this.$store.dispatch('base/closeLoadingAction')
             break
-          }
-        } else if (mutation.type === 'secret/requestTemporaryReservation') {
-          // eslint-disable-next-line no-console
-          console.log('見ているぞ２')
-          while (this.$store.state.secret.loadStates === !'loading' && 'none') {
-            this.$store.dispatch('base/openLoadingAction')
-          }
-          this.$store.dispatch('base/closeLoadingAction')
-        } else if (mutation.type === 'reservations/setReservationInfo') {
-          // eslint-disable-next-line no-console
-          console.log('見ているぞ３')
-          while (this.$store.state.reservations.loadStates !== 'loading') {
-            this.$store.dispatch('base/openLoadingAction')
-          }
-          this.$store.dispatch('base/closeLoadingAction')
+          case 'secret/setLoadState':
+            if (this.$store.state.secret.loadState === 'loading') {
+              this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
+            }
+            break
+          case 'reservations/setLoadState':
+            if (this.$store.state.reservations.loadState === 'loading') {
+              this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
+            }
+            break
+          default:
+            break
         }
       })
     }
@@ -121,6 +118,10 @@ header {
     justify-content: center;
     z-index: 11;
   }
+
+  .loading-wrap {
+    z-index: 1000;
+  }
   .toast-enter-active,
   .toast-leave-active {
     transition: transform 400ms ease;
@@ -139,10 +140,6 @@ header {
   }
   .toast-leave-to {
     transform: translateX(100%);
-
-    .loading-wrap {
-      background-color: aqua;
-    }
   }
 }
 </style>
