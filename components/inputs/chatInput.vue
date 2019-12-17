@@ -60,6 +60,7 @@ export default Vue.extend({
   methods: {
     submit: function() {
       this.$emit('submitData', this.inputData)
+      this.inputData = ''
     }
   }
 })
