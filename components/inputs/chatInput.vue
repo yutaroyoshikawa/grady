@@ -7,7 +7,7 @@
         placeholder="コメントを入力"
         v-model="hoge"
       />
-      <button class="btn" :disabled="isDisable">
+      <button class="btn" :disabled="isDisable" @click="submit">
         <font-awesome-icon icon="paper-plane" size="3x" />
       </button>
     </div>
@@ -33,7 +33,7 @@ export default Vue.extend({
   data: function() {
     return {
       isDisable: true,
-      hoge: this.value
+      inputData: this.value
     }
   },
   watch: {
@@ -43,14 +43,19 @@ export default Vue.extend({
       } else {
         this.isDisable = true
       }
-      this.handleChange(val)
+      // this.handleChange(val)
     }
   },
   mounted: function() {
-    if (this.hoge.length > 1) {
+    if (this.inputData.length > 1) {
       this.isDisable = false
     } else {
       this.isDisable = true
+    }
+  },
+  methods: {
+    submit: function() {
+      this.$emit('inputData', this.inputData)
     }
   }
 })

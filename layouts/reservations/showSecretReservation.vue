@@ -24,7 +24,7 @@
                     <!--                    TODO
   v-modelを使って親コンポーネントに入力値を渡す
 -->
-                    <chat-input value="" />
+                    <chat-input value="" @inputData="setData" />
                   </div>
                 </div>
                 <div v-if="activeTab === 'QR'" class="qr">
@@ -131,6 +131,7 @@ export default Vue.extend({
     return {
       activeTab: 'チャット',
       reservationId: this.$route.params.id,
+      inputData: '',
       theaters: [
         {
           name: 'ぴよぴよ映画館',
@@ -216,6 +217,10 @@ export default Vue.extend({
   methods: {
     onChangeTab(tab: string) {
       this.activeTab = tab
+    },
+    setData(hoge: string) {
+      this.inputData = hoge
+      window.alert(this.inputData)
     }
   },
   computed: {
