@@ -315,15 +315,6 @@ export const actions = {
       })
   },
   setChatData(dispatch: ICommit, payload: ChatPayload) {
-    // // 通信初期化
-    // if (unsubscribe) {
-    //   unsubscribe()
-    //   unsubscribe = null
-    // } else {
-    //   // eslint-disable-next-line no-console
-    //   console.log('foo')
-    // }
-    // firestoreからdataを受け取る
     firebaseApp
       .firestore()
       .collection('chats')
