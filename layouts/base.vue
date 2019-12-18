@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header :v-on="openAndCloseToastMassage('メールを送信しました')">
+    <header>
       <nuxt-link to="/">
         <div class="logo-wrap">
           <logo />
@@ -9,11 +9,19 @@
       <div class="search-wrap">
         <search />
       </div>
-      <transition name="toast">
+      <transition
+        :v-on="openAndCloseToastMassage('メールを送信しました')"
+        name="toast"
+      >
         <div v-if="isVisibleToast" class="toast-massage-wrap">
           <toast-message :message="toastMassage" />
         </div>
       </transition>
+      <template :v-on="openAndCloseAnimation()">
+        <div class="loading-wrap" v-if="isVisibleAnimation">
+          <loading-mark />
+        </div>
+      </template>
     </header>
     <nuxt />
   </div>
@@ -24,6 +32,7 @@ import Vue from 'vue'
 import Logo from '~/components/marks/logo.vue'
 import Search from '~/layouts/search.vue'
 import ToastMassage from '~/components/texts/toastMessage.vue'
+import LoadingMark from '~/components/marks/loadingMark.vue'
 
 interface ToastMessage {
   isVisibleToast: boolean
@@ -34,7 +43,8 @@ export default Vue.extend({
   components: {
     logo: Logo,
     search: Search,
-    'toast-message': ToastMassage
+    'toast-message': ToastMassage,
+    'loading-mark': LoadingMark
   },
   computed: {
     isVisibleToast(): ToastMessage {
@@ -42,15 +52,47 @@ export default Vue.extend({
     },
     toastMassage(): ToastMessage {
       return this.$store.state.base.toastMassage
+    },
+    isVisibleAnimation(): string {
+      return this.$store.state.base.isVisibleLoading
     }
   },
   methods: {
     openAndCloseToastMassage: function(payload: string) {
       this.$store.subscribeAction(action => {
         if (action.type === 'movies/requestTemporaryReservation') {
-          this.$store.dispatch('base/showToastMassage', payload)
+          this.$store.dispatch('base/openAndCloseMassage', payload)
         } else if (action.type === 'secret/requestTemporaryReservation') {
-          this.$store.dispatch('base/showToastMassage', payload)
+          this.$store.dispatch('base/openAndCloseMassage', payload)
+        }
+      })
+    },
+    openAndCloseAnimation: function() {
+      this.$store.subscribe(mutation => {
+        switch (mutation.type) {
+          case 'movies/setLoadState':
+            if (this.$store.state.movies.loadState === 'loading') {
+              this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
+            }
+            break
+          case 'secret/setLoadState':
+            if (this.$store.state.secret.loadState === 'loading') {
+              this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
+            }
+            break
+          case 'reservations/setLoadState':
+            if (this.$store.state.reservations.loadState === 'loading') {
+              this.$store.dispatch('base/openLoadingAction')
+            } else {
+              this.$store.dispatch('base/closeLoadingAction')
+            }
+            break
+          default:
+            break
         }
       })
     }
@@ -75,6 +117,10 @@ header {
     display: flex;
     justify-content: center;
     z-index: 11;
+  }
+
+  .loading-wrap {
+    z-index: 1000;
   }
   .toast-enter-active,
   .toast-leave-active {

@@ -82,3 +82,6 @@ dist
 
 # Service worker
 sw.*
+
+# .node-version
+.node-version

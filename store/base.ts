@@ -4,18 +4,16 @@ interface ICommit {
   commit: vuex.Commit
 }
 
-interface IStore {
-  store: vuex.Store<any>
-}
-
 interface IState {
   isVisibleToast: boolean
   toastMassage: string
+  isVisibleLoading: boolean
 }
 
 export const state = (): IState => ({
   isVisibleToast: false,
-  toastMassage: ''
+  toastMassage: '',
+  isVisibleLoading: false
 })
 
 export const mutations = {
@@ -25,6 +23,12 @@ export const mutations = {
   },
   closeToastMassage(state: IState) {
     state.isVisibleToast = false
+  },
+  openLoadingAnimation(state: IState) {
+    state.isVisibleLoading = true
+  },
+  closeLoadingAnimation(state: IState) {
+    state.isVisibleLoading = false
   }
 }
 
@@ -34,5 +38,11 @@ export const actions = {
     setTimeout(() => {
       dispatch.commit('closeToastMassage', payload)
     }, 3000)
+  },
+  openLoadingAction(dispatch: ICommit) {
+    dispatch.commit('openLoadingAnimation')
+  },
+  closeLoadingAction(dispatch: ICommit) {
+    dispatch.commit('closeLoadingAnimation')
   }
 }
