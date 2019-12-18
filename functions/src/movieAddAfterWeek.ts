@@ -169,7 +169,7 @@ const secretMovie = async () => {
     populate: ['genre']
   })
   const values = Object.values(secretMovieData).filter(value => value)
-  return values.map((value: any) => value.genre.genre)
+  return values.map((value: any) => value.genre)
 }
 //
 // const nowPlayingMovieAdd = (theaterName: theaterName, dateTime: string, movieId: string, theaterNumber: number) => {
