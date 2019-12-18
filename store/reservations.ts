@@ -65,7 +65,7 @@ interface IState {
 }
 
 export const state = (): IState => ({
-  loadState: 'loading',
+  loadState: 'none',
   loadSeatData: 'none',
   loadMovieData: 'loading',
   isSecret: false,
