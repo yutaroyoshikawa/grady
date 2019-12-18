@@ -22,6 +22,11 @@ interface IPaymentRequest {
   sheets: ISheet[]
 }
 
+interface ChatPayload {
+  chatText: string,
+  genre: string
+}
+
 export interface IReserve {
   movieId: string
   genre: string
@@ -307,6 +312,17 @@ export const actions = {
       .onSnapshot(doc => {
         const chats = doc.docs
         dispatch.commit('chatsData', chats)
+      })
+  },
+  setChatData(dispatch: ICommit, payload: ChatPayload) {
+    firebaseApp
+      .firestore()
+      .collection('chats')
+      .doc(payload.genre)
+      .collection('chats')
+      .add({
+        content: payload.chatText,
+        postedAt: new Date()
       })
   },
   async requestHints(dispatch: ICommit, genre: string) {

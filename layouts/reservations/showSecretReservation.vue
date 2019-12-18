@@ -21,10 +21,7 @@
                     <read-only-chat :chats="chats" />
                   </div>
                   <div>
-                    <!--                    TODO
-  v-modelを使って親コンポーネントに入力値を渡す
--->
-                    <chat-input value="" />
+                    <chat-input value="" @submitData="onSubmit" />
                   </div>
                 </div>
                 <div v-if="activeTab === 'QR'" class="qr">
@@ -131,6 +128,7 @@ export default Vue.extend({
     return {
       activeTab: 'チャット',
       reservationId: this.$route.params.id,
+      chatText: '',
       theaters: [
         {
           name: 'ぴよぴよ映画館',
@@ -216,6 +214,13 @@ export default Vue.extend({
   methods: {
     onChangeTab(tab: string) {
       this.activeTab = tab
+    },
+    onSubmit(childInputData: string) {
+      this.chatText = childInputData
+      this.$store.dispatch('reservations/setChatData', {
+        chatText: this.chatText,
+        genre: this.reservation.genre
+      })
     }
   },
   computed: {
