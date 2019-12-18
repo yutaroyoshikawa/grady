@@ -198,6 +198,24 @@ export const actions = {
       console.error(e)
     }
   },
+  async requestGetSecretSeatsData(dispatch: ICommit, payload: any) {
+    dispatch.commit('setLoadSeatData', 'loading' as loadStates)
+    try {
+      const snapshot = await firebaseApp
+        .firestore()
+        .collection('theaterInfo')
+        .doc(payload.theater)
+        .collection(`${payload.date}_${payload.time}`)
+        .where('genre', '==', payload.genre)
+        .get()
+      dispatch.commit('setSheets', snapshot.docs[0].data().sheet)
+      dispatch.commit('setLoadSeatData', 'done' as loadStates)
+    } catch (e) {
+      dispatch.commit('setLoadSeatData', 'error' as loadStates)
+      // eslint-disable-next-line no-console
+      console.error(e)
+    }
+  },
   requestPayment(dispatch: ICommit, payload: IPaymentRequest) {
     const supportedInstruments = [
       {

@@ -311,12 +311,22 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.$store.dispatch('reservations/requestGetSeatsData', {
-      date: this.reservation.date,
-      time: this.reservation.time,
-      theater: this.reservation.theater,
-      movieId: this.reservation.movieId
-    })
+    if (this.reservation.movieId) {
+      this.$store.dispatch('reservations/requestGetSeatsData', {
+        date: this.reservation.date,
+        time: this.reservation.time,
+        theater: this.reservation.theater,
+        movieId: this.reservation.movieId
+      })
+    } else {
+      this.$store.dispatch('reservations/requestGetSecretSeatsData', {
+        date: this.reservation.date,
+        time: this.reservation.time,
+        theater: this.reservation.theater,
+        genre: this.reservation.genre
+      })
+    }
+
     for (let loop = 0; loop < this.reservation.adult; loop++) {
       this.seats.push({
         isSelected: false,
