@@ -87,6 +87,7 @@ export default Vue.extend({
   },
   mounted() {
     this.requestListenData(this.$route.params.genre)
+    this.$store.dispatch('base/openLoadingAction')
   },
   // ここでfirebaseの通信終了
   destroyed() {

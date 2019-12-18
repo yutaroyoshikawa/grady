@@ -58,6 +58,7 @@ export default Vue.extend({
       'reservations/requestGetReservation',
       this.reservationId
     )
+    this.$store.dispatch('base/openLoadingAction')
   },
   created: function() {
     this.$store.subscribe(mutation => {
