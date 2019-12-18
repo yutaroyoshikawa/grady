@@ -120,6 +120,9 @@ export default Vue.extend({
       return this.$store.state.movies.loadState
     }
   },
+  mounted() {
+    this.$store.dispatch('base/openLoadingAction')
+  },
   created: function() {
     this.$store.dispatch('movies/requestGetMovie', this.movieId)
   },

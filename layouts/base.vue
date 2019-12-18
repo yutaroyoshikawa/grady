@@ -17,11 +17,9 @@
           <toast-message :message="toastMassage" />
         </div>
       </transition>
-      <template :v-on="openAndCloseAnimation()">
-        <div class="loading-wrap" v-if="isVisibleAnimation">
-          <loading-mark />
-        </div>
-      </template>
+      <div class="loading-wrap" v-if="isVisibleAnimation">
+        <loading-mark />
+      </div>
     </header>
     <nuxt />
   </div>
@@ -96,6 +94,9 @@ export default Vue.extend({
         }
       })
     }
+  },
+  mounted() {
+    this.openAndCloseAnimation()
   }
 })
 </script>
