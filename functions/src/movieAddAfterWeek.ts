@@ -169,22 +169,8 @@ const secretMovie = async () => {
     populate: ['genre']
   })
   const values = Object.values(secretMovieData).filter(value => value)
-  return values.map((value: any) => value.genre.genre)
+  return values.map((value: any) => value.genre)
 }
-//
-// const nowPlayingMovieAdd = (theaterName: theaterName, dateTime: string, movieId: string, theaterNumber: number) => {
-//   const data = {
-//     movieId,
-//     sheet: [],
-//   }
-//   db.collection('theaterInfo')
-//     .doc(theaterName)
-//     .collection(dateTime)
-//     .doc(`theater${theaterNumber}`)
-//     .set(data)
-//     .then(() => 'ok')
-//     .catch(e => console.log(e))
-// }
 
 interface Interface {
   theaterName: TheaterName
@@ -200,10 +186,8 @@ const movieAdd = (data: Interface) => {
     nowPlayingSecretMovieGenre,
     nowPlayingMovieId
   } = data
-  // let theaterNumber = 1
 
   const dataAdd = async (set: object) => {
-    // console.log(number);
     await db
       .collection('theaterInfo')
       .doc(theaterName)
@@ -215,24 +199,19 @@ const movieAdd = (data: Interface) => {
   }
 
   nowPlayingSecretMovieGenre.forEach(async (id: string) => {
-    // console.log(theaterNumber);
     const set = {
       genre: id,
       sheet
     }
     await dataAdd(set)
-    // theaterNumber += 1
   })
 
   nowPlayingMovieId.forEach(async (id: string) => {
-    // console.log(theaterNumber);
-
     const set = {
       movieId: id,
       sheet
     }
     await dataAdd(set)
-    // theaterNumber += 1
   })
 }
 
