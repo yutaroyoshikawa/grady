@@ -210,7 +210,7 @@ export default Vue.extend({
       filters: [] as string[]
     }
   },
-  layout: '',
+  layout: undefined,
   methods: {
     handleActiveGenre: function(genre: string) {
       this.selectedGenres.push(genre)
