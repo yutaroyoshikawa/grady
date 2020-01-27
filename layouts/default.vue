@@ -1,13 +1,6 @@
 <template>
   <div>
     <div class="wrap">
-      <div class="logo-wrap">
-        <!-- <nuxt-link to="/">
-          <div>
-            <logo />
-          </div>
-        </nuxt-link>-->
-      </div>
       <nuxt />
     </div>
   </div>
@@ -15,13 +8,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import Logo from '~/components/marks/logo.vue'
 
-export default Vue.extend({
-  // components: {
-  //   logo: Logo
-  // }
-})
+export default Vue.extend({})
 </script>
 
 <style lang="scss" scoped>
