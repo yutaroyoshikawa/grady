@@ -109,7 +109,7 @@ header {
     position: fixed;
     top: 33px;
     left: 154px;
-    z-index: 11;
+    z-index: 100;
   }
 
   .search-wrap {
